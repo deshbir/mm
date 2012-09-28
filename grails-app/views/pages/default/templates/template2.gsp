@@ -1,1 +1,0 @@
-<h3>This is template 2 of Default Skin.</h3>

@@ -1,4 +1,6 @@
+
 cgrails {
+
 	skinning {
 		baseskin = "default"
 		skins {
@@ -7,7 +9,7 @@ cgrails {
 	}
 	less {
 		//Array of Less Files to compile.
-		files = ["styles"]
+		files = ["index"]
 	}	
 	templates {
 		url = "/main/template/"

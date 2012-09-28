@@ -1,1 +1,0 @@
-Copyright 2012 Compro Technologies Private Ltd.
