@@ -1,7 +1,7 @@
 package com.cengage.mm
 
 import grails.converters.JSON
-import mm.Tool
+import com.cengage.mm.Tool
 
 class ToolController {
 	
@@ -28,10 +28,10 @@ class ToolController {
 			}
 		}
 		else {
-			//def allTool = Tool.list()
-			//render allTool as JSON
-			def o = JSON.parse ("[{'id':'tab1', 'name':'Photos' },{'id':'tab2','name':'Videos'},{'id':'tab3','name':'Audios'}]")
-			render o as JSON
+			def allTool = Tool.list()
+			render allTool as JSON
+			//def o = JSON.parse ("[{'id':'tab1', 'name':'Photos' },{'id':'tab2','name':'Videos'},{'id':'tab3','name':'Audios'}]")
+			//render o as JSON
 			
 		}
 	}

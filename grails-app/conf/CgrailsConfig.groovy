@@ -16,4 +16,13 @@ cgrails {
 		useConfiguration = false
 	}
 	javascriptMVC = "backbone"
+	
+	models {
+		backbone {
+			"com.cengage.mm.Tool" {
+								type = "collection"
+				backboneObject = "ToolCollection"
+			}
+		}
+	}
 }
