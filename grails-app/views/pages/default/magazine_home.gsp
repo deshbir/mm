@@ -11,7 +11,7 @@
               	<div>
               		<r:img dir="images" file="thumbnail7.jpg" alt="the-slide-img"/>
               		<h6>Article Title</h6>
-              	<div>
+              	</div>
               </li>
               <li></li>
               <li></li>
