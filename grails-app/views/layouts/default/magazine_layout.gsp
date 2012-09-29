@@ -8,11 +8,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>	    
 	    
-	    <cgrails:stylesheet src="index" watch="false"/>
+	    <cgrails:stylesheet src="index"/>
 	    
-	    <!-- Un-comment for RTL 
-	    <cgrails:stylesheet_rtl src="styles"/>
-	    -->
 	    <g:render template="/initialize" plugin="cgrails"/>
 	    
 	    <g:layoutHead/>
