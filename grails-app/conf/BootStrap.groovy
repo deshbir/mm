@@ -1,4 +1,5 @@
 import com.cengage.mm.Tool
+import com.cengage.mm.Photo
 
 class BootStrap {
 
@@ -10,6 +11,7 @@ class BootStrap {
 			new Tool(id: "audio", name: "Audios").save(failOnError: true)
 			new Tool(id: "editor", name: "Editor").save(failOnError: true)
 		}
+		
     }
     def destroy = {
     }
