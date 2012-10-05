@@ -36,8 +36,3 @@
                   </div>
               </div>
      </div>
-     <script>
-     	    $("#{{id}}").on('show', function () {
-     	    	Backbone.history.navigate("#/photo", {trigger:true});
-    		})
-     </script>
