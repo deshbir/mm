@@ -13,7 +13,7 @@
 			    
 	    <cgrails:stylesheet src="index"/>
 	    
-	    <g:render template="/initialize" plugin="cgrails"/>
+	    <cgrails:environment_setup/>
 	    
 	    <g:layoutHead/>
 		<r:layoutResources/>

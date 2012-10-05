@@ -12,6 +12,13 @@ class BootStrap {
 			new Tool(id: "editor", name: "Editor").save(failOnError: true)
 		}
 		
+		if (!Photo.count()) {
+			new Photo(id:"111", dir:"magazinedata/photos/img/", fullfilename: "pic1.jpg", thumbfilename: "pic1.jpg", alt: "pic1").save(failOnError: true)
+			new Photo(id:"222", dir:"magazinedata/photos/img/", fullfilename: "pic2.jpg", thumbfilename: "pic2.jpg", alt: "pic2").save(failOnError: true)
+			new Photo(id:"333", dir:"magazinedata/photos/img/", fullfilename: "pic3.jpg", thumbfilename: "pic3.jpg", alt: "pic3").save(failOnError: true)
+			new Photo(id:"444", dir:"magazinedata/photos/img/", fullfilename: "pic4.jpg", thumbfilename: "pic4.jpg", alt: "pic4").save(failOnError: true)
+		}
+		
     }
     def destroy = {
     }

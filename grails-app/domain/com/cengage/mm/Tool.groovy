@@ -10,8 +10,23 @@ class Tool {
     static constraints = {
     }
 	
-	def static JSON initialData() {
-		def o = JSON.parse ("[{'id':'tab1', 'name':'Photos' },{'id':'tab2','name':'Videos'},{'id':'tab3','name':'Audios'}]")
-		return o as JSON
-	}
+	
+	/***********************************
+	 * START Offline configurations
+	 ***********************************/
+
+		static String backboneObject = "ToolCollection"
+		 
+		static String backboneType = "collection"
+
+		//returns list of models
+		def static JSON initialData() {
+			def o = JSON.parse ("[{'id':'tab1', 'name':'Photos' },{'id':'tab2','name':'Videos'},{'id':'tab3','name':'Audios'}]")
+			return o as JSON
+		}
+		
+	/******************************
+	 * END Offline configurations
+	 *******************************/
+		
 }

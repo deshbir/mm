@@ -11,8 +11,5 @@ class MainController {
 	def magazine() {
 		render (view:"magazine_home",model:[:])
 	}
-	
-	def template() {
-		render (view:"/"+ params.path,model:[:])
-	}
+
 }

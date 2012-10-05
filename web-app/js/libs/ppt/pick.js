@@ -98,7 +98,7 @@ get_behavior_options function which return a "behavior_config" object.
 	selection_box:true/false,//also turns off resize,rotate,delete
 	resize:true,
 	rotate:true,
-	delete:true
+	remove:true
 }
 
 (3) Attaching your own custom behavior events.

@@ -15,14 +15,13 @@ PhotoView = new function() {
 		if (router == null) {
 			router = new Router();
 		}
-		
 		PhotoCollection.get().fetch();
-		TemplateManager.get('right1', 
-							function(template){
-								PhotoCollection.get().each(function(model){
-									var compiledTemplate = Mustache.render(template, model.toJSON());
-									$("#toolbar").append(compiledTemplate);
-								});
+		TemplateManager.get('photo-panel', 
+					function(template){
+						PhotoCollection.get().each(function(model){
+							var compiledTemplate = Mustache.render(template, model.toJSON());
+							$("#library-photos").append(compiledTemplate);
+						});
 		 }); 
 	};
 	this.routerInitialize = function(){

@@ -206,7 +206,7 @@ com.compro.application.pptsample = (function() {
 	 */
 	function backbone_init_routers()	{
 		ToolView.routerInitialize();
-		//PhotoView.routerInitialize();
+		PhotoView.routerInitialize();
 	}
 	
 	function backbone_start_navigation()	{
@@ -265,7 +265,7 @@ com.compro.application.pptsample = (function() {
 				
 				backbone_init_routers();
 				backbone_start_navigation();
-				//init_ppt_engine();
+				init_ppt_engine();
 			});
 
 			$(window).resize(function() {

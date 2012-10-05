@@ -7,7 +7,7 @@ ToolView = new function() {
 	      'tool':'tool'
 	    },	    
 	    tool : function() {
-	    	ToolView.initialize()
+	    	ToolView.initialize();
 	    }
 	});
 	
@@ -23,7 +23,7 @@ ToolView = new function() {
 									var compiledTemplate = Mustache.render(template, model.toJSON());
 									$("#toolbar").append(compiledTemplate);
 								});
-		 }); 
+		 });
 	};
 	this.routerInitialize = function(){
 		router = new Router();   
