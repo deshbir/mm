@@ -13,7 +13,7 @@
 			</a>
 			<div class="nav-collapse">
             <ul class="nav">
-				<li><a href="#" class="btn"><span>New Page</span></a></li>
+				<li id="new-slide"><a href="#" class="btn"><span>New Page</span></a></li>
 				<li><a href="#menuItem2" class="btn"><span>Preview Magazine</span></a></li>
 				<li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">

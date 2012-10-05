@@ -1,0 +1,1 @@
+<r:img dir="{{dir}}" file="{{fullfilename}}" alt="{{alt}}"/>

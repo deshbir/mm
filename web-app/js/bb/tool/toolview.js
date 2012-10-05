@@ -7,7 +7,7 @@ ToolView = new function() {
 	      'tool':'tool'
 	    },	    
 	    tool : function() {
-	    	ToolView.initialize()
+	    	ToolView.initialize();
 	    }
 	});
 	
@@ -22,8 +22,13 @@ ToolView = new function() {
 								ToolCollection.get().each(function(model){
 									var compiledTemplate = Mustache.render(template, model.toJSON());
 									$("#toolbar").append(compiledTemplate);
+									//Adding show event with accordian tabs
+						     	    $('#' + model.id).on('show', function () {
+						     	    	Backbone.history.navigate("#/photo", {trigger:true});
+						    		})
+									
 								});
-		 }); 
+		 });
 	};
 	this.routerInitialize = function(){
 		router = new Router();   

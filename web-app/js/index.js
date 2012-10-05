@@ -206,6 +206,7 @@ com.compro.application.pptsample = (function() {
 	 */
 	function backbone_init_routers()	{
 		ToolView.routerInitialize();
+		PhotoView.routerInitialize();
 	}
 	
 	function backbone_start_navigation()	{
@@ -213,12 +214,30 @@ com.compro.application.pptsample = (function() {
 		Backbone.history.navigate("#/tool", {trigger:true});
 	}
 	
-	
-	
+	function init_ppt_engine() {
+		//Main PPT Engine (Generic) Initialization
+		var myPPTApp = com.compro.ppt.GLOBAL;
+		myPPTApp.initialize("leftsidebar","the-slide");
 
-		
+		//Binding for UI button
+		$("#state-clear").click(function(){
+			myPPTApp.clearState();
+		});
 
-			  
+		$("#new-slide").click(function(){
+			myPPTApp.addNewSlide();
+		});
+
+		$("#delete-slide").click(function(){
+			var ans = confirm("Are you sure you want to delete the selected slide?");
+			if(ans)	{
+				myPPTApp.deleteSelectedSlide();
+			}
+		});
+		$(window).resize(function() {
+		  myPPTApp.reRender();
+		});		
+	}		  
 	
 
 
@@ -246,6 +265,7 @@ com.compro.application.pptsample = (function() {
 				
 				backbone_init_routers();
 				backbone_start_navigation();
+				init_ppt_engine();
 			});
 
 			$(window).resize(function() {
