@@ -27,9 +27,9 @@ com.compro.ppt.Slide = function() {
 
 			this.aspectRatio = Utils.aspectRatio(this.workspace);
 
-			this.collageDiv.style.height = this.collageDiv.offsetWidth/this.aspectRatio;
+			this.collageDiv.style.height = this.collageDiv.offsetWidth/this.aspectRatio + "px";
 
-			Utils.scrollToBottom(Utils.getById(collageid));
+			//Utils.scrollToBottom(Utils.getById(collageid));
 
 			
 
@@ -168,7 +168,7 @@ com.compro.ppt.Slide = function() {
 
 	slideproto.reRenderThumbs = function(){
 		this.thumbSvg.remove();
-		this.collageDiv.style.height = this.collageDiv.offsetWidth/this.aspectRatio;
+		this.collageDiv.style.height = this.collageDiv.offsetWidth/this.aspectRatio + "px";
 		this.thumbSvg = Raphael(this.collageDiv, this.collageDiv.offsetWidth, this.collageDiv.offsetHeight);
 		var ratio = this.collageDiv.offsetWidth/this.svgWidth;
 		namespace.config.thumbRatio = ratio;
@@ -199,7 +199,7 @@ com.compro.ppt.Slide = function() {
 			'fill-opacity': 0.0
 		});
 		this.aspectRatio = Utils.aspectRatio(this.workspace);
-		this.collageDiv.style.height = this.collageDiv.offsetWidth/this.aspectRatio;
+		this.collageDiv.style.height = this.collageDiv.offsetWidth/this.aspectRatio + "px";
 		this.thumbSvg = Raphael(this.collageDiv, this.collageDiv.offsetWidth, this.collageDiv.offsetHeight);
 		var ratio = this.collageDiv.offsetWidth/this.svgWidth;
 		namespace.config.thumbRatio = ratio;
@@ -222,3 +222,4 @@ com.compro.ppt.Slide = function() {
 
 	return SlideConstr;
 }();
+
