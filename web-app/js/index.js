@@ -227,7 +227,7 @@ com.compro.application.pptsample = (function() {
 	function init_ppt_engine() {
 		//Main PPT Engine (Generic) Initialization
 		var myPPTApp = com.compro.ppt.GLOBAL;
-		myPPTApp.initialize("leftsidebar","the-slide");
+		myPPTApp.initialize("collage-container","the-slide");
 
 		//Binding for UI button
 		$("#state-clear").click(function(){

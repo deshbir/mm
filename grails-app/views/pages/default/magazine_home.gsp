@@ -6,16 +6,8 @@
 	<body>
         <!-- Slider left pane - showing previews of the main pane, not visible in smaller devices -->
     	<div class="left col scroll-pane" id="leftsidebar">
-          <ul>
-              <li>
-              	<div>
-              		<r:img dir="images" file="thumbnail7.jpg" alt="the-slide-img"/>
-              		<h6>Article Title</h6>
-              	</div>
-              </li>
-              <li></li>
-              <li></li>
-          </ul>
+    		<div id="collage-container">
+    		</div>
         </div>
 
         <!-- Main Pane where content is painted -->
