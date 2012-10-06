@@ -19,11 +19,12 @@ PhotoView = new function() {
 		TemplateManager.get('photo-panel', 
 					function(template){
 						PhotoCollection.get().each(function(model){
-							var compiledTemplate = Mustache.render(template, model.toJSON());
+							var modelJ = model.toJSON();
+							var compiledTemplate = Mustache.render(template, modelJ);
 							$("#library-photos").append(compiledTemplate);
 							
-							var photoEl = $("#library-photos > #photo" + model.toJSON().id);
-							var props = {source: model.toJSON().dir + model.toJSON().fullfilename, thumbnail:model.toJSON().dir + model.toJSON().thumbfilename}; 
+							var photoEl = $("#library-photos > #photo" + modelJ.id);
+							var props = {source: modelJ.dir + modelJ.fullfilename, thumbnail:modelJ.dir + modelJ.thumbfilename}; 
 							var handle = new com.cengage.mm.tools.ToolElementDragHandler(photoEl[0], "com.compro.ppt.Image", props);				
 						});
 		 }); 
