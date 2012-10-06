@@ -33,12 +33,7 @@
 
 
 		  <div id="the-slide">
-		    <r:img dir="images" file="thumbnail7.jpg" alt="the-slide-img"/>
-		    <h2>Article Title</h2>
-		    <div id="pic-info">
-		    	<p> Type here to write about the photo or picture.Type here to write about the photo or picture.Type here to write about the photo or picture.Type here to write about the photo or picture.</p>
-		    	<p> Type here to write about the photo or picture.Type here to write about the photo or picture.Type here to write about the photo or picture.Type here to write about the photo or picture.</p>
-		    </div>
+
 	      </div>
 		  <p class="copyright-info">Copyright 2012 National Geographic Learning, Cengage Learning</p>
 		</div>
