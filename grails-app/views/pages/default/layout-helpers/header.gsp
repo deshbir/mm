@@ -35,14 +35,15 @@
 	                   	<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                    	 <li><a href="#">Language</a></li>
-                    	 <li class="set-margin-left"><a href="?lang=en">English</a></li>
-                         <li class="set-margin-left"><a href="?lang=ar">Arabic</a></li>
-                         <li class="set-margin-left"><a href="?lang=ja">Japanese</a></li>
-                         <li class="divider"></li>
-                         <li><a href="#">Skin</a></li>
-                    	 <li class="set-margin-left"><a href="/${appName}/default/traditional/">Default</a></li>
-                         <li class="set-margin-left"><a href="/${appName}/gray/traditional/">Gray</a></li>
+                    	 <li>Language</li>
+                    	 <hr/>
+                    	 <li><a href="?lang=en">English</a></li>
+                         <li><a href="?lang=ar">Arabic</a></li>
+                         <li><a href="?lang=ja">Japanese</a></li>
+                         <li>Skin</li>
+                         <hr/>
+                    	 <li><a href="/${appName}/default/traditional/">Default</a></li>
+                         <li><a href="/${appName}/gray/traditional/">Gray</a></li>
                     </ul>
                </li>
             </ul>
