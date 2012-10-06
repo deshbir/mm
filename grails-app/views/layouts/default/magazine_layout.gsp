@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="com.compro.cgrails.CgrailsUtils" %>
+<g:set var="direction" value="${CgrailsUtils.getOrientation()}" />
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,16 +12,16 @@
 		<!--  Javascript includes START in body, make it load in head, you need to specify disposition='head' with r:require-->
 		<r:require modules="mmLib,mmApp,mmPPT"/>
 		<!--  Javascript includes END -->		
-			    
+
 	    <cgrails:stylesheet src="index"/>
-	    
+	   
 	    <cgrails:environment_setup/>
 	    
 	    <g:layoutHead/>
 		<r:layoutResources/>
 				
 	</head>
-	<body>
+	<body dir="${direction}">
 		<g:include view="layout-helpers/header.gsp"/>
 		<g:layoutBody/>
 		<g:include view="layout-helpers/footer.gsp"/>

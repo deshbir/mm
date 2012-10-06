@@ -8,7 +8,7 @@
                   <div class="accordion-inner">
                      	<h4>
                      		{{name}}
-	                      	<span class="btn-group" id="photos-options-span">
+                     		<span class="btn-group" id="photos-options-span">
 							    <button class="btn" type="button" id="my-photos-btn">My Photos</button>
 				                <button data-toggle="dropdown" class="btn  active dropdown-toggle" id="library-photos-btn">Library Photos <span class="caret"></span></button>
 				                <ul class="dropdown-menu">
@@ -26,7 +26,7 @@
 				                </ul>
 						    </span>
                      	</h4>
-                     	<p> Choose a category of photos to use in your magazine.Then scroll down to view all</p>
+                     	<p><g:message code="rightpanel.tab.info"/></p>
                      	<div id="library-photos">
                      		<!-- Fill Photo-panel here -->
                      	</div>
