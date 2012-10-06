@@ -228,14 +228,20 @@ com.compro.application.pptsample = (function() {
 		//Main PPT Engine (Generic) Initialization
 		var myPPTApp = com.compro.ppt.GLOBAL;
 		myPPTApp.initialize("collage-container","the-slide");
+		
+		//Reset Scrollbar
 		$("#leftsidebar").mCustomScrollbar("update");
-		//Binding for UI button
+		
+		
+		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
 			myPPTApp.clearState();
 		});
 
 		$("#new-slide").click(function(){
 			myPPTApp.addNewSlide();
+
+			//Reset Scrollbar
 			$("#leftsidebar").mCustomScrollbar("update");
 		});
 
@@ -245,8 +251,13 @@ com.compro.application.pptsample = (function() {
 				myPPTApp.deleteSelectedSlide();
 			}
 		});
+		
+		
 		$(window).resize(function() {
 		  myPPTApp.reRender();
+		  
+		  //Reset Scrollbar
+		  $("#leftsidebar").mCustomScrollbar("update");
 		});		
 	}		  
 		  

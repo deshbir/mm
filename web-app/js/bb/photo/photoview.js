@@ -21,6 +21,10 @@ PhotoView = new function() {
 						PhotoCollection.get().each(function(model){
 							var compiledTemplate = Mustache.render(template, model.toJSON());
 							$("#library-photos").append(compiledTemplate);
+							
+							var photoEl = $("#library-photos > #" + model.id);
+							var props = {source: model.dir + model.fullfilename, thumbnail:model.dir + model.thumbfilename}; 
+							var handle = new com.cengage.mm.tools.ToolElementDragHandler(photoEl, "com.compro.ppt.Image", props);				
 						});
 		 }); 
 	};

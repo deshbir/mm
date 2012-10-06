@@ -28,17 +28,18 @@ modules = {
 	mmPPT {
 		dependsOn 'mmLib'
 		
-		//.........
+		//Core PPT Engine
 		resource url:'js/libs/ppt/init.js'
 		resource url:'js/libs/ppt/events.js'
 		resource url:'js/libs/ppt/utils.js'
-		
 		resource url:'js/libs/ppt/pick.js'
 		resource url:'js/libs/ppt/image.js'
 		resource url:'js/libs/ppt/shape.js'
 		resource url:'js/libs/ppt/slide.js'
-		
 		resource url:'js/libs/ppt/workspace.js'
+		
+		//MM Tool Handler
+		resource url:'js/tools/toolelementdraghandler.js'
 		
 	}
 	
@@ -57,6 +58,7 @@ modules = {
 		resource url:'js/bb/photo/photomodel.js'
 		resource url:'js/bb/photo/photocollection.js'
 		resource url:'js/bb/photo/photoview.js'
+
 	}
 	
 }
