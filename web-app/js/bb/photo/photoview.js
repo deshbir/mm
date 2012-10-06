@@ -22,9 +22,9 @@ PhotoView = new function() {
 							var compiledTemplate = Mustache.render(template, model.toJSON());
 							$("#library-photos").append(compiledTemplate);
 							
-							var photoEl = $("#library-photos > #" + model.id);
-							var props = {source: model.dir + model.fullfilename, thumbnail:model.dir + model.thumbfilename}; 
-							var handle = new com.cengage.mm.tools.ToolElementDragHandler(photoEl, "com.compro.ppt.Image", props);				
+							var photoEl = $("#library-photos > #photo" + model.toJSON().id);
+							var props = {source: model.toJSON().dir + model.toJSON().fullfilename, thumbnail:model.toJSON().dir + model.toJSON().thumbfilename}; 
+							var handle = new com.cengage.mm.tools.ToolElementDragHandler(photoEl[0], "com.compro.ppt.Image", props);				
 						});
 		 }); 
 	};

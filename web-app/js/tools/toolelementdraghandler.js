@@ -178,7 +178,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 			//Cloning and adding duplicate DOM element
 			var jsonProperties=JSON.parse(elementDragged.getAttribute(config.dataString + config.propString));
-			var newObj = new Thumbnail(elementDragged.getAttribute(config.dataString + config.handlerString),elementDragged.parentElement,elementDragged.nextSibling, jsonProperties);
+			//var newObj = new ToolElementDragHandler(elementDragged.getAttribute(config.dataString + config.handlerString),elementDragged.,elementDragged.nextSibling, jsonProperties);
 		}
 	}
 

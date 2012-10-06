@@ -230,8 +230,7 @@ com.compro.application.pptsample = (function() {
 		myPPTApp.initialize("collage-container","the-slide");
 		
 		//Reset Scrollbar
-		$("#leftsidebar").mCustomScrollbar("update");
-		
+		setTimeout('$("#leftsidebar").mCustomScrollbar("update");', 60);
 		
 		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
