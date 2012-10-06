@@ -45,6 +45,7 @@ com.compro.application.pptsample = (function() {
 		var el_toolbar = $("#toolbar");
 		var el_accordion_group_arr = $(".accordion-group");
 		var el_accordion_heading_arr = $(".accordion-heading");
+		var el_accordion_body_arr = $(".accordion-body");
 		var el_accordion_inner_arr = $(".accordion-inner");
 		var el_the_slide = $("#the-slide");
 		var el_slide_toggle = $('#slide-toggle');
@@ -67,25 +68,27 @@ com.compro.application.pptsample = (function() {
 
 	*/
 
-
+	var document_dir = "ltr";
+	document_dir = el_body.attr("dir");
+	// sidebar and toolbar directions got reversed in "RTL" document direction.
+	var position_sidebar = document_dir == "rtl" ? "right" : "left";
+	var position_toolbar = (position_sidebar == "left") ? "right" : "left";
 	/********************************************************/
 	/*                 PRIVATE MEMBERS                     */
 	/********************************************************/
 	// Config for plug
 	var config = {
 		HEADER_HEIGHT:	'91px',
-		BODY_ELEMS_TOP: '100px',
+		BODY_ELEMS_TOP: '99px',
 		HEADER_HEIGHT_MOBILE: '45px',
 		BODY_ELEMS_TOP_MOBILE: '50px',
-		MAINCONTAINER_LEFT_DESKTOP:'150px',
-		MAINCONTAINER_LEFT_OTHERS:'0',
-		SIDEBAR_LEFT : "150px",
+		THUMBNAIL_SIDEBAR_WIDTH : "150px",
 		ACCORDION_INNER_PADDING:9,
-		MAINCONTAINER_RIGHT_SIZE_ZERO:'0',
-		MAINCONTAINER_RIGHT:'350px',
-		MARGIN_LEFT_SLIDE_TOGGLE:'8.3em',
+		SLIDE_TOGGLE_POSITION:'8.3em',
 		MARGIN_TOP_IPAD_SLIDE_TOGGLE : '3.5em',
-		MARGIN_TOP_SLIDE_TOGGLE : '6em'
+		MARGIN_TOP_SLIDE_TOGGLE : '6em',
+		MAINCONTAINER_ZERO_POSITION:'0',
+		TOOLBAR_WIDTH:'350px'
 	};
 
 	// Config for devices
@@ -104,22 +107,28 @@ com.compro.application.pptsample = (function() {
 	function toggleSidebar(){
 		if(el_leftsidebar.is(":visible")) {
 			el_leftsidebar.css("display","none");
-			el_maincontainer.css({
-				"left":config.MAINCONTAINER_LEFT_OTHERS
-			});
-			$(el_slide_toggle.find("i")).removeClass("icon-caret-left");
-			$(el_slide_toggle.find("i")).addClass("icon-caret-right");
-			el_slide_toggle.css("margin-left","0");
+			el_maincontainer.css(position_sidebar,config.MAINCONTAINER_ZERO_POSITION);
+			if(document_dir == "rtl") {
+				$(el_slide_toggle.find("i")).removeClass("icon-caret-right");
+				$(el_slide_toggle.find("i")).addClass("icon-caret-left");
+			} else {
+				$(el_slide_toggle.find("i")).removeClass("icon-caret-left");
+				$(el_slide_toggle.find("i")).addClass("icon-caret-right");
+			}
+			el_slide_toggle.css("margin-"+position_sidebar,"0");
 		} else {
 			el_leftsidebar.css({
 				"display":"block"
 			});
-			 el_maincontainer.css({
-				"left":config.SIDEBAR_LEFT
-			});
-			$(el_slide_toggle.find("i")).removeClass("icon-caret-right");
-			$(el_slide_toggle.find("i")).addClass("icon-caret-left");
-			el_slide_toggle.css("margin-left",config.MARGIN_LEFT_SLIDE_TOGGLE);
+			el_maincontainer.css(position_sidebar,config.THUMBNAIL_SIDEBAR_WIDTH);
+			if(document_dir == "rtl") {
+				$(el_slide_toggle.find("i")).removeClass("icon-caret-left");
+				$(el_slide_toggle.find("i")).addClass("icon-caret-right");
+			} else {
+				$(el_slide_toggle.find("i")).removeClass("icon-caret-right");
+				$(el_slide_toggle.find("i")).addClass("icon-caret-left");
+			}
+			el_slide_toggle.css("margin-"+position_sidebar,config.SLIDE_TOGGLE_POSITION);
 	   }
 	   setMainSlideHeight();
 	}
@@ -214,6 +223,7 @@ com.compro.application.pptsample = (function() {
 		Backbone.history.navigate("#/tool", {trigger:true});
 	}
 	
+
 	function init_ppt_engine() {
 		//Main PPT Engine (Generic) Initialization
 		var myPPTApp = com.compro.ppt.GLOBAL;
@@ -238,6 +248,7 @@ com.compro.application.pptsample = (function() {
 		  myPPTApp.reRender();
 		});		
 	}		  
+		  
 	
 
 
@@ -259,12 +270,17 @@ com.compro.application.pptsample = (function() {
 				 el_library_photos_btn.click(function(e) {
 					showLibraryPhotos();
 				});
-
+				// Specific change for RTL.
+				if(document_dir == "rtl") {
+					$(el_slide_toggle.find("i")).removeClass("icon-caret-left");
+					$(el_slide_toggle.find("i")).addClass("icon-caret-right");
+				}
 				setAccordionScroll();
 				setMainSlideHeight();
 				
 				backbone_init_routers();
 				backbone_start_navigation();
+				
 				init_ppt_engine();
 			});
 
@@ -282,35 +298,28 @@ com.compro.application.pptsample = (function() {
 				if(screenWidth <= device_vars.MOBILE_MAX_WIDTH) {
 				  el_toolbar.css("display","none");
 				  el_leftsidebar.css("display","none");
-				  el_maincontainer.css({
-					"left":config.MAINCONTAINER_LEFT_OTHERS,
-					"right":config.MAINCONTAINER_RIGHT_SIZE_ZERO
-				  });
+				  el_maincontainer.css(position_sidebar,config.MAINCONTAINER_ZERO_POSITION);
+				  el_maincontainer.css(position_toolbar,config.MAINCONTAINER_ZERO_POSITION);
 				} else if((screenWidth >= device_vars.TABLET_MIN_WIDTH) && (screenWidth <= device_vars.TABLET_MAX_WIDTH)) {
 				  el_leftsidebar.css("display","none");
 				  el_toolbar.css("display","block");
-				  el_maincontainer.css({
-					  "left":config.MAINCONTAINER_LEFT_OTHERS,
-					  "right":config.MAINCONTAINER_RIGHT
-				  });
-				   el_slide_toggle.css( {
-				  	"margin-left":0,
+				  el_maincontainer.css(position_sidebar,config.MAINCONTAINER_ZERO_POSITION);
+				  el_maincontainer.css(position_toolbar,config.TOOLBAR_WIDTH);
+				  el_slide_toggle.css({
 				  	"margin-top":config.MARGIN_TOP_IPAD_SLIDE_TOGGLE
 				  });
+				  el_slide_toggle.css("margin-"+position_sidebar,0);
 				} else if(screenWidth > device_vars.DESKTOP_MIN_WIDTH) {
 					el_leftsidebar.css({
-					"display":"block",
-					"width":config.SIDEBAR_LEFT_DESKTOP
+					"display":"block"
 				  });
 				  el_toolbar.css("display","block");
-				  el_maincontainer.css({
-					  "left":config.MAINCONTAINER_LEFT_DESKTOP,
-					  "right":config.MAINCONTAINER_RIGHT
-				  });
+				  el_maincontainer.css(position_sidebar,config.THUMBNAIL_SIDEBAR_WIDTH);
+				  el_maincontainer.css(position_toolbar,config.TOOLBAR_WIDTH);
 				  el_slide_toggle.css( {
-				  	"margin-left":config.MARGIN_LEFT_SLIDE_TOGGLE,
 				  	"margin-top":config.MARGIN_TOP_SLIDE_TOGGLE
 				  });
+				  el_slide_toggle.css("margin-"+position_sidebar,config.SLIDE_TOGGLE_POSITION);
 				}
 
 				setAccordionScroll();

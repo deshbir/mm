@@ -25,7 +25,7 @@ ToolView = new function() {
 									//Adding show event with accordian tabs
 						     	    $('#' + model.id).on('show', function () {
 						     	    	Backbone.history.navigate("#/photo", {trigger:true});
-						    		})
+						    		});
 									
 								});
 		 });
