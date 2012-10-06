@@ -228,7 +228,7 @@ com.compro.application.pptsample = (function() {
 		//Main PPT Engine (Generic) Initialization
 		var myPPTApp = com.compro.ppt.GLOBAL;
 		myPPTApp.initialize("collage-container","the-slide");
-
+		$("#leftsidebar").mCustomScrollbar("update");
 		//Binding for UI button
 		$("#state-clear").click(function(){
 			myPPTApp.clearState();
@@ -236,6 +236,7 @@ com.compro.application.pptsample = (function() {
 
 		$("#new-slide").click(function(){
 			myPPTApp.addNewSlide();
+			$("#leftsidebar").mCustomScrollbar("update");
 		});
 
 		$("#delete-slide").click(function(){
