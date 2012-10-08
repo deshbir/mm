@@ -9,7 +9,7 @@ class ToolController {
 	GET	show
 	PUT	update
 	POST	save
-	DELETE	delet
+	DELETE	delete
 	*/
 	
 	def show = {

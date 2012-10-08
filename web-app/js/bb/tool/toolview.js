@@ -16,19 +16,23 @@ ToolView = new function() {
 			router = new Router();
 		}
 		
-		ToolCollection.get().fetch();
-		TemplateManager.get('right-panel', 
-							function(template){
-								ToolCollection.get().each(function(model){
-									var compiledTemplate = Mustache.render(template, model.toJSON());
-									$("#toolbar").append(compiledTemplate);
-									//Adding show event with accordian tabs
-						     	    $('#' + model.id).on('show', function () {
-						     	    	Backbone.history.navigate("#/photo", {trigger:true});
-						    		});
-									
-								});
-		 });
+		ToolCollection.get().fetch({
+			success: function(){
+				TemplateManager.get('right-panel', 
+					function(template){
+						ToolCollection.get().each(function(model){
+							var compiledTemplate = Mustache.render(template, model.toJSON());
+							$("#toolbar").append(compiledTemplate);
+							//Adding show event with accordian tabs
+				     	    $('#' + model.id).on('show', function () {
+				     	    	Backbone.history.navigate("#/photo", {trigger:true});
+				    		});
+							
+					});
+				});
+			}
+		});
+		
 	};
 	this.routerInitialize = function(){
 		router = new Router();   

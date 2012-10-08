@@ -15,8 +15,9 @@ PhotoView = new function() {
 		if (router == null) {
 			router = new Router();
 		}
-		PhotoCollection.get().fetch();
-		TemplateManager.get('photo-panel', 
+		PhotoCollection.get().fetch({
+			success: function(){
+				TemplateManager.get('photo-panel', 
 					function(template){
 						PhotoCollection.get().each(function(model){
 							var modelJ = model.toJSON();
@@ -27,7 +28,9 @@ PhotoView = new function() {
 							var props = {source: modelJ.dir + modelJ.fullfilename, thumbnail:modelJ.dir + modelJ.thumbfilename}; 
 							var handle = new com.cengage.mm.tools.ToolElementDragHandler(photoEl[0], "com.compro.ppt.Image", props);				
 						});
-		 }); 
+					}); 
+			}
+		});
 	};
 	this.routerInitialize = function(){
 		router = new Router();   
