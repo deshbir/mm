@@ -1,0 +1,123 @@
+{
+    "african_wildlife": {
+        "photos": [
+            {
+            	"dir": "images/magazine/photos/african_wildlife/",
+            	"fullfilename": "684574.jpg",
+            	"thumbfilename": "684574.jpg",
+            	"title": "....",
+            	"copyright": "Michael Nichols/NGS"
+            },
+            {
+            	"dir": "images/magazine/photos/african_wildlife/",
+            	"fullfilename": "727553.jpg",
+            	"thumbfilename": "727553.jpg",
+            	"title": "....",
+            	"copyright": "Michael Nichols/NGS"
+            },
+            {
+            	"dir": "images/magazine/photos/african_wildlife/",
+            	"fullfilename": "1197612.jpg",
+            	"thumbfilename": "1197612.jpg",
+            	"title": "....",
+            	"copyright": "Michael Nichols/NGS"
+            },
+            {
+            	"dir": "images/magazine/photos/african_wildlife/",
+            	"fullfilename": "1197660.jpg",
+            	"thumbfilename": "1197660.jpg",
+            	"title": "....",
+            	"copyright": "Michael Nichols/NGS"
+            },
+            {
+            	"dir": "images/magazine/photos/african_wildlife/",
+            	"fullfilename": "1197774.jpg",
+            	"thumbfilename": "1197774.jpg",
+            	"title": "....",
+            	"copyright": "Michael Nichols/NGS"
+            },
+                                    {
+            	"dir": "images/magazine/photos/african_wildlife/",
+            	"fullfilename": "1197808.jpg",
+            	"thumbfilename": "1197808.jpg",
+            	"title": "....",
+            	"copyright": "Michael Nichols/NGS"
+            },
+			{
+            	"dir": "images/magazine/photos/african_wildlife/",
+            	"fullfilename": "1197838.jpg",
+            	"thumbfilename": "1197838.jpg",
+            	"title": "....",
+            	"copyright": "Michael Nichols/NGS"
+            }            
+        ]
+    },
+    
+	"ancient_structures": {
+        "photos": [
+            {
+            	"dir": "images/magazine/photos/ancient_structures/",
+            	"fullfilename": "92864.jpg",
+            	"thumbfilename": "92864.jpg",
+            	"title": "....",
+            	"copyright": "Richard Nowitz/NGS"
+            },
+            {
+            	"dir": "images/magazine/photos/ancient_structures/",
+            	"fullfilename": "110237.jpg",
+            	"thumbfilename": "110237.jpg",
+            	"title": "....",
+            	"copyright": "Dean Conger/NGS"
+            },
+            {
+            	"dir": "images/magazine/photos/ancient_structures/",
+            	"fullfilename": "114254.jpg",
+            	"thumbfilename": "114254.jpg",
+            	"title": "....",
+            	"copyright": "Thomas J. Abercrombie/NGS"
+            },
+            {
+            	"dir": "images/magazine/photos/ancient_structures/",
+            	"fullfilename": "131997.jpg",
+            	"thumbfilename": "131997.jpg",
+            	"title": "....",
+            	"copyright": "Winfield Parks/NGS"
+            },
+            {
+            	"dir": "images/magazine/photos/ancient_structures/",
+            	"fullfilename": "280630.jpg",
+            	"thumbfilename": "280630.jpg",
+            	"title": "....",
+            	"copyright": "James L. Stanfield/NGS"
+            },
+            {
+            	"dir": "images/magazine/photos/ancient_structures/",
+            	"fullfilename": "468615.jpg",
+            	"thumbfilename": "468615.jpg",
+            	"title": "....",
+            	"copyright": "James L. Stanfield/NGS"
+            },
+			{             
+            	"dir": "images/magazine/photos/ancient_structures/",
+            	"fullfilename": "517310.jpg",
+            	"thumbfilename": "517310.jpg",
+            	"title": "....",
+            	"copyright": "Annie Griffiths Belt/NGS"
+            },            
+			{
+            	"dir": "images/magazine/photos/ancient_structures/",
+            	"fullfilename": "523719.jpg",
+            	"thumbfilename": "523719.jpg",
+            	"title": "....",
+            	"copyright": "O. Louis Mazzatenta/NGS"
+            },  
+			{
+            	"dir": "images/magazine/photos/ancient_structures/",
+            	"fullfilename": "952671.jpg",
+            	"thumbfilename": "952671.jpg",
+            	"title": "....",
+            	"copyright": "Franc & Jean Shor/NGS"
+            }                          
+        ]
+    }    
+}

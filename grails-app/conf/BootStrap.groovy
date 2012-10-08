@@ -1,5 +1,6 @@
 import com.cengage.mm.Tool
 import com.cengage.mm.Photo
+import groovy.json.JsonSlurper
 
 class BootStrap {
 
@@ -13,13 +14,25 @@ class BootStrap {
 		}
 		
 		if (!Photo.count()) {
+			
+			def slurper = new JsonSlurper()
+			def allPhotos = slurper.parseText(Photo.jsonPayload)
+			
+			allPhotos.ancient_structures.photos.each
+			{
+				new Photo(dir:  it.dir, fullfilename: it.fullfilename , thumbfilename: it.thumbfilename , copyright: it.copyright).save(failOnError: true)
+			}
+			
+			/*
 			new Photo(id:"111", dir:"images/magazine/photos/", fullfilename: "pic1.jpg", thumbfilename: "pic1.jpg", alt: "pic1").save(failOnError: true)
 			new Photo(id:"222", dir:"images/magazine/photos/", fullfilename: "pic2.jpg", thumbfilename: "pic2.jpg", alt: "pic2").save(failOnError: true)
 			new Photo(id:"333", dir:"images/magazine/photos/", fullfilename: "pic3.jpg", thumbfilename: "pic3.jpg", alt: "pic3").save(failOnError: true)
 			new Photo(id:"444", dir:"images/magazine/photos/", fullfilename: "pic4.jpg", thumbfilename: "pic4.jpg", alt: "pic4").save(failOnError: true)
+			*/
 		}
 		
     }
+	
     def destroy = {
     }
 }
