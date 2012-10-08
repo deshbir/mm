@@ -14,7 +14,6 @@
 		<!--  Javascript includes END -->		
 
 	    <cgrails:stylesheet src="index"/>
-	   <r:external dir="css/ppt" file="myelt-ppt-default-styles.css"/>
 	    <cgrails:environment_setup/>
 	    
 	    <g:layoutHead/>
