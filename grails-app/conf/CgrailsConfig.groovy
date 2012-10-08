@@ -2,6 +2,7 @@
 cgrails {
 	skinning {
 		baseskin = "default"
+		defaultskin = "default"
 		skins {
 			gray { parent = "default" }
 		}

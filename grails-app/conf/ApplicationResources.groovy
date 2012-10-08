@@ -44,7 +44,7 @@ modules = {
 	}
 	
 	mmApp {
-		dependsOn 'mmLib'
+		dependsOn 'mmPPT'
 		
 		//Main Application JavaScript - init and event binding
 		resource url:'js/index.js'

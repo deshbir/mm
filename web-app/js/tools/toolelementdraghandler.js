@@ -59,11 +59,13 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		}
 		//Get What is being dragged and its x / y possition
 		var source = elementDragged.src;
-		var elementDraggedX = event.pageX-elementDragged.offsetLeft;
-		var elementDraggedY = event.pageY-elementDragged.offsetTop;
+		
+		var elementDraggedX = event.pageX-$(elementDragged).offset().left;
+		var elementDraggedY = event.pageY-$(elementDragged).offset().top;
 		
 		//Calculating the position of the mouse on the image to calculate correct position of dropped pick
 		var workspaceEl = namespace.workspace.el;
+		console.log($(elementDragged).offset(),$(workspaceEl).offset());
 		if(elementDraggedX<0 || elementDraggedX>elementDragged.offsetWidth)
 			elementDraggedX = gElementDraggedX;
 		if(elementDraggedY<0 || elementDraggedY>elementDragged.offsetHeight)
@@ -71,8 +73,8 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 		console.log(elementDragged);
 		//Calculating the top-left coordinates in workspace where the pick would be placed
-		var coordX = event.pageX - workspaceEl.offsetLeft-elementDraggedX;
-		var coordY = event.pageY -workspaceEl.offsetTop-elementDraggedY;
+		var coordX = event.pageX - $(workspaceEl).offset().left-elementDraggedX;
+		var coordY = event.pageY -$(workspaceEl).offset().top-elementDraggedY;
 		
 		//Validating if coordinates lie inside the workspace
 		if(coordX>=0 && 
@@ -109,7 +111,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		elementDragged.style.left = posX + "px";
 		elementDragged.style.top = posY + "px";
 	}	
-
+	
 	/********************************************************/	
 	/*                 CONSTRUCTOR                          */ 
 	/********************************************************/
@@ -165,20 +167,38 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		function dragStart(event) {
 			if(elementDragged==null){
 				elementDragged = event.target;
-				gElementDraggedX = event.pageX-elementDragged.offsetLeft;
-				gElementDraggedY = event.pageY-elementDragged.offsetTop;
+				gElementDraggedX = event.pageX-$(elementDragged).offset().left;
+				gElementDraggedY = event.pageY-$(elementDragged).offset().top;
 			}
 			console.log("dragStart Event" + event.target);
 			elementDragged = event.target;
-			elementDragged.style.left = elementDragged.offsetLeft + "px";
-			elementDragged.style.top = elementDragged.offsetTop + "px";
-			event.target.style.zIndex=999;
-			elementDragged.style.position ="absolute";
-			console.log("dragStart",elementDragged);
-
+			var elementSibling = $(elementDragged).next();
+			var elementParent = $(elementDragged).parent();
+			var height = $(elementDragged).height();
+			var width = $(elementDragged).width();
+			var offset = $(elementDragged).offset();
+			
 			//Cloning and adding duplicate DOM element
+			var cloneObj;
+			if (elementSibling[0] == null) {
+				cloneObj = $(elementDragged).clone();
+				$(cloneObj).appendTo(elementParent[0]);
+			} else
+				cloneObj = $(elementDragged).clone().insertBefore(elementSibling);
+			
+			//getting JSOn property of element
 			var jsonProperties=JSON.parse(elementDragged.getAttribute(config.dataString + config.propString));
-			//var newObj = new ToolElementDragHandler(elementDragged.getAttribute(config.dataString + config.handlerString),elementDragged.,elementDragged.nextSibling, jsonProperties);
+			new com.cengage.mm.tools.ToolElementDragHandler(cloneObj[0],elementDragged.getAttribute(config.dataString + config.handlerString),jsonProperties);
+			
+			console.log("dragStart",elementDragged);
+			$(elementDragged).appendTo($("body"));
+			elementDragged.style.left = offset.left + "px";
+			elementDragged.style.top = offset.top + "px";
+			elementDragged.style.position ="absolute";
+			event.target.style.zIndex=999;
+			
+			$(elementDragged).width(width);
+			$(elementDragged).height();
 		}
 	}
 
@@ -189,6 +209,4 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 	//-------------------------------------------------------/
 
 
-}());
-
-
+}())

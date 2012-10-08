@@ -67,7 +67,7 @@ com.compro.application.pptsample = (function() {
 	   are not present.
 
 	*/
-
+		
 	var document_dir = "ltr";
 	document_dir = el_body.attr("dir");
 	// sidebar and toolbar directions got reversed in "RTL" document direction.
@@ -76,6 +76,9 @@ com.compro.application.pptsample = (function() {
 	/********************************************************/
 	/*                 PRIVATE MEMBERS                     */
 	/********************************************************/
+	// PPTApp varibale declaration 
+	var myPPTApp = com.compro.ppt.GLOBAL;
+	
 	// Config for plug
 	var config = {
 		HEADER_HEIGHT:	'91px',
@@ -187,6 +190,11 @@ com.compro.application.pptsample = (function() {
 			"margin-bottom": device_vars.margins_el_maincontainer,
 			"margin-left": "auto"
 		});
+
+		if(myPPTApp.reRender) {
+			myPPTApp.reRender();
+			$("#leftsidebar").mCustomScrollbar("update");
+		}		
 	}
 
 	function showMyPhotos() {
@@ -226,7 +234,6 @@ com.compro.application.pptsample = (function() {
 
 	function init_ppt_engine() {
 		//Main PPT Engine (Generic) Initialization
-		var myPPTApp = com.compro.ppt.GLOBAL;
 		myPPTApp.initialize("collage-container","the-slide");
 		
 		//Reset Scrollbar
