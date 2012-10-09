@@ -337,6 +337,7 @@ com.compro.application.mm = (function() {
 				  el_slide_toggle.css("margin-"+position_sidebar,config.SLIDE_TOGGLE_POSITION);
 				}
 				setMainSlideHeight();
+				setAccordionScroll();
 			});
 		})();
 
