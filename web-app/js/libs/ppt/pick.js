@@ -132,6 +132,12 @@ com.compro.ppt.Pick = function(){
 		/********************************************************/	
 		/*                 Private Members                      */ 
 		/********************************************************/
+		
+		var config = {
+				deleteImageSize:12,
+				deleteImageXIncreament:8,
+				deleteImageYIncreament:-8
+		} 
 		var defaultDragStartHandler = function (obj,x,y,event) {
 			// storing original coordinates
 				console.log("drag start",event);
@@ -148,10 +154,10 @@ com.compro.ppt.Pick = function(){
 			var bBox = this.getBBox(false);
 			var trans_x = dx-this.transx;
 			var trans_y = dy-this.transy;
-			var nowX = Math.min(obj.primeSvg.width - bBox.width-5, this.ox + trans_x);
-			var nowY = Math.min(obj.primeSvg.height - bBox.height-5, this.oy+ trans_y);
-			nowX = Math.max(5, nowX);
-			nowY = Math.max(5, nowY);      
+			var nowX = Math.min(obj.primeSvg.width - bBox.width-config.deleteImageXIncreament-config.deleteImageSize-2, this.ox + trans_x);
+			var nowY = Math.min(obj.primeSvg.height - bBox.height-8, this.oy+ trans_y);
+			nowX = Math.max(8, nowX);
+			nowY = Math.max(-config.deleteImageYIncreament+2, nowY);      
 			//console.log(nowX-this.ox,nowY-this.oy);
 			if(nowX-this.ox!=0 || nowY-this.oy!=0) {
 				//console.log('b');
@@ -190,9 +196,9 @@ com.compro.ppt.Pick = function(){
 				var rect_width = bBox.width + 2*strokeWidth;
 				var rect_height = bBox.height + 2*strokeWidth;
 				var selectionRect = this.primeSvg.rect(rect_x, rect_y, rect_width, rect_height);
-				var cursors = ['nw-resize','e-resize','ne-resize','n-resize']
+				/*var cursors = ['nw-resize','e-resize','ne-resize','n-resize']
 
-					for(var i = 0,x = rect_x - 4; i < 3; i++) {
+				for(var i = 0,x = rect_x - 4; i < 3; i++) {
 					for(var j = 0,y = rect_y - 4; j < 3; j++) {
 						if(!(i==1 && j==1)) {
 							var smallRect = this.primeSvg.rect(x, y, 8, 8);
@@ -207,13 +213,35 @@ com.compro.ppt.Pick = function(){
 						y = y + (rect_height/2);
 					}
 					x = x + (rect_width/2);
+				}*/
+				var cursors = ['nw-resize','ne-resize','ne-resize','nw-resize']
+				for(var i = 0,x = rect_x - 4; i < 2; i++) {
+					for(var j = 0,y = rect_y - 4; j < 2; j++) {
+						var smallRect = this.primeSvg.rect(x, y, 8, 8);
+						boxSet.push(smallRect);
+						if(this.get_behavior_options().resize==true) {
+							console.log(cursors[boxSet.length-1]);
+							smallRect.attr({
+								cursor:cursors[boxSet.length-1]
+							});
+							smallRect.drag(Utils.proxy(this.resizing,this),Utils.proxy(this.resizeStart,this),Utils.proxy(this.resizeEnd,this));
+						}
+						y = y + (rect_height);
+					}
+					x = x + (rect_width);
 				}
 				if(this.get_behavior_options().rotate==true){
-					var rotateCircle = this.primeSvg.circle(rect_x+(rect_width/2),rect_y-28,4,4);
+					var circle_y = rect_y-28;
+					var line_y = rect_y;
+					if(circle_y<0){
+						circle_y = rect_y + (rect_height) + 28;
+						line_y = rect_y + (rect_height) + 24;
+					}
+					var rotateCircle = this.primeSvg.circle(rect_x+(rect_width/2),circle_y,4,4);
 					rotateCircle.attr({cursor:'crosshair'});
 					boxSet.push(rotateCircle);
 					rotateCircle.drag(Utils.proxy(this.rotating,this),Utils.proxy(this.rotateStart,this),Utils.proxy(this.rotateEnd,this));
-					var path = 'M' + (rect_x+(rect_width/2)) + ',' + rect_y + 'L' + (rect_x+(rect_width/2)) + ',' + (rect_y-24);
+					var path = 'M' + (rect_x+(rect_width/2)) + ',' + line_y + 'L' + (rect_x+(rect_width/2)) + ',' + (line_y-24);
 					var line = this.primeSvg.path(path);
 					boxSet.push(line);
 				}
@@ -228,7 +256,7 @@ com.compro.ppt.Pick = function(){
 				});
 				boxSet.push(selectionRect);
 				if(this.get_behavior_options().remove==true){
-					var deleteIcon = this.primeSvg.image("images/DeleteRed.png",rect_x+rect_width+8, rect_y-8, 16, 16);
+					var deleteIcon = this.primeSvg.image("images/deletered.png",rect_x+rect_width + config.deleteImageXIncreament, rect_y+config.deleteImageYIncreament, config.deleteImageSize, config.deleteImageSize);
 					deleteIcon.click(Utils.proxyChangeContext(this.deletePick,this));
 					boxSet.push(deleteIcon);
 				}
@@ -279,20 +307,20 @@ com.compro.ppt.Pick = function(){
 			tempInstance.mult_x=1;
 			tempInstance.ref_x = bBox.x;
 			tempInstance.ref_y = bBox.y;
-			if(dragBoxIndex==0||dragBoxIndex==3||dragBoxIndex==5){
+			if(dragBoxIndex==0||dragBoxIndex==2){
 				tempInstance.mult_y=-1;
 				tempInstance.ref_y = bBox.y2; 
 			}
 
-			if(dragBoxIndex==1||dragBoxIndex==6){
+			/*if(dragBoxIndex==1||dragBoxIndex==6){
 				tempInstance.mult_y=0;
 			}
 
 			if(dragBoxIndex==3||dragBoxIndex==4){
 				tempInstance.mult_x=0;
-			}
+			}*/
 
-			if(dragBoxIndex<=2){
+			if(dragBoxIndex<=1){
 				tempInstance.mult_x=-1;
 				tempInstance.ref_x = bBox.x2;
 			}
@@ -316,7 +344,10 @@ com.compro.ppt.Pick = function(){
 			var scale_y = new_h/current_h;
 			var ref_x = tempInstance.ref_x;
 			var ref_y = tempInstance.ref_y;
-			tempInstance.transform("...s" + (scale_x) + "," + (scale_y) + "," + ref_x + "," + ref_y);
+			var scale = scale_x>scale_y?scale_x:scale_y;
+			new_w = scale*current_w;
+			new_h = scale*current_h;
+			tempInstance.transform("...s" + (scale) + "," + (scale) + "," + ref_x + "," + ref_y);
 			tempInstance.ox = dx;
 			tempInstance.oy = dy;
 			tempInstance.current_w = new_w==0?new_w+0.0001:new_w;
@@ -581,3 +612,4 @@ com.compro.ppt.Pick = function(){
 		// return the constructor
 		return PickConstr;
 }();
+
