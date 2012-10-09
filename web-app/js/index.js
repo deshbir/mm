@@ -239,9 +239,8 @@ com.compro.application.mm = (function() {
 		myPPTApp.initialize("collage-container","the-slide");
 		
 		//apply Scrollbar after initializing the data.
-		el_leftsidebar.mCustomScrollbar({
-			scrollInertia:0
-		});
+		//TODO : "setTimeout" is used since there is a delay if data loaded is huge in size.
+		setTimeout('$("#leftsidebar").mCustomScrollbar({scrollInertia:0});', 60);
 		
 		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
