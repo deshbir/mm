@@ -21,7 +21,7 @@ class Tool {
 
 		//returns list of models
 		def static JSON initialData() {
-			def o = JSON.parse ("[{'id':'tab1', 'name':'Photos' },{'id':'tab2','name':'Videos'},{'id':'tab3','name':'Audios'}]")
+			def o = JSON.parse ("[{'id':'photo', 'name':'Photos' },{'id':'layout','name':'Layout'},{'id':'video','name':'Video & Audios'},{'id':'editor','name':'Editor'}]")
 			return o as JSON
 		}
 		

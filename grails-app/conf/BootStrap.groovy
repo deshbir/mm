@@ -8,8 +8,8 @@ class BootStrap {
 		// Check whether the test data already exists.
 		if (!Tool.count()) {
 			new Tool(id: "photo", name: "Photos").save(failOnError: true)
-			new Tool(id: "video", name: "Videos").save(failOnError: true)
-			new Tool(id: "audio", name: "Audios").save(failOnError: true)
+			new Tool(id: "layout", name: "Layout, Text and Shapes").save(failOnError: true)
+			new Tool(id: "video", name: "Video & Audios").save(failOnError: true)
 			new Tool(id: "editor", name: "Editor").save(failOnError: true)
 		}
 		
@@ -20,7 +20,7 @@ class BootStrap {
 			
 			allPhotos.ancient_structures.photos.each
 			{
-				new Photo(dir:  it.dir, fullfilename: it.fullfilename , thumbfilename: it.thumbfilename , copyright: it.copyright).save(failOnError: true)
+				new Photo(dir: it.dir, fullfilename: it.fullfilename , thumbfilename: it.thumbfilename , copyright: it.copyright).save(failOnError: true)
 			}
 			
 			/*

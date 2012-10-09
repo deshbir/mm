@@ -153,7 +153,8 @@ body {
     	width:8px;
     }
    .collage-element {
-		width:7em;
+		width:6em;
+		padding:1em;
 		border:1px solid grey;
 		background:@white;
 		margin:auto;
@@ -162,6 +163,13 @@ body {
 	.slide_selected{
 		border: solid 2px @active-slide-color;
 	}
+}
+
+.library-thumbnails {
+	width:40%;
+	margin: 5px 5px;
+	border:solid 5px lighten(@header-bckgrnd-color,1%);
+	.border-radius(5px);
 }
 
 #toolbar {
@@ -208,12 +216,6 @@ body {
     		background:none repeat scroll 0% 0% @gray-color;
     		width:8px;
     	}
-		img {
-			width:40%;
-			margin: 5px 5px;
-			border:solid 5px lighten(@header-bckgrnd-color,1%);
-			.border-radius(5px);
-		}
 		p {
 			margin-top:5px;
 		}
@@ -384,7 +386,7 @@ a#slide-toggle {
     font-size:18px;
     padding:4px 4px 4px 2px;
     line-height:15px;
-    position:fixed;
+    position:absolute;
     margin-left:8.3em;
 }
 a#slide-toggle:hover {

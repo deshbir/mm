@@ -65,7 +65,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		
 		//Calculating the position of the mouse on the image to calculate correct position of dropped pick
 		var workspaceEl = namespace.workspace.el;
-		console.log($(elementDragged).offset(),$(workspaceEl).offset());
+		//console.log($(elementDragged).offset(),$(workspaceEl).offset());
 		if(elementDraggedX<0 || elementDraggedX>elementDragged.offsetWidth)
 			elementDraggedX = gElementDraggedX;
 		if(elementDraggedY<0 || elementDraggedY>elementDragged.offsetHeight)
@@ -170,7 +170,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 				gElementDraggedX = event.pageX-$(elementDragged).offset().left;
 				gElementDraggedY = event.pageY-$(elementDragged).offset().top;
 			}
-			console.log("dragStart Event" + event.target);
+			//console.log("dragStart Event" + event.target);
 			elementDragged = event.target;
 			var elementSibling = $(elementDragged).next();
 			var elementParent = $(elementDragged).parent();
