@@ -29,6 +29,10 @@ PhotoView = new function() {
 							var handle = new com.cengage.mm.tools.ToolElementDragHandler(photoEl[0], "com.compro.ppt.Image", props);				
 						});
 					}); 
+				
+				//Reset scrollbars on the main windows 
+				var mainAppWindow = com.compro.application.mm;
+				setTimeout('com.compro.application.mm.resetScrollbars();', 60);
 			}
 		});
 	};

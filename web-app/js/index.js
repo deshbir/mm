@@ -28,7 +28,7 @@ Description: A GUI framework for a powerpoint type application.
 
 */
 namespace("com.compro.application");
-com.compro.application.pptsample = (function() {
+com.compro.application.mm = (function() {
 
     /********************************************************/
 	/*                   DEPENDENCIES                       */
@@ -68,15 +68,15 @@ com.compro.application.pptsample = (function() {
 
 	*/
 		
+	/********************************************************/
+	/*                 PRIVATE MEMBERS                     */
+	/********************************************************/
+	// PPTApp varibale declaration 
 	var document_dir = "ltr";
 	document_dir = el_body.attr("dir");
 	// sidebar and toolbar directions got reversed in "RTL" document direction.
 	var position_sidebar = document_dir == "rtl" ? "right" : "left";
 	var position_toolbar = (position_sidebar == "left") ? "right" : "left";
-	/********************************************************/
-	/*                 PRIVATE MEMBERS                     */
-	/********************************************************/
-	// PPTApp varibale declaration 
 	var myPPTApp = com.compro.ppt.GLOBAL;
 	
 	// Config for plug
@@ -135,23 +135,25 @@ com.compro.application.pptsample = (function() {
 	   }
 	   setMainSlideHeight();
 	}
-
+	
+	/**
+	 * TODO : Move this function to some another js(not yet decided).
+	 */
 	function setAccordionScroll() {
-		var accordionHeight = el_toolbar.height();
-		var accordionTabs = el_accordion_group_arr.length;
-		var accordionHeadingHeight = el_accordion_heading_arr.height();
+		var accordionHeight =  $("#toolbar").height();
+		var accordionTabs = $(".accordion-group").length;
+		var accordionHeadingHeight = $(".accordion-heading").height();
 		var allTabsHeight = accordionTabs*accordionHeadingHeight;
 		//Reduce the padding top and bottom also to set the height.
-		var paddingHeight = (config.ACCORDION_INNER_PADDING+2)* accordionTabs;
-		var calcAccordionInnerHeight =  accordionHeight-allTabsHeight-paddingHeight;
+		var paddingHeight = (9+2)* accordionTabs;
+		var calcAccordionInnerHeight =  accordionHeight-allTabsHeight-paddingHeight-70;
 		//Set height for each accordion inner tab
 		for(var i=0; i<accordionTabs; i++) {
-			var accordionInnerTab = $(el_accordion_inner_arr[i]);
-			accordionInnerTab.height(calcAccordionInnerHeight + "px");
-			accordionInnerTab.addClass("scroll-pane");
+			var scrollDiv = $($(".accordion-inner")[i]).find(".scroll-pane");
+			scrollDiv.height(calcAccordionInnerHeight + "px");
 		}
-		//this is not declared at top, in case scroll is not required after calculating the height.
-		var scrollPanesElems = $(".scroll-pane");
+		
+		var scrollPanesElems = $(".accordion-inner .scroll-pane");
 		for(var j=0;j<scrollPanesElems.length;j++) {
 			var scrollElem = $(scrollPanesElems[j]);
 			if(!scrollElem.hasClass("mCustomScrollbar")) {
@@ -190,11 +192,11 @@ com.compro.application.pptsample = (function() {
 			"margin-bottom": device_vars.margins_el_maincontainer,
 			"margin-left": "auto"
 		});
-
+		el_maincontainer.mCustomScrollbar("update");
 		if(myPPTApp.reRender) {
 			myPPTApp.reRender();
 			$("#leftsidebar").mCustomScrollbar("update");
-		}		
+		}	
 	}
 
 	function showMyPhotos() {
@@ -236,8 +238,10 @@ com.compro.application.pptsample = (function() {
 		//Main PPT Engine (Generic) Initialization
 		myPPTApp.initialize("collage-container","the-slide");
 		
-		//Reset Scrollbar
-		setTimeout('$("#leftsidebar").mCustomScrollbar("update");', 60);
+		//apply Scrollbar after initializing the data.
+		el_leftsidebar.mCustomScrollbar({
+			scrollInertia:0
+		});
 		
 		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
@@ -247,7 +251,7 @@ com.compro.application.pptsample = (function() {
 		$("#new-slide").click(function(){
 			myPPTApp.addNewSlide();
 
-			//Reset Scrollbar
+			//Update Scrollbar when content is added.
 			$("#leftsidebar").mCustomScrollbar("update");
 		});
 
@@ -257,14 +261,6 @@ com.compro.application.pptsample = (function() {
 				myPPTApp.deleteSelectedSlide();
 			}
 		});
-		
-		
-		$(window).resize(function() {
-		  myPPTApp.reRender();
-		  
-		  //Reset Scrollbar
-		  $("#leftsidebar").mCustomScrollbar("update");
-		});		
 	}		  
 		  
 	
@@ -293,12 +289,14 @@ com.compro.application.pptsample = (function() {
 					$(el_slide_toggle.find("i")).removeClass("icon-caret-left");
 					$(el_slide_toggle.find("i")).addClass("icon-caret-right");
 				}
-				setAccordionScroll();
 				setMainSlideHeight();
-				
+				// first time initialize scrollbar on main container.
+				el_maincontainer.mCustomScrollbar({
+					scrollInertia:0
+				});
+
 				backbone_init_routers();
 				backbone_start_navigation();
-				
 				init_ppt_engine();
 			});
 
@@ -339,8 +337,6 @@ com.compro.application.pptsample = (function() {
 				  });
 				  el_slide_toggle.css("margin-"+position_sidebar,config.SLIDE_TOGGLE_POSITION);
 				}
-
-				setAccordionScroll();
 				setMainSlideHeight();
 			});
 		})();
@@ -350,7 +346,8 @@ com.compro.application.pptsample = (function() {
 	/********************************************************/
 
 	return	{
-		"config":config
+		"config":config,
+		"resetScrollbars":setAccordionScroll
 	}
 
 })();

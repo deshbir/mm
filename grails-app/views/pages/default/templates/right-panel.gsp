@@ -27,7 +27,7 @@
 						    </span>
                      	</h4>
                      	<p><g:message code="rightpanel.tab.info"/></p>
-                     	<div id="library-photos">
+                     	<div id="library-photos" class="scroll-pane">
                      		<!-- Fill Photo-panel here -->
                      	</div>
                         <div id="my-photos">
