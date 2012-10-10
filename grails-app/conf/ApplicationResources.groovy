@@ -59,6 +59,10 @@ modules = {
 		resource url:'js/bb/photo/photocollection.js'
 		resource url:'js/bb/photo/photoview.js'
 
+		//Backbone editor View & Models & Collections
+		resource url:'js/bb/editor/editormodel.js'
+		resource url:'js/bb/editor/editorcollection.js'
+		resource url:'js/bb/editor/editorview.js'
 	}
 	
 }

@@ -15,6 +15,7 @@ ToolView = new function() {
 		if (router == null) {
 			router = new Router();
 		}
+		var defaultcategory = "african_wildlife";
 		
 		ToolCollection.get().fetch({
 			success: function(){
@@ -23,12 +24,13 @@ ToolView = new function() {
 						ToolCollection.get().each(function(model){
 							var compiledTemplate = Mustache.render(template, model.toJSON());
 							$("#toolbar").append(compiledTemplate);
-							//Adding show event with accordian tabs
-				     	    $('#' + model.id).on('show', function () {
-				     	    	Backbone.history.navigate("#/photo", {trigger:true});
+							//Adding show event with accordion tabs
+				     	    
+							$('#' + model.toJSON().toolid).on('show', function () {
+				     	    	Backbone.history.navigate("#/" + model.toJSON().toolid, {trigger:true});
 				    		});
 							
-					});
+						});
 				});
 			}
 		});

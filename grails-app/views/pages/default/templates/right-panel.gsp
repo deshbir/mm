@@ -1,10 +1,10 @@
 	<div class="accordion-group">
               <div class="accordion-heading">
-                  <a href="#{{id}}" data-parent="#toolbar" data-toggle="collapse" class="accordion-toggle">
+                  <a href="#{{toolid}}" data-parent="#toolbar" data-toggle="collapse" class="accordion-toggle">
                      {{name}}
                   </a>
               </div>
-              <div class="accordion-body collapse" id="{{id}}">
+              <div class="accordion-body collapse" id="{{toolid}}">
                   <div class="accordion-inner">
                      	<h4>
                      		{{name}}
@@ -12,17 +12,17 @@
 							    <button class="btn" type="button" id="my-photos-btn">My Photos</button>
 				                <button data-toggle="dropdown" class="btn  active dropdown-toggle" id="library-photos-btn">Library Photos <span class="caret"></span></button>
 				                <ul class="dropdown-menu">
-				                  <li><a href="#">African Wildlife</a></li>
-				                  <li><a href="#">Birds</a></li>
-				                  <li><a href="#">Coral Reefs</a></li>
-				                  <li><a href="#">Egypt</a></li>
-				                  <li><a href="#">Gorillas</a></li>
-				                  <li><a href="#">Landscape</a></li>
-				                  <li><a href="#">Reptiles</a></li>
-				                  <li><a href="#">Plants</a></li>
-				                  <li><a href="#">Space</a></li>
-				                  <li><a href="#">Wonders</a></li>
-				                  <li><a href="#">Butterflies</a></li>
+				                  <li><a href="#photo/african_wildlife">African Wildlife</a></li>
+				                  <li><a href="#photo/ancient_structures">Ancient Structures</a></li>
+				                  <li><a href="#photo">Coral Reefs</a></li>
+				                  <li><a href="#photo">Egypt</a></li>
+				                  <li><a href="#photo">Gorillas</a></li>
+				                  <li><a href="#photo">Landscape</a></li>
+				                  <li><a href="#photo">Reptiles</a></li>
+				                  <li><a href="#photo">Plants</a></li>
+				                  <li><a href="#photo">Space</a></li>
+				                  <li><a href="#photo">Wonders</a></li>
+				                  <li><a href="#photo">Butterflies</a></li>
 				                </ul>
 						    </span>
                      	</h4>

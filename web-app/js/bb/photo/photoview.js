@@ -4,22 +4,25 @@ PhotoView = new function() {
 	
 	var Router = Backbone.Router.extend({
 		routes: {
-	      'photo':'photo'
+	      'photo/:category':'photo'
 	    },	    
-	    photo : function() {
-	    	PhotoView.initialize()
+	    photo : function(category) {
+	    	PhotoView.initialize(category)
 	    }
 	});
 	
-	this.initialize = function(){
+	this.initialize = function(category){
 		if (router == null) {
 			router = new Router();
 		}
-		PhotoCollection.get().fetch({
+		
+		PhotoCollection.get(category).fetch({
 			success: function(){
 				TemplateManager.get('photo-panel', 
 					function(template){
-						PhotoCollection.get().each(function(model){
+						$("#library-photos").removeClass("mCustomScrollbar");
+						$("#library-photos").html("");
+						PhotoCollection.get(category).each(function(model){
 							var modelJ = model.toJSON();
 							var compiledTemplate = Mustache.render(template, modelJ);
 							$("#library-photos").append(compiledTemplate);
@@ -32,8 +35,8 @@ PhotoView = new function() {
 					}); 
 				
 				//Reset scrollbars on the main windows 
-				var mainAppWindow = com.compro.application.mm;
-				setTimeout('com.compro.application.mm.resetScrollbars();', 60);
+				//var mainAppWindow = com.compro.application.mm;
+				setTimeout('com.compro.application.mm.resetScrollbars();', 5000);
 			}
 		});
 	};

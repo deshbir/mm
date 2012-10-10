@@ -1,6 +1,6 @@
 class UrlMappings {
 
-	static excludes = ["/images/*", "/css/*", "/js/*"]
+	static excludes = ["/images/*", "/css/*", "/js/*", "/json/*"]
 	static mappings = {
 
 		"/$skin/$workflow/"	(controller:"main")
@@ -12,7 +12,8 @@ class UrlMappings {
 		}
 
 		"/api/tool/$id?"(resource:"tool")
-		"/api/photo/$id?"(resource:"photo")
+		"/api/photo/$category?"(resource:"photo")
+		"/api/editor/$id?"(resource:"editor")
 		
 		"/"		(controller:"main")
 		"500"	(view:'/error')

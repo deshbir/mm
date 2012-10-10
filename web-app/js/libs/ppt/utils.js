@@ -1,4 +1,3 @@
-
 //********************END Self executing independent block*****************
 
 
@@ -27,9 +26,22 @@
 				//parent.insertBefore(el,appendBeforeElement);
 			},
 			aspectRatio : function(el) {
-				return $(el).width()/$(el).height();
-				//var el = this.getById("workspace");
-				//return el.offsetWidth/el.offsetHeight;
+
+				var computedWidth = parseFloat(this.getCssComputedProperty(el, 'width'));
+				var computedHeight = parseFloat(this.getCssComputedProperty(el, 'height'));
+
+				var paddingLeft = parseFloat(this.getCssComputedProperty(el, 'padding-left'));
+				var paddingRight = parseFloat(this.getCssComputedProperty(el, 'padding-right'));
+				var paddingTop = parseFloat(this.getCssComputedProperty(el, 'padding-top'));
+				var paddingBottom = parseFloat(this.getCssComputedProperty(el, 'padding-bottom'));
+				
+				var workspaceParentDivWhiteWidth  = computedWidth + paddingLeft + paddingRight;
+				var workspaceParentDivWhiteHeight  = computedHeight + paddingBottom + paddingTop;
+				
+				var aspectRationWorkspaceParent = workspaceParentDivWhiteWidth/workspaceParentDivWhiteHeight;				
+				
+				//return $(el).width()/$(el).height();
+				return aspectRationWorkspaceParent;
 			},
 			hasClass: function(el, name) {
 				return $(el).hasClass(name);
@@ -98,6 +110,9 @@
 				    args.push(this);
 					func.apply(obj,args);
 				}
+			},
+			getCssComputedProperty: function(el, prop){
+				return $(el).css(prop);
 			}
 		};
 })();

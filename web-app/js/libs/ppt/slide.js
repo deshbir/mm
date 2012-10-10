@@ -1,4 +1,3 @@
-
 com.compro.ppt.Slide = function() {
 
     /********************************************************/
@@ -25,43 +24,37 @@ com.compro.ppt.Slide = function() {
 			Utils.addClass(this.collageDiv,"middle");
 			Utils.appendChild(Utils.getById(collageid),this.collageDiv);
 
-			this.aspectRatio = Utils.aspectRatio(this.workspace);
+			this.createThumb();
+			var computedWidthCollage = parseFloat(Utils.getCssComputedProperty(this.collageDiv, 'width'));
+		var ratio = computedWidthCollage/this.workspace.offsetWidth;
+		if(namespace.config == null) {
+			namespace.config = {};	
+		}
+		namespace.config.thumbRatio = ratio;
 
-			this.collageDiv.style.height = this.collageDiv.offsetWidth/this.aspectRatio + "px";
-
-			//Utils.scrollToBottom(Utils.getById(collageid));
-
-			
-
-			var ratio = this.collageDiv.offsetWidth/this.workspace.offsetWidth;
-			if(namespace.config == null) {
-				namespace.config = {};	
-			}
-			namespace.config.thumbRatio = ratio;
-
-			this.svgWidth = this.workspace.offsetWidth;
-			this.svgHeight = this.workspace.offsetHeight;
-			this.primeSvg = Raphael(this.workspace, this.svgWidth, this.svgHeight);
-			this.backRect = this.primeSvg.rect(0,0,this.svgWidth,this.svgHeight).attr({
-					'stroke-width': 0,
-					'fill': '#fff',
-					'fill-opacity': 0.0
-			});
+		this.svgWidth = this.workspace.offsetWidth;
+		this.svgHeight = this.workspace.offsetHeight;
+		this.primeSvg = Raphael(this.workspace, this.svgWidth, this.svgHeight);
+		this.backRect = this.primeSvg.rect(0,0,this.svgWidth,this.svgHeight).attr({
+				'stroke-width': 0,
+				'fill': '#fff',
+				'fill-opacity': 0.0
+		});
 
 
-			//creating collage-thumbnail for the slide
-			var that = this;
-			Utils.attachEvent(this.collageDiv,"click",function(){
-				Utils.fireEvent(that,"slideSelected");
-			});
+		//creating collage-thumbnail for the slide
+		var that = this;
+		Utils.attachEvent(this.collageDiv,"click",function(){
+			Utils.fireEvent(that,"slideSelected");
+		});
 
-			this.thumbSvg = Raphael(this.collageDiv, this.collageDiv.offsetWidth, this.collageDiv.offsetHeight);
-			
-			this.selectedPick = -1;
-			this.pickList = [];
+		
+		
+		this.selectedPick = -1;
+		this.pickList = [];
 
-			this.backRect.click(Utils.proxyChangeContext(this.unSelectPick,this));
-			this.slideProp = slideProp;
+		this.backRect.click(Utils.proxyChangeContext(this.unSelectPick,this));
+		this.slideProp = slideProp;
 
 		};
 
@@ -70,6 +63,55 @@ com.compro.ppt.Slide = function() {
 		constructor: com.compro.ppt.Slide,
 		version: "1.0"
 	};
+	
+      slideproto.createThumb=function(){
+		
+		this.aspectRatio = Utils.aspectRatio(this.workspace.parentNode);
+		console.log("aspectRatio" + this.aspectRatio);
+		
+		/* Fancy Code Starts */
+		
+		var paddingLeft = parseFloat(Utils.getCssComputedProperty(this.workspace.parentNode, 'padding-left'));
+		var paddingRight = parseFloat(Utils.getCssComputedProperty(this.workspace.parentNode, 'padding-right'));
+		var paddingTop = parseFloat(Utils.getCssComputedProperty(this.workspace.parentNode, 'padding-top'));
+		var paddingBottom = parseFloat(Utils.getCssComputedProperty(this.workspace.parentNode, 'padding-bottom'));
+		
+		var computedWidth = parseFloat(Utils.getCssComputedProperty(this.workspace.parentNode, 'width'));
+		var computedHeight = parseFloat(Utils.getCssComputedProperty(this.workspace.parentNode, 'height'));
+		
+		var computedWidthCollage = parseFloat(Utils.getCssComputedProperty(this.collageDiv, 'width'));
+		
+		var leftPaddingForSvg = (paddingLeft/computedWidth) * computedWidthCollage;
+		var rigthPaddingForSvg = (paddingRight/computedWidth) * computedWidthCollage;
+		
+		this.collageDiv.style.paddingLeft = leftPaddingForSvg + 'px';
+		this.collageDiv.style.paddingRight = rigthPaddingForSvg + 'px';
+
+		
+		
+		var computedWidthCollage = parseFloat(Utils.getCssComputedProperty(this.collageDiv, 'width'));
+		
+		
+		console.log("computedWidth" + computedWidthCollage);
+		
+		//this.collageDiv.style.width = this.collageDiv.style.width -(leftPaddingForSvg+rigthPaddingForSvg);
+		/* Fancy Code Ends */
+		var computedHeightForSvgThumbnail = (computedWidthCollage + leftPaddingForSvg + rigthPaddingForSvg)/this.aspectRatio ;
+		
+		
+		console.log("computedHeightForSvgThumbnail :" + computedHeightForSvgThumbnail);
+		this.collageDiv.style.height = computedHeightForSvgThumbnail + "px";
+		
+		var computedHeightCollage = parseFloat(Utils.getCssComputedProperty(this.collageDiv, 'height'));
+		var topPaddingForSvg = (paddingTop/computedHeight) * computedHeightCollage;
+		var bottomPaddingForSvg = (paddingBottom/computedHeight) * computedHeightCollage;		
+		this.collageDiv.style.paddingTop = topPaddingForSvg + 'px';
+		this.collageDiv.style.paddingBottom = bottomPaddingForSvg + 'px';
+		this.collageDiv.style.height = (computedHeightCollage-topPaddingForSvg-bottomPaddingForSvg) + "px";
+		var computedHeightCollage = parseFloat(Utils.getCssComputedProperty(this.collageDiv, 'height'));
+		
+		this.thumbSvg = Raphael(this.collageDiv, computedWidthCollage, computedHeightCollage);
+	}
 
 	slideproto.addPick = function(handler,coordX,coordY,toolsProps,storageProps,isFromStorage){
 		var params = {
@@ -167,10 +209,10 @@ com.compro.ppt.Slide = function() {
 	}
 
 	slideproto.reRenderThumbs = function(){
-		this.thumbSvg.remove();
-		this.collageDiv.style.height = this.collageDiv.offsetWidth/this.aspectRatio + "px";
-		this.thumbSvg = Raphael(this.collageDiv, this.collageDiv.offsetWidth, this.collageDiv.offsetHeight);
-		var ratio = this.collageDiv.offsetWidth/this.svgWidth;
+		this.createThumb();
+		var computedWidthCollage = parseFloat(Utils.getCssComputedProperty(this.collageDiv, 'width'));
+
+		var ratio = computedWidthCollage/this.svgWidth;
 		namespace.config.thumbRatio = ratio;
 		for(var i=0;i<this.pickList.length;i++){
 			this.pickList[i].reRenderThumb(this.thumbSvg);
@@ -198,10 +240,9 @@ com.compro.ppt.Slide = function() {
 			'fill': '#fff',
 			'fill-opacity': 0.0
 		});
-		this.aspectRatio = Utils.aspectRatio(this.workspace);
-		this.collageDiv.style.height = this.collageDiv.offsetWidth/this.aspectRatio + "px";
-		this.thumbSvg = Raphael(this.collageDiv, this.collageDiv.offsetWidth, this.collageDiv.offsetHeight);
-		var ratio = this.collageDiv.offsetWidth/this.svgWidth;
+		this.createThumb();
+		var computedWidthCollage = parseFloat(Utils.getCssComputedProperty(this.collageDiv, 'width'));
+		var ratio = computedWidthCollage/this.svgWidth;
 		namespace.config.thumbRatio = ratio;
 		for(var i=0;i<this.pickList.length;i++){
 			this.pickList[i].reRender(this.primeSvg,this.thumbSvg,pickRatio);
@@ -222,4 +263,3 @@ com.compro.ppt.Slide = function() {
 
 	return SlideConstr;
 }();
-

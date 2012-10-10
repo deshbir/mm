@@ -5,6 +5,7 @@ import grails.converters.JSON
 class Tool {
 
 	String id
+	String toolid
 	String name
 	
     static constraints = {
@@ -21,7 +22,7 @@ class Tool {
 
 		//returns list of models
 		def static JSON initialData() {
-			def o = JSON.parse ("[{'id':'photo', 'name':'Photos' },{'id':'layout','name':'Layout'},{'id':'video','name':'Video & Audios'},{'id':'editor','name':'Editor'}]")
+			def o = JSON.parse ("[{'toolid':'photo', 'name':'Photos' },{'toolid':'layout','name':'Layout'},{'toolid':'video','name':'Video & Audios'},{'toolid':'editor','name':'Editor'}]")
 			return o as JSON
 		}
 		

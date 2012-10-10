@@ -1,15 +1,24 @@
 //Photo Backbone Collection
 PhotoCollection = new function() {
-	  var collection = null;
+	  var collectionMap = new Object;
+	  var defaulturlGET = "/" + com.compro.cgrails.APPLICATIONNAME + "/api/photo/";
+	  
 	  var Collection = Backbone.Collection.extend({
 	          model: PhotoModel.get(),
-	          url: "/" + com.compro.cgrails.APPLICATIONNAME + "/api/photo/"
-		    
+	          url: defaulturlGET
 	  });
- 	  this.get = function(){ // Each backbone collection needs to define "get()" function
-	          if (this.collection == null) {
-		         this.collection = new Collection();
-	          }
-		  return this.collection;
+	  
+ 	  this.get = function(category){ // Each backbone collection needs to define "get()" function
+ 		  
+ 		  var urlGET = "/" + com.compro.cgrails.APPLICATIONNAME + "/api/photo/";
+ 		  if (typeof category != "undefined") {
+ 			  urlGET =  urlGET + category ;
+ 		  } 		  
+ 		  
+          if (collectionMap[category] == null) {
+        	  collectionMap[category] = new Collection();
+        	  collectionMap[category].url = urlGET;
+          }
+		  return collectionMap[category];
 	  };
 };

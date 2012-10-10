@@ -13,17 +13,18 @@ class PhotoController {
 	*/
 	
 	def show = {
+		
+		if(params.category) {
 			
-		if(params.id) {
+			def allPhoto = Photo.findAllByCategory(params.category)
 			
-			def photo = Photo.get(params.id)
-			
-			if(tool) {
-				render photo as JSON
+			if(allPhoto) {
+				render allPhoto as JSON
 				return
 			} else {
 				// What is Backbone standard for this?
-				render "Not found."
+			    def notFound = new Photo(category: 'NA', dir: 'images/', fullfilename: 'notfound.png' , thumbfilename: 'notfound.png' , copyright: 'compro')
+				render notFound as JSON
 				return
 			}
 		}
