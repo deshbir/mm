@@ -260,6 +260,7 @@ com.compro.application.mm = (function() {
 			if(ans)	{
 				myPPTApp.deleteSelectedSlide();
 			}
+			$("#collage-scroll").mCustomScrollbar("update");
 		});
 	}		  
 		  
