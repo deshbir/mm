@@ -25,7 +25,8 @@ PhotoView = new function() {
 							$("#library-photos").append(compiledTemplate);
 							
 							var photoEl = $("#library-photos > #photo" + modelJ.id);
-							var props = {source: modelJ.dir + modelJ.fullfilename, thumbnail:modelJ.dir + modelJ.thumbfilename}; 
+							var photoDir = "/" + com.compro.cgrails.APPLICATIONNAME + "/" + modelJ.dir;
+							var props = {source: photoDir + modelJ.fullfilename, thumbnail: photoDir + modelJ.thumbfilename}; 
 							var handle = new com.cengage.mm.tools.ToolElementDragHandler(photoEl[0], "com.compro.ppt.Image", props);				
 						});
 					}); 

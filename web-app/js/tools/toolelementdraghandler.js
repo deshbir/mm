@@ -71,7 +71,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		if(elementDraggedY<0 || elementDraggedY>elementDragged.offsetHeight)
 			elementDraggedY = gElementDraggedY;
 
-		console.log(elementDragged);
+		//console.log(elementDragged);
 		//Calculating the top-left coordinates in workspace where the pick would be placed
 		var coordX = event.pageX - $(workspaceEl).offset().left-elementDraggedX;
 		var coordY = event.pageY -$(workspaceEl).offset().top-elementDraggedY;
@@ -82,14 +82,20 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		coordY>=0 && coordY<=(workspaceEl.offsetHeight))
 		{
 			var jsonProperties=JSON.parse(elementDragged.getAttribute(config.dataString + config.propString));
+			//verifying if raphaelAttributes exist else create a new property called raphaelAttributes - might exists in shapes but not in images
+			if (jsonProperties.raphaelAttributes == null)
+				jsonProperties.raphaelAttributes = {};
 			
+			//passing element height width
+			jsonProperties.raphaelAttributes.width = elementDragged.offsetWidth;
+			jsonProperties.raphaelAttributes.height = elementDragged.offsetHeight;
 			//Passing Properties and handler
 			//Params:Handler,coordX,coordY,properties,toolsProps,storageProp(null),isFromStorage
 			var handler = elementDragged.getAttribute(config.dataString + config.handlerString);
 			namespace.workspace.addPick(handler,coordX,coordY,jsonProperties);
 		} else{
-		console.log(coordX, " " ,workspaceEl.offsetWidth);
-		console.log(coordY, " " ,workspaceEl.offsetHeight);
+		//console.log(coordX, " " ,workspaceEl.offsetWidth);
+		//console.log(coordY, " " ,workspaceEl.offsetHeight);
 		}
 
 		//myeltPPT.elementDragged.parentElement.removeChild(myeltPPT.elementDragged);

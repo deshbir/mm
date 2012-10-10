@@ -1,6 +1,9 @@
-import com.cengage.mm.Tool
-import com.cengage.mm.Photo
 import groovy.json.JsonSlurper
+
+//import org.grails.plugin.resource.ResourceTagLib
+
+import com.cengage.mm.Photo
+import com.cengage.mm.Tool
 
 class BootStrap {
 
@@ -17,7 +20,6 @@ class BootStrap {
 			
 			def slurper = new JsonSlurper()
 			def allPhotos = slurper.parseText(Photo.jsonPayload)
-			
 			allPhotos.ancient_structures.photos.each
 			{
 				new Photo(dir: it.dir, fullfilename: it.fullfilename , thumbfilename: it.thumbfilename , copyright: it.copyright).save(failOnError: true)
