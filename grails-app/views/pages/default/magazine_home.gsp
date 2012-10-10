@@ -5,8 +5,14 @@
 	</head>
 	<body>
         <!-- Slider left pane - showing previews of the main pane, not visible in smaller devices -->
-    	<div class="left col scroll-pane" id="leftsidebar">
-    		<div id="collage-container">
+    	<div class="left col" id="leftsidebar">
+    		<div id="collage-buttonbar">
+    			<a href="#" class="new-slide"><i class="icon-check-empty"></i></a> | 
+    			<a href="#" id="state-clear"><i class="icon-refresh"></i></a> | 
+    			<a href="#" id="delete-slide"><i class="icon-trash"></i></a>
+    		</div>
+    		<div id="collage-scroll">
+    			<div id="collage-container"></div>
     		</div>
         </div>
 
@@ -21,13 +27,10 @@
 			    <a class="btn" href="#"><i class="icon-forward"></i></a>
 			</div>
 
-          <!-- <div id="slide-toggle-div">  -->
-
-
 		  <div id="the-slide">
 
 	      </div>
-		  <p class="copyright-info">Copyright 2012 National Geographic Learning, Cengage Learning</p>
+		  <p class="copyright-info"><g:message code="copyright.info"/></p>
 		</div>
 
 		<div class="right col accordion" id="toolbar">

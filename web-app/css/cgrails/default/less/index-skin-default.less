@@ -37,6 +37,7 @@ body {
 		  .brand {
 		  	   width:55%;
 		  	   padding:12px 0;
+		  	   cursor:default;
 		  	   p {
 		  	   	opacity:0.7;
 		  	   }
@@ -142,17 +143,39 @@ body {
      }
 }
 
-.set-margin-left {
-	margin-left:15px;
-} 
-
 #leftsidebar {
-   padding:5px 0;
-   
-   .mCSB_dragger_bar {
+   #collage-buttonbar {
+   	  margin:0 1.5em;
+   	  padding-top:1px;
+   	  text-align:center;
+   	  background:@main-container-color;
+   	  a {
+   	  	  color:@black;
+   	  	  cursor:pointer;
+   	  	  font-weight:normal;
+	   	  i {
+	   	  	 font-size: 15px;
+	    	 margin: 0 8px;
+	   	  }
+	   	  &:hover {
+	   	  	text-decoration:none;
+	   	  }
+	  }
+   }
+   #collage-scroll {
+   	 position: absolute;
+	 top: 5px;
+	 bottom: 0px;
+	 left:10px;
+	 right:0px;
+	 padding:12px 0 5px;
+	 .mCSB_draggerContainer {
+	 	margin-top:7px;
+	 } 
+	 .mCSB_dragger_bar {
     	width:8px;
-    }
-   .collage-element {
+     }
+     .collage-element {
 		width:6em;
 		padding:1em;
 		border:1px solid grey;
@@ -160,9 +183,10 @@ body {
 		margin:auto;
 		margin-top:10px;
 	} 
-	.slide_selected{
+	.slide_selected {
 		border: solid 2px @active-slide-color;
 	}
+   }  
 }
 
 .library-thumbnails {

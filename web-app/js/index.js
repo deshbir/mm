@@ -195,7 +195,7 @@ com.compro.application.mm = (function() {
 		el_maincontainer.mCustomScrollbar("update");
 		if(myPPTApp.reRender) {
 			myPPTApp.reRender();
-			$("#leftsidebar").mCustomScrollbar("update");
+			$("#collage-scroll").mCustomScrollbar("update");
 		}	
 	}
 
@@ -240,18 +240,19 @@ com.compro.application.mm = (function() {
 		
 		//apply Scrollbar after initializing the data.
 		//TODO : "setTimeout" is used since there is a delay if data loaded is huge in size.
-		setTimeout('$("#leftsidebar").mCustomScrollbar({scrollInertia:0});', 60);
+		setTimeout('$("#collage-container" ).sortable();',2000);
+		setTimeout('$("#collage-scroll").mCustomScrollbar({scrollInertia:0});', 200);
 		
 		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
 			myPPTApp.clearState();
 		});
 
-		$("#new-slide").click(function(){
+		$(".new-slide").click(function(){
 			myPPTApp.addNewSlide();
 
 			//Update Scrollbar when content is added.
-			$("#leftsidebar").mCustomScrollbar("update");
+			$("#collage-scroll").mCustomScrollbar("update");
 		});
 
 		$("#delete-slide").click(function(){

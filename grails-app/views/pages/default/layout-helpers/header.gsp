@@ -14,7 +14,7 @@
 			</a>
 			<div class="nav-collapse">
             <ul class="nav">
-				<li id="new-slide"><a href="#" class="btn"><span><g:message code="header.new.page"/></span></a></li>
+				<li class="new-slide"><a href="#" class="btn"><span><g:message code="header.new.page"/></span></a></li>
 				<li><a href="#menuItem2" class="btn"><span><g:message code="header.preview.magazine"/></span></a></li>
 				<li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
