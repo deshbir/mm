@@ -16,11 +16,17 @@ EditorView = new function() {
 			router = new Router();
 		}
 		
+		TemplateManager.get('editor-static', 
+				function(template){
+			$("#editor > .accordion-inner ").append(template);
+		});		
 		EditorCollection.get().fetch({
 			success: function(){
 				TemplateManager.get('editor-panel', function(template){
-					$("#library-photos").append(template);
+					$("#library-editor").append(template);
 				});
+				//Reset scrollbars on the main windows
+				setTimeout('com.compro.application.mm.resetScrollbars();', 60);
 			}
 		});
 		

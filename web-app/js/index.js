@@ -55,7 +55,7 @@ com.compro.application.mm = (function() {
 		var screenWidth = el_body.width();
 		var el_my_photos_btn = $("#my-photos-btn");
 		var el_library_photos_btn =  $("#library-photos-btn");
-		var el_library_photos = $("#library-photos");
+		var el_library_photos = $("#library-photo");
 		var el_my_photos = $("#my-photos");
 		//UTILS.checkDomDependencies(.................);
 	//});
@@ -101,7 +101,7 @@ com.compro.application.mm = (function() {
 		TABLET_MAX_WIDTH : 980,
 		DESKTOP_MIN_WIDTH : 981,
 		MIN_HEIGHT_THRESHOLD : 700,
-		margins_el_maincontainer : 20,
+		margins_el_maincontainer : 27,
 		scrollbar_el_maincontainer : 10,
 		borders_el_maincontainer : 12,
 		paddings_el_maincontainer : 26
