@@ -70,9 +70,9 @@
       this.$element[dimension](this.$element[0][scroll])
       //do only when event is fired from top navigation bar
       if(this.$element.hasClass('nav-collapse')) {
-		 $(".header").css("height","300px");
-		 $(".col").css("top","310px");
-		 $('#slide-toggle').css("margin-top","30em");
+		 $(".header").css("height","438px");
+		 $(".col").css("top","446px");
+		 $('#slide-toggle').css("margin-top","25em");
 	  }
     }
 
