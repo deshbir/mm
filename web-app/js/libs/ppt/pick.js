@@ -140,8 +140,7 @@ com.compro.ppt.Pick = function(){
 		} 
 		var defaultDragStartHandler = function (obj,x,y,event) {
 			// storing original coordinates
-				console.log("drag start",event);
-				Utils.fireEvent(obj,"dragStart");					
+				Utils.fireEvent(obj,obj.events.DRAG_START);
 				var bBox = this.getBBox(false);
 				this.ox = bBox.x;
 				this.oy = bBox.y;
@@ -177,11 +176,12 @@ com.compro.ppt.Pick = function(){
 			var thumbBBox = this.thumbInstance.getBBox(false);
 			var config = obj.config;
 			this.thumbInstance.transform("...T" + (bBox.x*config.thumbRatio-thumbBBox.x) + "," + (bBox.y*config.thumbRatio-thumbBBox.y));
-			Utils.fireEvent(obj,"stateChanged");
-			Utils.fireEvent(obj,"dragEnd");
+			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
 			//Toch events are removed once the pick is brought to front, reattaching them
 			this.undrag();
 			this.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
+			Utils.fireEvent(obj,obj.events.DRAG_END);
+			Utils.fireEvent(obj,obj.events.PICK_SELECTED);
 		}; 
 
 		var defaultSelectPickHandler = function(){
@@ -263,7 +263,6 @@ com.compro.ppt.Pick = function(){
 			
 				
 				this.instance.boxSet = boxSet;
-				Utils.fireEvent(this,"pickSelected");
 			}
 		};
 
@@ -277,7 +276,7 @@ com.compro.ppt.Pick = function(){
 			this.unSelect();
 			this.instance.thumbInstance.remove();
 			this.instance.remove();
-			Utils.fireEvent(this,"pickDeleted");
+			Utils.fireEvent(this,this.event.PICK_DELETED);
 		};
 
 		var defaultMoveToFront = function(){
@@ -484,7 +483,7 @@ com.compro.ppt.Pick = function(){
 			};
 
 			Utils.registerObjectForEvent(this);
-			Utils.addCustomEventListener(this,"stateChanged",function(event){
+			Utils.addCustomEventListener(this,this.events.STATE_CHANGED,function(event){
 				this.properties.raphaelAttributes = this.instance.attr();
 			});
 		};
@@ -540,7 +539,7 @@ com.compro.ppt.Pick = function(){
 			if(this.instance.boxSet)
 				this.instance.boxSet.remove();
 			this.selectPick();
-			Utils.fireEvent(this,"stateChanged");
+			Utils.fireEvent(this,this.events.STATE_CHANGED);
 		}
 
 		PickConstr.prototype.resize = function(scale_x,scale_y,ref_x,ref_y){
@@ -557,7 +556,7 @@ com.compro.ppt.Pick = function(){
 			this.instance.transform(main_scale_str);
 			this.instance.thumbInstance.transform(thumb_scale_str);
 			this.selectPick();
-			Utils.fireEvent(this,"stateChanged");
+			Utils.fireEvent(this,this.events.STATE_CHANGED);
 		}
 
 		
@@ -599,6 +598,14 @@ com.compro.ppt.Pick = function(){
 		
 
 		PickConstr.prototype.moveToFront = defaultMoveToFront;
+		
+		PickConstr.prototype.events = {
+				PICK_SELECTED:'pickSelected',
+				STATE_CHANGED:'stateChanged',
+				PICK_DELETED:'pickDeleted',
+				DRAG_END:'dragEnd',
+				DRAG_START:'dragStart'
+		}
 
 		PickConstr.prototype.toJSON  = function() {
 			return {

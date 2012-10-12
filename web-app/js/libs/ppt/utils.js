@@ -68,17 +68,19 @@
 				//el.scrollTop = el.scrollHeight;
 			},
 			registerObjectForEvent:function(obj){
-				obj.eventObj = new EventTarget();
+				//obj.eventObj = new EventTarget();
 			},
 			fireEvent: function(obj,type){
-				var event = {
+				/*var event = {
 					target:obj,
 					type:type
 				};
-				obj.eventObj.fire(event,obj);
+				obj.eventObj.fire(event,obj);*/
+				$(obj).triggerHandler(type);
 			},
 			addCustomEventListener: function(obj,type,fn){
-				obj.eventObj.addListener(type,fn);
+				//obj.eventObj.addListener(type,fn);
+				$(obj).bind(type,fn);
 			},
 			removeFromDOM : function(el){
 				$(el).remove();

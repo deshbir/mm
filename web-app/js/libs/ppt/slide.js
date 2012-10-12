@@ -136,21 +136,21 @@ com.compro.ppt.Slide = function() {
 		pick.paint(pickRatio);
 		
 		this.pickList.push(pick);
-		Utils.addCustomEventListener(pick,"stateChanged",Utils.proxy(function(obj,event){
+		Utils.addCustomEventListener(pick,pick.events.STATE_CHANGED,Utils.proxy(function(obj,event){
 			obj.saveState();
 		},this));
 
-		Utils.addCustomEventListener(pick,"pickDeleted",Utils.proxy(function(obj,event){
+		Utils.addCustomEventListener(pick,pick.events.PICK_DELETED,Utils.proxy(function(obj,event){
 			obj.unSelectPick();
 			obj.removePickfromList(event.target);
 			obj.saveState();
 		},this));
 
-		Utils.addCustomEventListener(pick,"dragEnd",Utils.proxy(function(obj,event){
+		Utils.addCustomEventListener(pick,pick.events.DRAG_END,Utils.proxy(function(obj,event){
 			obj.selectPick(event.target);
 		},this));
 
-		Utils.addCustomEventListener(pick,"dragStart",Utils.proxy(function(obj,event){
+		Utils.addCustomEventListener(pick,pick.events.DRAG_START,Utils.proxy(function(obj,event){
 			obj.unSelectPick();
 			obj.movePickToFront(event.target);
 		},this));

@@ -54,13 +54,19 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 			*/
 
 			var addPick = function(handler,coordX,coordY,properties) {
-				slideList[selectedSlide].addPick(handler,coordX,coordY,properties,null,false);
+				var pick = slideList[selectedSlide].addPick(handler,coordX,coordY,properties,null,false);
+				Utils.addCustomEventListener(pick,pick.events.PICK_SELECTED,function(event){
+					namespace.GLOBAL.triggerGlobalEvent("ON_PICK_CLICK",pick,pick);
+				});
 				saveState();
 			}
 
 			var addPickFromStorage = function(handler,coordX,coordY,storageProps,saveStateFlag) {
 				saveStateFlag = typeof saveStateFlag !== 'undefined' ? saveStateFlag : true;
-				slideList[selectedSlide].addPick(handler,coordX,coordY,null,storageProps,true);
+				var pick = slideList[selectedSlide].addPick(handler,coordX,coordY,null,storageProps,true);
+				Utils.addCustomEventListener(pick,pick.events.PICK_SELECTED,function(event){
+					namespace.GLOBAL.triggerGlobalEvent("ON_PICK_CLICK",pick,pick);
+				});
 				if(saveStateFlag){
 					saveState();
 				}
