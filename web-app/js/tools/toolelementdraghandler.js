@@ -32,12 +32,16 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 	(function initializeModule()	{
 
 		Utils.attachEvent(document.body, 'drop',function (event) {
-			event.preventDefault();
-			droppedOnBody(event);
-				},false);
+			if(elementDragged!=null){
+				event.preventDefault();
+				droppedOnBody(event);
+	     	}
+			
+		},false);
 
 		Utils.attachEvent(document.body, 'dragover',function (event) {
 			event.preventDefault();
+			//elementDragged.style.display="block";
 			continueDragging(event);
 		},false);
 
@@ -60,21 +64,16 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		//Get What is being dragged and its x / y possition
 		var source = elementDragged.src;
 		
-		var elementDraggedX = event.pageX-$(elementDragged).offset().left;
-		var elementDraggedY = event.pageY-$(elementDragged).offset().top;
 		
 		//Calculating the position of the mouse on the image to calculate correct position of dropped pick
 		var workspaceEl = namespace.workspace.el;
-		//console.log($(elementDragged).offset(),$(workspaceEl).offset());
-		if(elementDraggedX<0 || elementDraggedX>elementDragged.offsetWidth)
-			elementDraggedX = gElementDraggedX;
-		if(elementDraggedY<0 || elementDraggedY>elementDragged.offsetHeight)
-			elementDraggedY = gElementDraggedY;
-
 		//console.log(elementDragged);
 		//Calculating the top-left coordinates in workspace where the pick would be placed
-		var coordX = event.pageX - $(workspaceEl).offset().left-elementDraggedX;
-		var coordY = event.pageY -$(workspaceEl).offset().top-elementDraggedY;
+		console.log(gElementDraggedX,gElementDraggedY);
+		var coordX = event.pageX - $(workspaceEl).offset().left-parseFloat($(workspaceEl).css("padding-left"))-gElementDraggedX;
+		var coordY = event.pageY -$(workspaceEl).offset().top-parseFloat($(workspaceEl).css("padding-top"))-gElementDraggedY;
+		coordX = coordX<0?(coordX+parseFloat($(workspaceEl).css("padding-left"))):coordX;
+		coordY = coordY<0?(coordY+parseFloat($(workspaceEl).css("padding-top"))):coordY;
 		
 		//Validating if coordinates lie inside the workspace
 		if(coordX>=0 && 
@@ -99,7 +98,9 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		}
 
 		//myeltPPT.elementDragged.parentElement.removeChild(myeltPPT.elementDragged);
-		elementDragged = null;		
+		//elementDragged = null;	
+		elementDragged.parentElement.removeChild(elementDragged);
+		elementDragged = null;
 	}
 
 	/*
@@ -112,6 +113,9 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		}
 		//var workspaceEl = Utils.getById("workspace");
 		//Calculating dragged image new coordinates
+		console.log(elementDragged.style.cursor);
+		console.log(document.body.style.cursor);
+		elementDragged.style.display="block";
 		var posX = event.pageX-gElementDraggedX;
 		var posY = event.pageY-gElementDraggedY;
 		elementDragged.style.left = posX + "px";
@@ -139,6 +143,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 		//for touch devices
 		Utils.attachEvent(el, 'touchstart',function (event) {
+			event.preventDefault();
 			dragStart(event.changedTouches[0]);
 		}, false);
 				
@@ -149,8 +154,9 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 		Utils.attachEvent(el, 'touchend',function (event) {
 			event.preventDefault();
-			 this.parentElement.removeChild(this);
-			drop(event.changedTouches[0]);
+			 droppedOnBody(event.changedTouches[0]);
+			 elementDragged.parentElement.removeChild(elementDragged);
+			 elementDragged = null;
 		},false);
 
 		Utils.attachEvent(el, 'mousemove',function (event) {
@@ -159,7 +165,10 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		false);
 
 		Utils.attachEvent(el, 'dragend',function (event) {
-			this.parentElement.removeChild(this);
+			console.log("dragend");
+			event.preventDefault();
+			droppedOnBody(event);
+			
 		},false);
 			
 	
@@ -185,26 +194,28 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 			var offset = $(elementDragged).offset();
 			
 			//Cloning and adding duplicate DOM element
-			var cloneObj;
-			if (elementSibling[0] == null) {
+			var cloneObj = ($(elementDragged).clone())[0];
+			/*if (elementSibling[0] == null) {
 				cloneObj = $(elementDragged).clone();
 				$(cloneObj).appendTo(elementParent[0]);
 			} else
-				cloneObj = $(elementDragged).clone().insertBefore(elementSibling);
+				cloneObj = $(elementDragged).clone().insertBefore(elementSibling);*/
 			
 			//getting JSOn property of element
-			var jsonProperties=JSON.parse(elementDragged.getAttribute(config.dataString + config.propString));
-			new com.cengage.mm.tools.ToolElementDragHandler(cloneObj[0],elementDragged.getAttribute(config.dataString + config.handlerString),jsonProperties);
+			//var jsonProperties=JSON.parse(elementDragged.getAttribute(config.dataString + config.propString));
+			//new com.cengage.mm.tools.ToolElementDragHandler(cloneObj,elementDragged.getAttribute(config.dataString + config.handlerString),jsonProperties);
 			
-			console.log("dragStart",elementDragged);
-			$(elementDragged).appendTo($("body"));
-			elementDragged.style.left = offset.left + "px";
-			elementDragged.style.top = offset.top + "px";
-			elementDragged.style.position ="absolute";
-			event.target.style.zIndex=999;
+			//console.log("dragStart",cloneObj);
+			$(cloneObj).appendTo($("body"));
+			cloneObj.style.zIndex=-1;
+			cloneObj.style.display="none";
+			cloneObj.style.left = offset.left + "px";
+			cloneObj.style.top = offset.top + "px";
+			cloneObj.style.position ="absolute";
 			
-			$(elementDragged).width(width);
-			$(elementDragged).height();
+			
+			$(cloneObj).width(width);
+			elementDragged = cloneObj;
 		}
 	}
 
