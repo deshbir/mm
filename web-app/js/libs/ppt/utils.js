@@ -1,3 +1,4 @@
+
 //********************END Self executing independent block*****************
 
 
@@ -10,8 +11,11 @@
 				//return document.getElementById(id);
 			},
 			attachEvent : function(el, event, func, useCapture){
-				//$(el).bind(event,func);
-				el.addEventListener(event, func, useCapture||false);
+				$(el).bind(event,function(event) {
+					func.apply(el, [event.originalEvent]);
+					}
+				);
+				//el.addEventListener(event, func, useCapture||false);
 			},
 			createElement : function(type){
 				return $("<"+type+">").get(0);
