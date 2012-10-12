@@ -1,16 +1,10 @@
- <h4>
-    Editor
-   	<span class="btn-group" data-toggle="buttons-radio">
-	 	<button class="btn" type="button" id="bring-fwd-btn">Bring Forward</button>
-		<button class="btn" type="button" id="send-bck-btn">Send Back</button>
-		<button class="btn" type="button" id="send-bck-btn">Remove</button>
-	</span>
-</h4>
-<p> Once you select an image or block of text on you layout on left, edit it below. </p>
+
 <div id="text-editor">
 	<h5>
-		Text Editor
-		<button class="btn " type="button" id="spelling-btn">Spelling</button>
+		<g:message code="rightpanel.editortab.texteditor"/> 
+		<button class="btn " type="button" id="spelling-btn">
+			<g:message code="rightpanel.editortab.spelling"/>
+		</button>
 	</h5>
 	<textarea cols="25" rows="6" >
 	
@@ -18,17 +12,17 @@
 </div>
 <div id="image-editor">
    <h5>
-		Image Editor
+		<g:message code="rightpanel.editortab.imageeditor"/>
    </h5>
    <div id="scale-div">
-		<span> Scale Image </span>
+		<span><g:message code="rightpanel.editortab.scaleimage"/></span>
 		<div id="scaler">
 		    <div></div>
 			<a id="rectangle" href="#"></a>
 		</div>
 	</div>
 	<div id="rotate-div">
-		<span> Rotate Image </span>
+		<span><g:message code="rightpanel.editortab.rotateimage"/></span>
 			<div id="outer-circle">
 				<p id="circle"></p>
 				<p id="inner-circle"></p>

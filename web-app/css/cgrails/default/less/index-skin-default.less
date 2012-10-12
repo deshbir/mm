@@ -32,6 +32,7 @@ body {
 .navbar {
      .navbar-inner {
 		  .vertical-gradient(@header-bckgrnd-color, darken(@header-bckgrnd-color, 10%));
+		  .border-radius(0);
 		  border-bottom:0 none;
 		  min-height:91px;
 		  .brand {
@@ -112,6 +113,10 @@ body {
 		  	    .dropdown-menu {
 		  	    	left:-88px;
 		  	    	min-width:130px;
+		  	    	.set-paddings {
+		  	    		padding-top:2px;
+		  	    		padding-bottom:2px;
+		  	    	}
 		  	    	&:before {
 		  	    		left:108px;
 		  	    	}
@@ -128,7 +133,7 @@ body {
 		  	    		a {
 							font-family:verdana;
 							font-size:12px;
-							padding-bottom:0;
+							padding:2px 15px;
 							&:hover {
 								background-color: darken(@white, 20%);
 							}
@@ -145,7 +150,7 @@ body {
 
 #leftsidebar {
    #collage-buttonbar {
-   	  margin:0 1.5em;
+   	  margin:5px 1.5em 0;
    	  padding-top:1px;
    	  text-align:center;
    	  background:@main-container-color;
@@ -164,9 +169,9 @@ body {
    }
    #collage-scroll {
    	 position: absolute;
-	 top: 17px;
+	 top: 23px;
 	 bottom: 0px;
-	 left:10px;
+	 left:0px;
 	 right:0px;
 	 padding:0px 0 2px;
 	 .mCSB_draggerContainer {
@@ -273,7 +278,7 @@ body {
     		}
     	}
     }
-    #editor-options {
+    #editor {
         h4 {
         	.btn {
         		font-size:11px;

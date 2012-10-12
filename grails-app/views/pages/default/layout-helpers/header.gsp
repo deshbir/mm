@@ -35,12 +35,12 @@
 	                   	<b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                    	 <li>Language</li>
+                    	 <li class="set-paddings">Language</li>
                     	 <hr/>
                     	 <li><a href="?lang=en">English</a></li>
                          <li><a href="?lang=ar">Arabic</a></li>
                          <li><a href="?lang=ja">Japanese</a></li>
-                         <li>Skin</li>
+                         <li class="set-paddings">Skin</li>
                          <hr/>
                     	 <li><a href="/${appName}/default/traditional/">Default</a></li>
                          <li><a href="/${appName}/gray/traditional/">Gray</a></li>

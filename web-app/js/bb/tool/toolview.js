@@ -27,7 +27,7 @@ ToolView = new function() {
 							//Adding show event with accordion tabs
 				     	    
 							$('#' + model.toJSON().toolid).on('show', function () {
-				     	    	Backbone.history.navigate("#/" + model.toJSON().toolid, {trigger:true});
+				     	    	Backbone.history.navigate("#/"+ model.toJSON().toolid, {trigger:true});
 				    		});
 							
 						});

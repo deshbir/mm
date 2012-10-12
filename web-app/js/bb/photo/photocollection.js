@@ -13,7 +13,7 @@ PhotoCollection = new function() {
  		  var urlGET = "/" + com.compro.cgrails.APPLICATIONNAME + "/api/photo/";
  		  if (typeof category != "undefined") {
  			  urlGET =  urlGET + category ;
- 		  } 		  
+ 		  } 	  
  		  
           if (collectionMap[category] == null) {
         	  collectionMap[category] = new Collection();
