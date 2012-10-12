@@ -40,7 +40,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		},false);
 
 		Utils.attachEvent(document.body, 'dragover',function (event) {
-			event.preventDefault();
+			
 			//elementDragged.style.display="block";
 			continueDragging(event);
 		},false);
@@ -69,17 +69,9 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		var workspaceEl = namespace.workspace.el;
 		//console.log(elementDragged);
 		//Calculating the top-left coordinates in workspace where the pick would be placed
-		console.log(gElementDraggedX,gElementDraggedY);
-		var coordX = event.pageX - $(workspaceEl).offset().left-parseFloat($(workspaceEl).css("padding-left"))-gElementDraggedX;
-		var coordY = event.pageY -$(workspaceEl).offset().top-parseFloat($(workspaceEl).css("padding-top"))-gElementDraggedY;
-		coordX = coordX<0?(coordX+parseFloat($(workspaceEl).css("padding-left"))):coordX;
-		coordY = coordY<0?(coordY+parseFloat($(workspaceEl).css("padding-top"))):coordY;
 		
-		//Validating if coordinates lie inside the workspace
-		if(coordX>=0 && 
-		(coordX<=workspaceEl.offsetWidth) &&
-		coordY>=0 && coordY<=(workspaceEl.offsetHeight))
-		{
+		var positionData = validateDrop(event, workspaceEl);
+		if(positionData.isValid){
 			var jsonProperties=JSON.parse(elementDragged.getAttribute(config.dataString + config.propString));
 			//verifying if raphaelAttributes exist else create a new property called raphaelAttributes - might exists in shapes but not in images
 			if (jsonProperties.raphaelAttributes == null)
@@ -91,35 +83,70 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 			//Passing Properties and handler
 			//Params:Handler,coordX,coordY,properties,toolsProps,storageProp(null),isFromStorage
 			var handler = elementDragged.getAttribute(config.dataString + config.handlerString);
-			namespace.workspace.addPick(handler,coordX,coordY,jsonProperties);
-		} else{
-		//console.log(coordX, " " ,workspaceEl.offsetWidth);
-		//console.log(coordY, " " ,workspaceEl.offsetHeight);
+			namespace.workspace.addPick(handler,positionData.coordX,positionData.coordY,jsonProperties);
 		}
+		
 
 		//myeltPPT.elementDragged.parentElement.removeChild(myeltPPT.elementDragged);
 		//elementDragged = null;	
 		elementDragged.parentElement.removeChild(elementDragged);
 		elementDragged = null;
 	}
+	
+	/*
+	 * function to validate that element being dragged lies
+	 * within the allowed area for dropping the element
+	 */
+	
+	function validateDrop(event, workspaceEl){
+		var coordX = event.pageX - $(workspaceEl).offset().left-parseFloat($(workspaceEl).css("padding-left"))-gElementDraggedX;
+		var coordY = event.pageY -$(workspaceEl).offset().top-parseFloat($(workspaceEl).css("padding-top"))-gElementDraggedY;
+		coordX = coordX<0?(coordX+parseFloat($(workspaceEl).css("padding-left"))):coordX;
+		coordY = coordY<0?(coordY+parseFloat($(workspaceEl).css("padding-top"))):coordY;
+		
+		//Validating if coordinates lie inside the workspace
+		if(coordX>=0 && 
+		(coordX<=workspaceEl.offsetWidth) &&
+		coordY>=0 && coordY<=(workspaceEl.offsetHeight))
+		{
+			isValid = true;
+		} else{
+			isValid = false;
+		//console.log(coordX, " " ,workspaceEl.offsetWidth);
+		//console.log(coordY, " " ,workspaceEl.offsetHeight);
+		}
+		return {
+			"coordX": coordX,
+			"coordY" : coordY,
+			"isValid" : isValid
+		};
+	}
+	
+	
 
 	/*
 	* Handler for dragging(before dropping onto the Slide) the elements from Tools to Slide
 	*/
 	//For dragging effect
-	function continueDragging(event){
+	function continueDragging(event, wo){
 		if(elementDragged==null) {
 			return;
 		}
+		
 		//var workspaceEl = Utils.getById("workspace");
 		//Calculating dragged image new coordinates
-		console.log(elementDragged.style.cursor);
-		console.log(document.body.style.cursor);
 		elementDragged.style.display="block";
 		var posX = event.pageX-gElementDraggedX;
 		var posY = event.pageY-gElementDraggedY;
 		elementDragged.style.left = posX + "px";
 		elementDragged.style.top = posY + "px";
+
+		//handling for cursor-type while dragging
+		var workspaceEl = namespace.workspace.el;
+		var positionData = validateDrop(event, workspaceEl);
+		if(positionData.isValid){
+			event.preventDefault();
+		}
 	}	
 	
 	/********************************************************/	
@@ -212,7 +239,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 			cloneObj.style.left = offset.left + "px";
 			cloneObj.style.top = offset.top + "px";
 			cloneObj.style.position ="absolute";
-			
+			cloneObj.style.zIndex = 999;
 			
 			$(cloneObj).width(width);
 			elementDragged = cloneObj;
