@@ -57,19 +57,16 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 	* the other element is being dropped
 	*/
 	function droppedOnBody(event) {
-		
 		if(elementDragged==null) {
 			return;
 		}
 		//Get What is being dragged and its x / y possition
 		var source = elementDragged.src;
 		
-		
 		//Calculating the position of the mouse on the image to calculate correct position of dropped pick
 		var workspaceEl = namespace.workspace.el;
-		//console.log(elementDragged);
-		//Calculating the top-left coordinates in workspace where the pick would be placed
 		
+		//Calculating the top-left coordinates in workspace where the pick would be placed
 		var positionData = validateDrop(event, workspaceEl);
 		if(positionData.isValid){
 			var jsonProperties=JSON.parse(elementDragged.getAttribute(config.dataString + config.propString));
@@ -85,10 +82,6 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 			var handler = elementDragged.getAttribute(config.dataString + config.handlerString);
 			namespace.workspace.addPick(handler,positionData.coordX,positionData.coordY,jsonProperties);
 		}
-		
-
-		//myeltPPT.elementDragged.parentElement.removeChild(myeltPPT.elementDragged);
-		//elementDragged = null;	
 		elementDragged.parentElement.removeChild(elementDragged);
 		elementDragged = null;
 	}
@@ -128,7 +121,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 	* Handler for dragging(before dropping onto the Slide) the elements from Tools to Slide
 	*/
 	//For dragging effect
-	function continueDragging(event, wo){
+	function continueDragging(event){
 		if(elementDragged==null) {
 			return;
 		}
@@ -145,7 +138,8 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		var workspaceEl = namespace.workspace.el;
 		var positionData = validateDrop(event, workspaceEl);
 		if(positionData.isValid){
-			event.preventDefault();
+			if(event.preventDefault)
+				event.preventDefault();
 		}
 	}	
 	
@@ -166,12 +160,13 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 		Utils.attachEvent(el, 'dragstart',function (event) {
 			dragStart(event);
+			
 		}, false);
 
 		//for touch devices
 		Utils.attachEvent(el, 'touchstart',function (event) {
-			event.preventDefault();
 			dragStart(event.changedTouches[0]);
+			event.stopPropagation();
 		}, false);
 				
 		Utils.attachEvent(el, 'touchmove',function (event) {
@@ -181,21 +176,13 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 		Utils.attachEvent(el, 'touchend',function (event) {
 			event.preventDefault();
-			 droppedOnBody(event.changedTouches[0]);
-			 elementDragged.parentElement.removeChild(elementDragged);
-			 elementDragged = null;
+			droppedOnBody(event.changedTouches[0]);
 		},false);
 
-		Utils.attachEvent(el, 'mousemove',function (event) {
-		//	animation.mouseMove(event);
-		},
-		false);
 
 		Utils.attachEvent(el, 'dragend',function (event) {
-			console.log("dragend");
 			event.preventDefault();
 			droppedOnBody(event);
-			
 		},false);
 			
 	
@@ -254,3 +241,4 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 
 }())
+
