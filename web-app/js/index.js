@@ -236,13 +236,14 @@ com.compro.application.mm = (function() {
 	
 
 	function init_ppt_engine() {
+		var handler = function(){
+			//do something
+			$("#collage-container").sortable();
+			$("#collage-scroll").mCustomScrollbar({scrollInertia:0});
+		};
+		myPPTApp.registerEvent("AFTER_PPT_INIT", handler);
 		//Main PPT Engine (Generic) Initialization
 		myPPTApp.initialize("collage-container","the-slide");
-		
-		//apply Scrollbar after initializing the data.
-		//TODO : "setTimeout" is used since there is a delay if data loaded is huge in size.
-		setTimeout('$("#collage-container" ).sortable();',2000);
-		setTimeout('$("#collage-scroll").mCustomScrollbar({scrollInertia:0});', 200);
 		
 		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
