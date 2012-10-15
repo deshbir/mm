@@ -1,0 +1,20 @@
+{
+    "tools": [
+        {
+        	"toolid": "photo",
+        	"name": "Photos"
+        },
+        {
+        	"toolid": "layout",
+        	"name": "Layout, Text and Shapes"
+        },
+        {
+        	"toolid": "video",
+        	"name": "Video & Audios"
+        }, 
+		{
+        	"toolid": "editor",
+        	"name": "Editor"
+        }                          
+    ]    
+}

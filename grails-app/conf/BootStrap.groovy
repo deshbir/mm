@@ -10,10 +10,19 @@ class BootStrap {
     def init = { servletContext ->
 		// Check whether the test data already exists.
 		if (!Tool.count()) {
+			def slurper = new JsonSlurper()
+			def allTools = slurper.parseText(Tool.jsonPayload)
+			
+			allTools.tools.each
+			{
+				new Tool(toolid: it.toolid, name: it.name).save(failOnError: true)
+			}
+			/*
 			new Tool(toolid: "photo", name: "Photos").save(failOnError: true)
 			new Tool(toolid: "layout", name: "Layout, Text and Shapes").save(failOnError: true)
 			new Tool(toolid: "video", name: "Video & Audios").save(failOnError: true)
 			new Tool(toolid: "editor", name: "Editor").save(failOnError: true)
+			*/
 		}
 		
 		if (!Photo.count()) {
