@@ -613,6 +613,24 @@ com.compro.ppt.Pick = function(){
        		};
 		}
 		
+		PickConstr.prototype.updateProperties  = function(jsonProps) {
+			this.instance.attr(jsonProps);
+			if(jsonProps["stroke-width"]){
+				jsonProps["stroke-width"] = jsonProps["stroke-width"]*this.config.thumbRatio;
+			}
+			this.instance.thumbInstance.attr(jsonProps);
+		}
+		
+		PickConstr.prototype.externalObject = function(){
+			return {
+				rotate:this.rotate,
+				resize:this.resize,
+				deletePick:this.deletePick,
+				updateProperties: this.updateProperties,
+				handler:this.properties.handler
+			}
+		}
+		
 
 		
 		

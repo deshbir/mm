@@ -19,11 +19,7 @@
 	}
 	
 	function onPickClick(handlers,pick){
-		var obj = {
-				rotate:pick.rotate,
-				resize:pick.resize,
-				deletePick:pick.deletePick
-		}
+		var obj = pick.externalObject();
 		callHandlers(handlers,obj,[obj]);
 	}
 	

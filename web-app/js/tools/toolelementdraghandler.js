@@ -103,8 +103,6 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 			isValid = true;
 		} else{
 			isValid = false;
-		//console.log(coordX, " " ,workspaceEl.offsetWidth);
-		//console.log(coordY, " " ,workspaceEl.offsetHeight);
 		}
 		return {
 			"coordX": coordX,
@@ -123,8 +121,6 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		if(elementDragged==null) {
 			return;
 		}
-		console.log("called mouseMOve");
-		//console.log("continueDragging called");
 		//var workspaceEl = Utils.getById("workspace");
 		//Calculating dragged image new coordinates
 		elementDragged.style.display="block";
@@ -160,7 +156,6 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		el.setAttribute(config.dataString + config.propString, JSON.stringify(jsonProp));
 		
 		var mouseUpHandler = function(event) {
-			console.log("mouseUpHandler");
 				event.preventDefault();
 				droppedOnBody(event);
 				Utils.removeEvent(document.body, 'mouseup.tool_mm');
@@ -169,7 +164,6 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		
 		var mouseMoveHandler = function(event){
 			//elementDragged.style.display="block";
-			console.log("mouseMoveHandler");
 			continueDragging(event);
 		}
 
@@ -215,7 +209,6 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 				gElementDraggedX = event.pageX-$(elementDragged).offset().left;
 				gElementDraggedY = event.pageY-$(elementDragged).offset().top;
 			}
-			//console.log("dragStart Event" + event.target);
 			elementDragged = event.target;
 			var elementSibling = $(elementDragged).next();
 			var elementParent = $(elementDragged).parent();
@@ -235,7 +228,6 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 			//var jsonProperties=JSON.parse(elementDragged.getAttribute(config.dataString + config.propString));
 			//new com.cengage.mm.tools.ToolElementDragHandler(cloneObj,elementDragged.getAttribute(config.dataString + config.handlerString),jsonProperties);
 			
-			//console.log("dragStart",cloneObj);
 			$(cloneObj).appendTo($("body"));
 			cloneObj.style.zIndex=-1;
 			cloneObj.style.display="none";
