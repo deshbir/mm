@@ -276,7 +276,7 @@ com.compro.ppt.Pick = function(){
 			this.unSelect();
 			this.instance.thumbInstance.remove();
 			this.instance.remove();
-			Utils.fireEvent(this,this.event.PICK_DELETED);
+			Utils.fireEvent(this,this.events.PICK_DELETED);
 		};
 
 		var defaultMoveToFront = function(){
