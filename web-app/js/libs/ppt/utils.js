@@ -10,12 +10,15 @@
 				return $("#" + id).get(0);
 				//return document.getElementById(id);
 			},
-			attachEvent : function(el, event, func, useCapture){
-				$(el).bind(event,function(event) {
+			attachEvent : function(el, type, func, useCapture){
+				$(el).bind(type,function(event) {
 					func.apply(el, [event.originalEvent]);
 					}
 				);
 				//el.addEventListener(event, func, useCapture||false);
+			},
+			removeEvent : function(el, type){
+				$(el).unbind(type);
 			},
 			createElement : function(type){
 				return $("<"+type+">").get(0);

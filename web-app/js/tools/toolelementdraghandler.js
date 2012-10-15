@@ -29,23 +29,9 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 	/********************************************************/
 	/*                 ONE TIME INIT FUNCTIONS              */ 
 	/********************************************************/
-	(function initializeModule()	{
-
-		Utils.attachEvent(document.body, 'drop',function (event) {
-			if(elementDragged!=null){
-				event.preventDefault();
-				droppedOnBody(event);
-	     	}
-			
-		},false);
-
-		Utils.attachEvent(document.body, 'dragover',function (event) {
-			
-			//elementDragged.style.display="block";
-			continueDragging(event);
-		},false);
-
-	})();
+	/*(function initializeModule()	{
+		
+	})();*/
 	//-------------------------------------------------------/
 
 	/**************************************************/
@@ -67,7 +53,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		var workspaceEl = namespace.workspace.el;
 		
 		//Calculating the top-left coordinates in workspace where the pick would be placed
-		var positionData = validateDrop(event, workspaceEl);
+		var positionData = validateDrop(event, workspaceEl, elementDragged);
 		if(positionData.isValid){
 			var jsonProperties=JSON.parse(elementDragged.getAttribute(config.dataString + config.propString));
 			//verifying if raphaelAttributes exist else create a new property called raphaelAttributes - might exists in shapes but not in images
@@ -84,6 +70,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		}
 		elementDragged.parentElement.removeChild(elementDragged);
 		elementDragged = null;
+		document.body.style.cursor = "default";
 	}
 	
 	/*
@@ -91,17 +78,28 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 	 * within the allowed area for dropping the element
 	 */
 	
-	function validateDrop(event, workspaceEl){
-		var coordX = event.pageX - $(workspaceEl).offset().left-parseFloat($(workspaceEl).css("padding-left"))-gElementDraggedX;
-		var coordY = event.pageY -$(workspaceEl).offset().top-parseFloat($(workspaceEl).css("padding-top"))-gElementDraggedY;
-		coordX = coordX<0?(coordX+parseFloat($(workspaceEl).css("padding-left"))):coordX;
-		coordY = coordY<0?(coordY+parseFloat($(workspaceEl).css("padding-top"))):coordY;
+	function validateDrop(event, workspaceEl, el){
+		var workspaceBorder = parseFloat($(workspaceEl).css("border"));
+		var workspacePaddingRight = parseFloat($(workspaceEl).css("padding-right"));
+		var workspacePaddingTop = parseFloat($(workspaceEl).css("padding-top"));
+		var workspacePaddingLeft = parseFloat($(workspaceEl).css("padding-left"));
+		var workspacePaddingBottom = parseFloat($(workspaceEl).css("padding-bottom"));
+		var coordX = event.pageX - $(workspaceEl).offset().left-workspacePaddingLeft-gElementDraggedX;
+		var coordY = event.pageY -$(workspaceEl).offset().top-workspacePaddingTop-gElementDraggedY;
+		coordX = coordX<0?(coordX+workspacePaddingLeft):coordX;
+		coordY = coordY<0?(coordY+workspacePaddingTop):coordY;
+		
+		
 		
 		//Validating if coordinates lie inside the workspace
 		if(coordX>=0 && 
-		(coordX<=workspaceEl.offsetWidth) &&
-		coordY>=0 && coordY<=(workspaceEl.offsetHeight))
+		(coordX<=workspaceEl.offsetWidth-el.offsetWidth) &&
+		coordY>=0 && coordY<=(workspaceEl.offsetHeight-el.offsetHeight))
 		{
+			if(coordX>workspaceEl.offsetWidth-el.offsetWidth - workspacePaddingRight - workspaceBorder)
+				coordX = coordX - workspacePaddingRight - workspaceBorder;
+			if(coordY>workspaceEl.offsetHeight-el.offsetHeight - workspacePaddingBottom - workspaceBorder)
+				coordY = coordY - workspacePaddingBottom - workspaceBorder;
 			isValid = true;
 		} else{
 			isValid = false;
@@ -125,7 +123,8 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		if(elementDragged==null) {
 			return;
 		}
-		
+		console.log("called mouseMOve");
+		//console.log("continueDragging called");
 		//var workspaceEl = Utils.getById("workspace");
 		//Calculating dragged image new coordinates
 		elementDragged.style.display="block";
@@ -133,15 +132,17 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		var posY = event.pageY-gElementDraggedY;
 		elementDragged.style.left = posX + "px";
 		elementDragged.style.top = posY + "px";
-
 		//handling for cursor-type while dragging
 		var workspaceEl = namespace.workspace.el;
-		var positionData = validateDrop(event, workspaceEl);
-		if(positionData.isValid){
-			if(event.preventDefault)
-				event.preventDefault();
+		var positionData = validateDrop(event, workspaceEl,elementDragged);
+		if(!positionData.isValid){
+			elementDragged.style.cursor = "not-allowed";
+			document.body.style.cursor = "not-allowed";
+		} else {
+			elementDragged.style.cursor = "move";
+			document.body.style.cursor = "move";
 		}
-	}	
+	}
 	
 	/********************************************************/	
 	/*                 CONSTRUCTOR                          */ 
@@ -157,11 +158,32 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		
 		el.setAttribute(config.dataString + config.handlerString,handler);
 		el.setAttribute(config.dataString + config.propString, JSON.stringify(jsonProp));
+		
+		var mouseUpHandler = function(event) {
+			console.log("mouseUpHandler");
+				event.preventDefault();
+				droppedOnBody(event);
+				Utils.removeEvent(document.body, 'mouseup.tool_mm');
+				Utils.removeEvent(document.body, 'mousemove.tool_mm');
+		};
+		
+		var mouseMoveHandler = function(event){
+			//elementDragged.style.display="block";
+			console.log("mouseMoveHandler");
+			continueDragging(event);
+		}
 
-		Utils.attachEvent(el, 'dragstart',function (event) {
+
+		Utils.attachEvent(el, 'mousedown',function (event) {
+			event.preventDefault();
 			dragStart(event);
-			
+			Utils.attachEvent(document.body, 'mouseup.tool_mm',mouseUpHandler,false);
+			Utils.attachEvent(document.body, 'mousemove.tool_mm',mouseMoveHandler,false);
 		}, false);
+		Utils.attachEvent(el, 'dragstart',function (event) {
+			event.preventDefault();
+		}, false);
+		
 
 		//for touch devices
 		Utils.attachEvent(el, 'touchstart',function (event) {
@@ -177,12 +199,6 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		Utils.attachEvent(el, 'touchend',function (event) {
 			event.preventDefault();
 			droppedOnBody(event.changedTouches[0]);
-		},false);
-
-
-		Utils.attachEvent(el, 'dragend',function (event) {
-			event.preventDefault();
-			droppedOnBody(event);
 		},false);
 			
 	
