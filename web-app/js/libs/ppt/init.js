@@ -42,7 +42,9 @@
 	}
 	namespacefn.registerEvent = function(type,handler){
 		if(namespacefn.eventMap[type]){
-			namespacefn.eventMap[type].push(handler);
+			if(namespacefn.eventMap[type].indexOf(handler)==-1){
+				namespacefn.eventMap[type].push(handler);
+			}
 		}
 	}
 	
