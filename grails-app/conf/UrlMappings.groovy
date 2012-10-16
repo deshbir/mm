@@ -14,6 +14,7 @@ class UrlMappings {
 		"/api/tool/$id?"(resource:"tool")
 		"/api/photo/$category?"(resource:"photo")
 		"/api/editor/$id?"(resource:"editor")
+		"/api/text/$id?"(resource:"text")
 		
 		"/"		(controller:"main")
 		"500"	(view:'/error')

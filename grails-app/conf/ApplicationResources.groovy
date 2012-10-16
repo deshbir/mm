@@ -63,6 +63,11 @@ modules = {
 		resource url:'js/bb/editor/editormodel.js'
 		resource url:'js/bb/editor/editorcollection.js'
 		resource url:'js/bb/editor/editorview.js'
+		
+		//Backbone text View & Models & Collections
+		resource url:'js/bb/text/textmodel.js'
+		resource url:'js/bb/text/textcollection.js'
+		resource url:'js/bb/text/textview.js'
 	}
 	
 }
