@@ -269,26 +269,46 @@ com.compro.application.mm = (function() {
 		$("#state-clear").click(function(){
 			myPPTApp.clearState();
 		});
-
-		$(".new-slide").click(function(){
-			myPPTApp.addNewSlide();
-
-			//Update Scrollbar when content is added.
-			if(!checkAppleDevice()) {
-				$("#collage-scroll").mCustomScrollbar("update");
-			}
+		$(".new-slide").click(function (event) {
+			addNewSlide();
 		});
-
-		$("#delete-slide").click(function(){
-			var ans = confirm("Are you sure you want to delete the selected slide?");
-			if(ans)	{
-				myPPTApp.deleteSelectedSlide();
-			}
-			if(!checkAppleDevice()) {
-				$("#collage-scroll").mCustomScrollbar("update");
-			}
+		$("#delete-slide").click(function (event) {
+			deleteSlide();
 		});
+		
+		//Binding touch event for Touch devices Starts. 
+		$("#delete-slide").bind("touchstart", function (event) {
+	        var e = event.originalEvent;
+	        deleteSlide();
+	    });
+		$(".new-slide").bind("touchstart", function (event) {
+	        var e = event.originalEvent;
+	        addNewSlide();
+	    });
+		$("#state-clear").bind("touchstart", function (event) {
+	        var e = event.originalEvent;
+	        myPPTApp.clearState();
+	    });
+		//Binding touch event for Touch devices Closed. 
 	}	
+	
+	function deleteSlide(){
+		var ans = confirm("Are you sure you want to delete the selected slide?");
+		if(ans)	{
+			myPPTApp.deleteSelectedSlide();
+		}
+		if(!checkAppleDevice()) {
+			$("#collage-scroll").mCustomScrollbar("update");
+		}
+	}
+	function addNewSlide(){
+		myPPTApp.addNewSlide();
+	
+		//Update Scrollbar when content is added.
+		if(!checkAppleDevice()) {
+			$("#collage-scroll").mCustomScrollbar("update");
+		}
+    }
 	
 	/**
 	 * Function to check apple devices.

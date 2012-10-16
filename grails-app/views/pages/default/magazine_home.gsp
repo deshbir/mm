@@ -8,7 +8,6 @@
     	<div class="left col" id="leftsidebar">
     		<div id="collage-buttonbar">
     			<a href="#" class="new-slide"><i class="icon-check-empty"></i></a> | 
-    			<a href="#" id="state-clear"><i class="icon-refresh"></i></a> | 
     			<a href="#" id="delete-slide"><i class="icon-trash"></i></a>
     		</div>
     		<div id="collage-scroll" class="scroll-pane">
