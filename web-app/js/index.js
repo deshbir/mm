@@ -240,6 +240,19 @@ com.compro.application.mm = (function() {
 	}
 	
 
+	/*Click event mapping when any component (image/text etc..) 
+	 * is clicked in mail container
+	 * 
+	 */ 
+	myPPTApp.registerEvent("ON_PICK_CLICK", function(obj){
+		
+		var handler = obj.handler;
+		if (handler == "com.compro.ppt.Image") {
+			if (!($('.accordion-group > #editor').hasClass("in")))
+				$('.accordion-heading > a[href="#editor"]').click();
+		}
+	});
+	
 	function init_ppt_engine() {
 		var handler = function(){
 			//do something

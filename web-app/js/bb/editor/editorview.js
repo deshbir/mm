@@ -18,12 +18,12 @@ EditorView = new function() {
 		
 		TemplateManager.get('editor-static', 
 				function(template){
-			$("#editor > .accordion-inner ").append(template);
+			$("#editor > .accordion-inner ").html(template);
 		});		
 		EditorCollection.get().fetch({
 			success: function(){
 				TemplateManager.get('editor-panel', function(template){
-					$("#library-editor").append(template);
+					$("#library-editor").html(template);
 				});
 				//Reset scrollbars on the main windows
 				setTimeout('com.compro.application.mm.resetScrollbars();', 60);
