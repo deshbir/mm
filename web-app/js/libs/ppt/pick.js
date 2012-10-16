@@ -256,7 +256,7 @@ com.compro.ppt.Pick = function(){
 				});
 				boxSet.push(selectionRect);
 				if(this.get_behavior_options().remove==true){
-					var deleteIcon = this.primeSvg.image("images/deletered.png",rect_x+rect_width + config.deleteImageXIncreament, rect_y+config.deleteImageYIncreament, config.deleteImageSize, config.deleteImageSize);
+					var deleteIcon = this.primeSvg.image("/" + com.compro.cgrails.APPLICATIONNAME + "/images/deletered.png",rect_x+rect_width + config.deleteImageXIncreament, rect_y+config.deleteImageYIncreament, config.deleteImageSize, config.deleteImageSize);
 					deleteIcon.click(Utils.proxyChangeContext(this.deletePick,this));
 					boxSet.push(deleteIcon);
 				}
