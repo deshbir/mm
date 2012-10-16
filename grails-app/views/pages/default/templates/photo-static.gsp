@@ -24,8 +24,10 @@
 <p>
 	<g:message code="rightpanel.photostab.info" />
 </p>
-<div id="library-photo" class="scroll-pane">
-	<!-- Fill Photo-panel here -->
+<div class="scroll-pane">
+	<div id="library-photo" >
+		<!-- Fill Photo-panel here -->
+	</div>
 </div>
 <div id="my-photos">
 	<button class="btn " type="button"><g:message code="rightpanel.photostab.uploadfile"/>Upload File</button>

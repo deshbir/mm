@@ -152,14 +152,15 @@ com.compro.application.mm = (function() {
 			var scrollDiv = $($(".accordion-inner")[i]).find(".scroll-pane");
 			scrollDiv.height(calcAccordionInnerHeight + "px");
 		}
-		
-		var scrollPanesElems = $(".accordion-inner .scroll-pane");
-		for(var j=0;j<scrollPanesElems.length;j++) {
-			var scrollElem = $(scrollPanesElems[j]);
-			if(!scrollElem.hasClass("mCustomScrollbar")) {
-				scrollElem.mCustomScrollbar({
-					scrollInertia:0
-				});
+		if(!checkAppleDevice()) {
+			var scrollPanesElems = $(".accordion-inner .scroll-pane");
+			for(var j=0;j<scrollPanesElems.length;j++) {
+				var scrollElem = $(scrollPanesElems[j]);
+				if(!scrollElem.hasClass("mCustomScrollbar")) {
+					scrollElem.mCustomScrollbar({
+						scrollInertia:0
+					});
+				}
 			}
 		}
 	}
@@ -192,10 +193,14 @@ com.compro.application.mm = (function() {
 			"margin-bottom": device_vars.margins_el_maincontainer,
 			"margin-left": "auto"
 		});
-		el_maincontainer.mCustomScrollbar("update");
+		if(!checkAppleDevice()) {
+			el_maincontainer.mCustomScrollbar("update");
+		}
 		if(myPPTApp.reRender) {
 			myPPTApp.reRender();
-			$("#collage-scroll").mCustomScrollbar("update");
+			if(!checkAppleDevice()) {
+				$("#collage-scroll").mCustomScrollbar("update");
+			}
 		}	
 	}
 
@@ -239,7 +244,9 @@ com.compro.application.mm = (function() {
 		var handler = function(){
 			//do something
 			$("#collage-container").sortable();
-			$("#collage-scroll").mCustomScrollbar({scrollInertia:0});
+			if(!checkAppleDevice()) {
+				$("#collage-scroll").mCustomScrollbar({scrollInertia:0});
+			}
 		};
 		myPPTApp.registerEvent("AFTER_PPT_INIT", handler);
 		//Main PPT Engine (Generic) Initialization
@@ -254,7 +261,9 @@ com.compro.application.mm = (function() {
 			myPPTApp.addNewSlide();
 
 			//Update Scrollbar when content is added.
-			$("#collage-scroll").mCustomScrollbar("update");
+			if(!checkAppleDevice()) {
+				$("#collage-scroll").mCustomScrollbar("update");
+			}
 		});
 
 		$("#delete-slide").click(function(){
@@ -262,10 +271,37 @@ com.compro.application.mm = (function() {
 			if(ans)	{
 				myPPTApp.deleteSelectedSlide();
 			}
-			$("#collage-scroll").mCustomScrollbar("update");
+			if(!checkAppleDevice()) {
+				$("#collage-scroll").mCustomScrollbar("update");
+			}
 		});
-	}		  
-		  
+	}	
+	
+	/**
+	 * Function to check apple devices.
+	 * Returns false in case of Macbook else returns true.
+	 */ 
+	function checkAppleDevice() {
+		// Apple detection object
+		var Apple = {};
+		Apple.UA = navigator.userAgent;
+		Apple.Device = false;
+		Apple.Types = ["iPhone", "iPod", "iPad"];
+		for (var d = 0; d < Apple.Types.length; d++) {
+			var t = Apple.Types[d];
+			Apple[t] = !!Apple.UA.match(new RegExp(t, "i"));
+			Apple.Device = Apple.Device || Apple[t];
+		}
+		// is this an Apple device?
+		if(Apple.iPhone || Apple.iPad || Apple.iPod) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
+
 	
 
 
@@ -293,11 +329,12 @@ com.compro.application.mm = (function() {
 					$(el_slide_toggle.find("i")).addClass("icon-caret-right");
 				}
 				setMainSlideHeight();
-				// first time initialize scrollbar on main container.
-				el_maincontainer.mCustomScrollbar({
-					scrollInertia:0
-				});
-
+				if(!checkAppleDevice()) {
+					// first time initialize scrollbar on main container.
+					el_maincontainer.mCustomScrollbar({
+						scrollInertia:0
+					});
+			    }
 				backbone_init_routers();
 				backbone_start_navigation();
 				init_ppt_engine();

@@ -11,7 +11,7 @@
     			<a href="#" id="state-clear"><i class="icon-refresh"></i></a> | 
     			<a href="#" id="delete-slide"><i class="icon-trash"></i></a>
     		</div>
-    		<div id="collage-scroll">
+    		<div id="collage-scroll" class="scroll-pane">
     			<div id="collage-container"></div>
     		</div>
         </div>
