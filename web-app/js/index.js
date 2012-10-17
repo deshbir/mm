@@ -333,10 +333,18 @@ com.compro.application.mm = (function() {
 		}
 	}
 	
-	
-
-	
-
+	/**
+	 * Specific function to update scroll bar in toolbar(accordion) element.
+	 */
+	function updateScrollbar() {
+		var scrollPanesElems = $(".accordion-inner .scroll-pane");
+		for(var j=0;j<scrollPanesElems.length;j++) {
+			var scrollElem = $(scrollPanesElems[j]);
+			if(scrollElem.hasClass("mCustomScrollbar")) {
+				$(scrollElem).mCustomScrollbar("update"); 
+			}
+		}
+	}
 
 	/********************************************************/
 	/*                 ONE TIME INIT FUNCTION              */
@@ -421,7 +429,8 @@ com.compro.application.mm = (function() {
 
 	return	{
 		"config":config,
-		"resetScrollbars":setAccordionScroll
+		"resetScrollbars":setAccordionScroll,
+		"updateScrollbar":updateScrollbar
 	}
 
 })();
