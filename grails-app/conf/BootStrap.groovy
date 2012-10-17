@@ -4,6 +4,7 @@ import groovy.json.JsonSlurper
 
 import com.cengage.mm.Photo
 import com.cengage.mm.Tool
+import com.cengage.mm.Text
 
 class BootStrap {
 
@@ -41,7 +42,16 @@ class BootStrap {
 			new Photo(id:"444", dir:"images/magazine/photos/", fullfilename: "pic4.jpg", thumbfilename: "pic4.jpg", alt: "pic4").save(failOnError: true)
 			*/
 		}
-		
+
+		if (!Text.count()) {
+			
+			def slurper = new JsonSlurper()
+			def allTexts = slurper.parseText(Text.jsonPayload)
+			allTexts.texts.each
+			{
+				new Text(type: it.type, text: it.text, fontfamily: it.fontfamily, fontsize: it.fontsize , fontcolor: it.fontcolor , fontweight: it.fontweight, fontstyle: it.fontstyle).save(failOnError: true)
+			}
+		}
     }
 	
     def destroy = {

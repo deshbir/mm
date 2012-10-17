@@ -1,0 +1,40 @@
+{
+    "texts": [
+        {
+        	"type": "title",
+        	"text": "Title",
+        	"fontfamily": "arial",
+        	"fontsize": "18",
+        	"fontcolor": "black",
+        	"fontweight": "normal",
+        	"fontstyle": "italic"
+        },
+        {
+        	"type": "subtitle",
+        	"text": "Sub Title",        	
+        	"fontfamily": "arial",
+        	"fontsize": "16",
+        	"fontcolor": "black",
+        	"fontweight": "normal",
+        	"fontstyle": "normal"
+        },
+        {
+        	"type": "header",
+        	"text": "This is a heading",        	
+        	"fontfamily": "arial",
+        	"fontsize": "14",
+        	"fontcolor": "black",
+        	"fontweight": "bold",
+        	"fontstyle": "normal"
+        },
+        {
+        	"type": "para",
+        	"text": "Para Para \n Para",        	
+        	"fontfamily": "arial",
+        	"fontsize": "11",
+        	"fontcolor": "black",
+        	"fontweight": "normal",
+        	"fontstyle": "normal"
+        }           
+    ]    
+}

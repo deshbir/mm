@@ -20,12 +20,10 @@ class PhotoController {
 			
 			if(allPhoto) {
 				render allPhoto as JSON
-				return
 			} else {
 				// What is Backbone standard for this?
 			    def notFound = new Photo(category: 'NA', dir: 'images/', fullfilename: 'notfound.png' , thumbfilename: 'notfound.png' , copyright: 'compro')
 				render notFound as JSON
-				return
 			}
 		}
 		else {
