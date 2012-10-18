@@ -23,6 +23,9 @@ modules = {
 		
 		//Utils function for namespace
 		resource url:'js/libs/ppt/compro.js'
+		
+		//jQuery imagesLoaded plugin v2.1.0
+		resource url:'js/libs/jquery.imagesloaded.js'
     }
 	
 	mmPPT {
@@ -34,6 +37,7 @@ modules = {
 		resource url:'js/libs/ppt/utils.js'
 		resource url:'js/libs/ppt/pick.js'
 		resource url:'js/libs/ppt/image.js'
+		resource url:'js/libs/ppt/text.js'
 		resource url:'js/libs/ppt/shape.js'
 		resource url:'js/libs/ppt/slide.js'
 		resource url:'js/libs/ppt/workspace.js'

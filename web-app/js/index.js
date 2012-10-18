@@ -232,6 +232,7 @@ com.compro.application.mm = (function() {
 		ToolView.routerInitialize();
 		PhotoView.routerInitialize();
 		EditorView.routerInitialize();
+		TextView.routerInitialize();
 	}
 	
 	function backbone_start_navigation()	{

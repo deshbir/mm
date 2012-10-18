@@ -49,7 +49,7 @@ class BootStrap {
 			def allTexts = slurper.parseText(Text.jsonPayload)
 			allTexts.texts.each
 			{
-				new Text(type: it.type, text: it.text, fontfamily: it.fontfamily, fontsize: it.fontsize , fontcolor: it.fontcolor , fontweight: it.fontweight, fontstyle: it.fontstyle).save(failOnError: true)
+				new Text(type: it.type, text: it.text, fontfamily: it.fontfamily, fontsize: it.fontsize , fontcolor: it.fontcolor , fontweight: it.fontweight).save(failOnError: true)
 			}
 		}
     }

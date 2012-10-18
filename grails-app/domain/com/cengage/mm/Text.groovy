@@ -14,7 +14,6 @@ class Text {
 	String fontsize
 	String fontcolor
 	String fontweight
-	String fontstyle
 		
     static constraints = {
     }

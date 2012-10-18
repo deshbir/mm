@@ -322,7 +322,7 @@ body {
     	width:45%;
     	float:left;
     	color:darken(@layout-frame-color,20%);
-    	#frame1 {
+    	.frame1 {
 			border:solid 6px @layout-frame-color;
 			text-align:center;
 			padding:2em;
@@ -337,22 +337,64 @@ body {
     		border:solid 6px @layout-frame-color;
     		margin-bottom:0.5em;
     	}
-    	#frame2 {
+    	.frame2 {
     		text-align:center;
     		font-weight:bold;
     		font-size:16px;
     	}
-    	#frame4 {
+    	.frame4 {
     		text-align:center;
     		font-weight:bold;
     		font-size:15px;
     	}
-    	#frame5 {
+    	.frame5 {
 			height:50px;
 			background-color:rgb(253,232,105);
 			border:0 none;
     	}
     }
+    #library-text {
+		width:95%;
+		float:left;
+		.left-col {
+			color:black;
+			.frame2 {
+				font-size:18px;
+			}
+		 }
+		.right-col {
+			.frame3 {
+				font-size:11px;
+			}
+		}
+		border-bottom: 1px dotted rgba(150,155,127, .5);
+		padding-bottom:1em;
+		.border-line {
+			height:120px;
+		}
+    }
+    
+	.frame-subtitle {
+    	text-align:center;
+		font-weight:normal;
+		font-size:16px;
+		padding:0.5em;
+		border:solid 6px @layout-frame-color;
+    	margin-bottom:0.5em;
+    }
+    .frame-header {
+    	padding:0.5em;
+		border:solid 6px @layout-frame-color;
+		margin-bottom:0.5em;
+		font-size:14px;
+    }
+    .frame-header-small {
+    	padding:0.5em;
+		border:solid 6px @layout-frame-color;
+		margin-bottom:0.5em;
+		font-size:12px;
+    }
+        
 }
 
 .footer {

@@ -5,8 +5,8 @@
         	"name": "Photos"
         },
         {
-        	"toolid": "layout",
-        	"name": "Layout, Text and Shapes"
+        	"toolid": "text",
+        	"name": "Text and Shapes"
         },
         {
         	"toolid": "video",
