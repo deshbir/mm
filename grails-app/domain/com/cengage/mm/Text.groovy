@@ -22,9 +22,7 @@ class Text {
 	 * START Offline configurations
 	 ***********************************/
 
-		static String backboneObject = "TextCollection"
-		 
-		static String backboneType = "collection"
+		static String dataAPI = "/api/text/"
 
 		//returns list of models
 		def static JSON initialData() {

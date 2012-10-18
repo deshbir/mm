@@ -19,9 +19,7 @@ class Tool {
 	 * START Offline configurations
 	 ***********************************/
 
-		static String backboneObject = "ToolCollection"
-		 
-		static String backboneType = "collection"
+		static String dataAPI = "/api/tool/"
 
 		//returns list of models
 		def static JSON initialData() {

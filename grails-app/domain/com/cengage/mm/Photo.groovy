@@ -21,9 +21,7 @@ class Photo {
 	 * START Offline configurations
 	 ***********************************/
 
-		static String backboneObject = "PhotoCollection"
-		 
-		static String backboneType = "collection"
+		static String dataAPI = "/api/photo/"
 
 		//returns list of models
 		def static JSON initialData() {

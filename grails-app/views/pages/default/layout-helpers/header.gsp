@@ -15,7 +15,7 @@
 			<div class="nav-collapse">
             <ul class="nav">
 				<li class="new-slide"><a href="#" class="btn"><span><g:message code="header.new.page"/></span></a></li>
-				<li><a href="#menuItem2" class="btn"><span><g:message code="header.preview.magazine"/></span></a></li>
+				<li><a href="<cgrails:switch_singlepage action="home"/>" class="btn"><span><g:message code="header.preview.magazine"/></span></a></li>
 				<li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     	<i class="icon-user"></i>
@@ -42,8 +42,8 @@
                          <li><a href="?lang=ja">Japanese</a></li>
                          <li class="set-paddings">Skin</li>
                          <hr/>
-                    	 <li><a href="/${appName}/default/traditional/">Default</a></li>
-                         <li><a href="/${appName}/gray/traditional/">Gray</a></li>
+                    	 <li><a href="/${appName}/default/">Default</a></li>
+                         <li><a href="/${appName}/gray/">Gray</a></li>
                     </ul>
                </li>
             </ul>
