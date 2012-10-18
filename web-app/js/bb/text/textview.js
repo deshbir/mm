@@ -27,7 +27,8 @@ TextView = new function() {
 					var modelJ = model.toJSON();
 					
 					var textEl = $("#text #" + modelJ.type);
-					var props = {text: modelJ.text, "font-family": modelJ.fontfamily, "font-size": modelJ.fontsize, "font-weight": modelJ.fontweight, stroke: modelJ.fontcolor}; 
+					//adding into raphaelAttributes of text
+					var props = {raphaelAttributes:{text: modelJ.text, "font-family": modelJ.fontfamily, "font-size": modelJ.fontsize, "font-weight": modelJ.fontweight, stroke: modelJ.fontcolor}}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Text", props);
 				});
 				com.compro.application.mm.resetScrollbars();

@@ -3,41 +3,41 @@
         {
         	"type": "title",
         	"text": "Title",
-        	"fontfamily": "arial",
-        	"fontsize": "18",
-        	"fontcolor": "red",
+        	"fontfamily": "Arial",
+        	"fontsize": "30",
+        	"fontcolor": "#333333",
         	"fontweight": "normal"
         },
         {
         	"type": "subtitle",
         	"text": "Sub Title",        	
-        	"fontfamily": "arial",
-        	"fontsize": "16",
-        	"fontcolor": "red",
+        	"fontfamily": "Arial",
+        	"fontsize": "24",
+        	"fontcolor": "#333333",
         	"fontweight": "normal"
         },
         {
         	"type": "heading1",
         	"text": "This is a heading 1",        	
-        	"fontfamily": "arial",
-        	"fontsize": "14",
-        	"fontcolor": "red",
+        	"fontfamily": "Arial",
+        	"fontsize": "20",
+        	"fontcolor": "#333333",
         	"fontweight": "bold"
         },
         {
         	"type": "heading2",
         	"text": "This is a heading 2",        	
-        	"fontfamily": "arial",
-        	"fontsize": "12",
-        	"fontcolor": "red",
+        	"fontfamily": "Arial",
+        	"fontsize": "16",
+        	"fontcolor": "#333333",
         	"fontweight": "bold"
         },        
         {
         	"type": "para",
         	"text": "Para Para \n Para",        	
-        	"fontfamily": "arial",
-        	"fontsize": "11",
-        	"fontcolor": "red",
+        	"fontfamily": "Arial",
+        	"fontsize": "12",
+        	"fontcolor": "#333333",
         	"fontweight": "normal"
         }           
     ]    
