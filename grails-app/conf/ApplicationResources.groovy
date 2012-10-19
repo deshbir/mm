@@ -72,6 +72,11 @@ modules = {
 		resource url:'js/bb/text/textmodel.js'
 		resource url:'js/bb/text/textcollection.js'
 		resource url:'js/bb/text/textview.js'
+		
+		//Backbone shape View & Models & Collections
+		resource url:'js/bb/shape/shapemodel.js'
+		resource url:'js/bb/shape/shapecollection.js'
+		resource url:'js/bb/shape/shapeview.js'
 	}
 	
 }

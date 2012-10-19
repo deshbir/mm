@@ -5,6 +5,7 @@ import groovy.json.JsonSlurper
 import com.cengage.mm.Photo
 import com.cengage.mm.Tool
 import com.cengage.mm.Text
+import com.cengage.mm.Shape
 
 class BootStrap {
 
@@ -49,9 +50,20 @@ class BootStrap {
 			def allTexts = slurper.parseText(Text.jsonPayload)
 			allTexts.texts.each
 			{
-				new Text(type: it.type, text: it.text, fontfamily: it.fontfamily, fontsize: it.fontsize , fontcolor: it.fontcolor , fontweight: it.fontweight).save(failOnError: true)
+				new Text(type: it.type, raphaelAttributes: it.raphaelAttributes).save(failOnError: true)
 			}
 		}
+		
+		if (!Shape.count()) {
+			
+			def slurper = new JsonSlurper()
+			def allShapes = slurper.parseText(Shape.jsonPayload)
+			allShapes.shapes.each
+			{
+				new Shape(type: it.type, raphaelType: it.raphaelType, raphaelAttributes: it.raphaelAttributes).save(failOnError: true)
+			}
+		}
+		
     }
 	
     def destroy = {

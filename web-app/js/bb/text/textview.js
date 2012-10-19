@@ -18,7 +18,8 @@ TextView = new function() {
 		
 		TemplateManager.get('text-static', 
 			function(template){
-				$("#text > .accordion-inner ").html(template);
+				$("#text > .accordion-inner ").html("<div class='scroll-pane'></div>");
+				$("#text .scroll-pane").append(template);
 			});
 		
 		TextCollection.get().fetch({
@@ -27,11 +28,15 @@ TextView = new function() {
 					var modelJ = model.toJSON();
 					
 					var textEl = $("#text #" + modelJ.type);
+					var attr = modelJ.raphaelAttributes.replace(/\'/g,'"');
+					var raphaelAttr = JSON.parse(attr);					
 					//adding into raphaelAttributes of text
-					var props = {raphaelAttributes:{text: modelJ.text, "font-family": modelJ.fontfamily, "font-size": modelJ.fontsize, "font-weight": modelJ.fontweight, stroke: modelJ.fontcolor}}; 
+					var props = {raphaelAttributes:raphaelAttr};
+					//var props = {raphaelAttributes:{text: modelJ.text, "font-family": modelJ.fontfamily, "font-size": modelJ.fontsize, "font-weight": modelJ.fontweight, stroke: modelJ.fontcolor}}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Text", props);
 				});
-				com.compro.application.mm.resetScrollbars();
+				Backbone.history.navigate("#/shape", {trigger:true});
+				//com.compro.application.mm.resetScrollbars();
 			}
 		});
 		

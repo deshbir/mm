@@ -3,30 +3,34 @@ package com.cengage.mm
 import grails.converters.JSON
 import groovy.json.JsonSlurper
 
-class Text {
+class Shape {
 
-	def static jsonPayload = new File("web-app/json/magazine/texts.json").text
+	def static jsonPayload = new File("web-app/json/magazine/shapes.json").text
 	
 	String id
 	String type
+	String raphaelType
 	String raphaelAttributes
 		
     static constraints = {
-		raphaelAttributes type:'text'
     }
-		
+	
+	static mapping = {
+		raphaelAttributes type:'text'
+	}
+
 	/***********************************
 	 * START Offline configurations
 	 ***********************************/
 
-		static String dataAPI = "/api/text/"
+		static String dataAPI = "/api/shape/"
 
 		//returns list of models
 		def static JSON initialData() {
 			
 			def slurper = new JsonSlurper()
-			def allTexts = slurper.parseText(Text.jsonPayload)
-			return allTexts.texts
+			def allShapes = slurper.parseText(Shape.jsonPayload)
+			return allShapes.shapes
 		}
 		
 	/******************************

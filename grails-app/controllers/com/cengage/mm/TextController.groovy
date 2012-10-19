@@ -1,7 +1,6 @@
 package com.cengage.mm
 
 import grails.converters.JSON
-import com.cengage.mm.Photo
 
 class TextController {
 
