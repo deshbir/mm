@@ -170,7 +170,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 		Utils.attachEvent(el, 'mousedown',function (event) {
 			event.preventDefault();
-			dragStart(event);
+			dragStart(event,el);
 			Utils.attachEvent(document.body, 'mouseup.tool_mm',mouseUpHandler,false);
 			Utils.attachEvent(document.body, 'mousemove.tool_mm',mouseMoveHandler,false);
 		}, false);
@@ -181,7 +181,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 		//for touch devices
 		Utils.attachEvent(el, 'touchstart',function (event) {
-			dragStart(event.changedTouches[0]);
+			dragStart(event.changedTouches[0], el);
 			event.stopPropagation();
 		}, false);
 				
@@ -203,13 +203,13 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		/*
 		* event Handler for the dragstart event on the elements inside Tools
 		*/
-		function dragStart(event) {
+		function dragStart(event, el) {
 			if(elementDragged==null){
-				elementDragged = event.target;
+				elementDragged = el;
 				gElementDraggedX = event.pageX-$(elementDragged).offset().left;
 				gElementDraggedY = event.pageY-$(elementDragged).offset().top;
 			}
-			elementDragged = event.target;
+			elementDragged = el;
 			var elementSibling = $(elementDragged).next();
 			var elementParent = $(elementDragged).parent();
 			var height = $(elementDragged).height();

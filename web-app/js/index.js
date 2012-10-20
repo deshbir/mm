@@ -146,11 +146,18 @@ com.compro.application.mm = (function() {
 		var allTabsHeight = accordionTabs*accordionHeadingHeight;
 		//Reduce the padding top and bottom also to set the height.
 		var paddingHeight = (9+2)* accordionTabs;
-		var calcAccordionInnerHeight =  accordionHeight-allTabsHeight-paddingHeight-70;
+		var calcAccordionInnerHeight =  accordionHeight-allTabsHeight-paddingHeight;
 		//Set height for each accordion inner tab
 		for(var i=0; i<accordionTabs; i++) {
 			var scrollDiv = $($(".accordion-inner")[i]).find(".scroll-pane");
-			scrollDiv.height(calcAccordionInnerHeight + "px");
+			//Since Photos tab contain scroll in info div as well no extra height, hence do not reduce.
+			if(i==1) {
+				scrollDiv.height(calcAccordionInnerHeight + "px");
+			} else {
+				//reduce extra height other than scrollable div
+				var extraHeight = $($(".accordion-inner")[i]).height() - scrollDiv.height();
+				scrollDiv.height(calcAccordionInnerHeight - extraHeight + "px");
+			}
 		}
 		if(!checkAppleDevice()) {
 			var scrollPanesElems = $(".accordion-inner .scroll-pane");
