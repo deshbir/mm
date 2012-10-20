@@ -3522,13 +3522,13 @@
         }
         return this;
     };
-    setproto.getBBox = function () {
+    setproto.getBBox = function (isWithOutTransformation) {
         var x = [],
             y = [],
             x2 = [],
             y2 = [];
         for (var i = this.items.length; i--;) if (!this.items[i].removed) {
-            var box = this.items[i].getBBox();
+            var box = this.items[i].getBBox(isWithOutTransformation);
             x.push(box.x);
             y.push(box.y);
             x2.push(box.x + box.width);
@@ -4097,7 +4097,7 @@ window.Raphael.svg && function (R) {
                         break;
                     case "clip-rect":
                         var rect = Str(value).split(separator);
-                        if (rect.length == 4) {
+                        if (rect.length == 4 || rect.length == 5) {
                             o.clip && o.clip.parentNode.parentNode.removeChild(o.clip.parentNode);
                             var el = $("clipPath"),
                                 rc = $("rect");
@@ -4106,7 +4106,8 @@ window.Raphael.svg && function (R) {
                                 x: rect[0],
                                 y: rect[1],
                                 width: rect[2],
-                                height: rect[3]
+                                height: rect[3],
+                                r: rect[4] || 0, rx: rect[4] || 0, ry: rect[4] || 0
                             });
                             el.appendChild(rc);
                             o.paper.defs.appendChild(el);
@@ -4450,12 +4451,14 @@ window.Raphael.svg && function (R) {
         }
         R._extractTransform(this, tstr);
 
-        this.clip && $(this.clip, {transform: this.matrix.invert()});
+        //Clip path should not be transformed while transforming the element
+        //this.clip && $(this.clip, {transform: this.matrix.invert()});
         this.pattern && updatePosition(this);
         this.node && $(this.node, {transform: this.matrix});
     
         if (_.sx != 1 || _.sy != 1) {
             var sw = this.attrs[has]("stroke-width") ? this.attrs["stroke-width"] : 1;
+            console.log(sw);
             this.attr({"stroke-width": sw});
         }
 

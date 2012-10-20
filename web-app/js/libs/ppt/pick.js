@@ -133,50 +133,593 @@ com.compro.ppt.Pick = function(){
 		/*                 Private Members                      */ 
 		/********************************************************/
 		
+		
+		var freeTransformOptions = {
+				attrs: { fill: '#fff', stroke: '#000' },
+				distance: 1.3,
+				drag: true,
+				keepRatio: true,
+				range: { rotate: [ -180, 180 ], scale: [ -99999, 99999 ] },
+				rotate: true,
+				scale: true,
+				snap: { rotate: 10, scale:0 , drag: 20 },
+				snapDist: { rotate: 10, scale: 0, drag: 15 },
+				size: 5,
+				axes: ['x','y']
+		}
+		
 		var config = {
 				deleteImageSize:12,
-				deleteImageXIncreament:8,
-				deleteImageYIncreament:-8
+				deleteImageXIncreament:freeTransformOptions.size + 8,
+				deleteImageYIncreament:-freeTransformOptions.size
 		} 
+		
+		
+		var defaultHideHandles = function() {
+			var ft = this.freeTransform;
+			[ 'x', 'y' ].map(function(axis) {
+				if ( ft.handles[axis] ) {
+					ft.handles[axis].disc.remove();
+					ft.handles[axis].line.remove();
+
+					ft.handles[axis] = null;
+				}
+			});
+			if(ft.handles.deleteIcon){
+				ft.handles.deleteIcon.remove();
+			}
+
+			if ( ft.bbox ) {
+				ft.bbox.remove();
+
+				ft.bbox = null;
+
+				if ( ft.handles.bbox ) {
+					ft.handles.bbox.map(function(handle) {
+						handle.element.remove();
+					});
+
+					ft.handles.bbox = null;
+				}
+			}
+		};
+
+		
+		
+		
+		var defaultShowHandles = function() {
+			
+			var ft = this.freeTransform;
+			this.hideHandles();
+			var paper = this.primeSvg;
+			if(this.get_behavior_options().rotate==true){
+				freeTransformOptions.axes.map(function(axis) {
+					ft.handles[axis] = {};
+	
+					ft.handles[axis].line = paper
+						.path([ 'M', ft.attrs.center.x, ft.attrs.center.y ])
+						.attr({
+							stroke: freeTransformOptions.attrs.stroke,
+							'stroke-dasharray': '- ',
+							opacity: .5
+							})
+						;
+	
+					ft.handles[axis].disc = paper
+						.circle(ft.attrs.center.x, ft.attrs.center.y, freeTransformOptions.size)
+						.attr(freeTransformOptions.attrs)
+						;
+					ft.handles[axis].disc.freeTransform = {axis : axis};
+				});
+				
+			}
+			
+			if(this.get_behavior_options().remove==true){
+				ft.handles.deleteIcon = this.primeSvg.image("/" + com.compro.cgrails.APPLICATIONNAME + "/images/deletered.png",ft.attrs.center.x, ft.attrs.center.y, config.deleteImageSize, config.deleteImageSize);
+				ft.handles.deleteIcon.click(Utils.proxyChangeContext(this.deletePick,this));
+			}
+			
+			if(this.get_behavior_options().selection_box==true) {
+				ft.bbox = this.primeSvg
+					.path('')
+					.attr({
+						stroke: freeTransformOptions.attrs.stroke,
+						'stroke-dasharray': '- ',
+						opacity: .5
+						})
+					;
+
+				ft.handles.bbox = [];
+
+				var i, handle;
+
+				for ( i = 0; i < 4 ; i ++ ) {
+					handle = {};
+
+					handle.axis     = i % 2 ? 'x' : 'y';
+					handle.isCorner = i < 4;
+					
+					handle.element = this.primeSvg
+						.rect(ft.attrs.center.x, ft.attrs.center.y, freeTransformOptions.size * 2, freeTransformOptions.size * 2)
+						.attr(freeTransformOptions.attrs)
+						;
+					handle.element.handleParent = handle;
+
+					ft.handles.bbox[i] = handle;
+				}
+			}
+
+
+			// Drag bbox corner handles
+			if (this.get_behavior_options().resize==true) {
+				var that = this;
+				ft.handles.bbox.map(function(handle) {
+					handle.element.drag(Utils.proxy(that.resizing,that),Utils.proxy(that.resizeStart,that),Utils.proxy(that.resizeEnd,that) );
+				});
+			}
+			var self = this;
+			freeTransformOptions.axes.map(function(axis) {
+				if ( !ft.handles[axis] ) { return; }
+
+				var
+					rotate = true;
+					scale  = false;
+				ft.handles[axis].disc.drag(Utils.proxy(self.rotating,self),Utils.proxy(self.rotateStart,self),Utils.proxy(self.rotateEnd,self));
+			});
+			this.updateHandles();
+			
+		};
+		
+
+		/**
+		 * Update handles based on the element's transformations
+		 */
+		var defaultUpdateHandles = function(rotating) {
+				var ft = this.freeTransform;
+				var paper = this.primeSvg;
+				var corners = getBBox(this);
+
+				// Get the element's rotation
+				var rad = {
+					x: ( ft.attrs.rotate      ) * Math.PI / 180,
+					y: ( ft.attrs.rotate + 90 ) * Math.PI / 180
+					};
+
+				var radius = {
+					x: ft.attrs.size.x / 2 * ft.attrs.scale.x,
+					y: ft.attrs.size.y / 2 * ft.attrs.scale.y
+					};
+
+				freeTransformOptions.axes.map(function(axis) {
+					if ( ft.handles[axis] ) {
+						var
+							cx = ft.attrs.center.x + ft.attrs.translate.x + radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]),
+							cy = ft.attrs.center.y + ft.attrs.translate.y + radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis])
+							;
+						
+						if(!rotating){
+							ft.handles[axis].disc.freeTransform.invert = false;
+							if(cx + freeTransformOptions.size > paper.width || cx - freeTransformOptions.size < 0){
+								cx = ft.attrs.center.x  + ft.attrs.translate.x -( radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]));
+								cy = ft.attrs.center.y + ft.attrs.translate.y + radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]+Math.PI/2);
+								ft.handles[axis].disc.freeTransform.invert = 'cx';
+							}
+							if(cy + freeTransformOptions.size > paper.height || cy + freeTransformOptions.size<0){
+								cx = ft.attrs.center.x  + ft.attrs.translate.x + radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis]-Math.PI/2);
+								cy = ft.attrs.center.y + ft.attrs.translate.y -( radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis]));
+								ft.handles[axis].disc.freeTransform.invert = 'cy';
+							}
+						} else if(ft.handles[axis].disc.freeTransform.invert){
+							if(ft.handles[axis].disc.freeTransform.invert=='cx'){
+								cx = ft.attrs.center.x  + ft.attrs.translate.x -( radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]));
+								cy = ft.attrs.center.y + ft.attrs.translate.y + radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]+Math.PI/2);
+							} else {
+								cx = ft.attrs.center.x  + ft.attrs.translate.x + radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis]-Math.PI/2);
+								cy = ft.attrs.center.y + ft.attrs.translate.y -( radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis]));
+							}
+						}
+
+						ft.handles[axis].disc.attr({ cx: cx, cy: cy });
+
+						ft.handles[axis].line.attr({
+							path: [ [ 'M', ft.attrs.center.x + ft.attrs.translate.x, ft.attrs.center.y + ft.attrs.translate.y ], [ 'L', ft.handles[axis].disc.attrs.cx, ft.handles[axis].disc.attrs.cy ] ]
+							});
+
+						//ft.handles[axis].disc.toFront();
+					}
+				});
+				
+				if ( ft.bbox ) {
+					ft.bbox.attr({
+						path: [
+							[ 'M', corners[0].x, corners[0].y ],
+							[ 'L', corners[1].x, corners[1].y ],
+							[ 'L', corners[2].x, corners[2].y ],
+							[ 'L', corners[3].x, corners[3].y ],
+							[ 'L', corners[0].x, corners[0].y ]
+							]
+						});
+					// Allowed x, y scaling directions for bbox handles
+					var bboxHandleDirection = [
+						[ -1, -1 ], [ 1, -1 ], [ 1, 1 ], [ -1, 1 ],
+						[  0, -1 ], [ 1,  0 ], [ 0, 1 ], [ -1, 0 ]
+						];
+
+					if ( ft.handles.bbox ) {
+						ft.handles.bbox.map(function (handle, i) {
+							var cx, cy, j, k;
+
+							if ( handle.isCorner ) {
+								cx = corners[i].x;
+								cy = corners[i].y;
+							} /*else {
+								j  = i % 4;
+								k  = ( j + 1 ) % corners.length;
+								cx = ( corners[j].x + corners[k].x ) / 2;
+								cy = ( corners[j].y + corners[k].y ) / 2;
+							}*/
+
+							handle.element
+								.attr({
+									x: cx - (freeTransformOptions.size),
+									y: cy - (freeTransformOptions.size)
+									})
+								.transform('R' + ft.attrs.rotate)
+								;
+
+							handle.x = bboxHandleDirection[i][0];
+							handle.y = bboxHandleDirection[i][1];
+						});
+					}
+				}
+				if(ft.handles.deleteIcon){
+					ft.handles.deleteIcon.attr({
+						x: corners[4].x - config.deleteImageSize/2,
+						y: corners[4].y - config.deleteImageSize/2
+					});
+				}
+			
+		}
+		
+		
+		/**
+		 * Apply transformations, optionally update attributes manually
+		 */
+		var apply = function(obj) {
+			var ft = obj.freeTransform;
+			var strokeWidths = ft.strokeWidths;
+				// Take offset values into account
+			var
+				center = {
+					x: ft.attrs.center.x,
+					y: ft.attrs.center.y
+				},
+				rotate    = ft.attrs.rotate,
+				scale     = {
+					x: ft.attrs.scale.x,
+					y: ft.attrs.scale.y
+				},
+				translate = {
+					x: ft.attrs.translate.x,
+					y: ft.attrs.translate.y
+				};
+
+				obj.instance.transform([
+					'R', rotate, center.x, center.y,
+					'S', scale.x, scale.y, center.x, center.y,
+					'T', translate.x, translate.y
+					] + '');
+				console.log(strokeWidths);
+				obj.instance.items.map(function(item,i){
+					if(strokeWidths[i]){
+					 item.attr("stroke-width",strokeWidths[i]*((ft.attrs.scale.x+ft.attrs.scale.y)/2))
+					}
+				});
+				
+			}
+		
+		var applyOnThumb = function(obj) {
+			var ft = obj.freeTransform;
+			var thumbInstance = obj.thumbInstance;
+			if(!thumbInstance){
+				return;
+			}
+			
+			
+			
+				// Take offset values into account
+			var
+				center = {
+					x: ft.attrs.center.x,
+					y: ft.attrs.center.y
+				},
+				rotate    = ft.attrs.rotate,
+				scale     = {
+					x: ft.attrs.scale.x,
+					y: ft.attrs.scale.y
+				},
+				translate = {
+					x: ft.attrs.translate.x,
+					y: ft.attrs.translate.y
+				};
+				var attrs = ft.attrs;
+				var scale_x_compensation = (attrs.size.x/2)*(obj.config.thumbRatio-1);
+				var scale_y_compensation = (attrs.size.y/2)*(obj.config.thumbRatio-1);
+				scale.x *= obj.config.thumbRatio;
+				scale.y *= obj.config.thumbRatio;
+				translate.x = (attrs.translate.x + attrs.x)*obj.config.thumbRatio - attrs.x + scale_x_compensation;
+				translate.y = (attrs.translate.y + attrs.y)*obj.config.thumbRatio - attrs.y + scale_y_compensation;
+				thumbInstance.transform([
+					'R', rotate, center.x, center.y,
+					'S', scale.x, scale.y, center.x, center.y,
+					'T', translate.x, translate.y
+					] + '');
+				obj.thumbInstance.items.map(function(item,i){
+					if(ft.strokeWidths[i]){
+					 item.attr("stroke-width",ft.strokeWidths[i]*((scale.x+scale.y)/2));
+					}
+				});
+			}
+		
+		
+		/**
+		 * Apply limits
+		 */
+		var applyLimits = function(obj,bbox) {
+			var ft = obj.freeTransform
+			// Snap to grid
+			if ( bbox && freeTransformOptions.snap.drag ) {
+				var
+					x    = bbox.x,
+					y    = bbox.y,
+					dist = { x: 0, y: 0 },
+					snap = { x: 0, y: 0 }
+					;
+
+				[ 0, 1 ].map(function() {
+					// Top and left sides first
+					dist.x = x - Math.round(x / freeTransformOptions.snap.drag) * freeTransformOptions.snap.drag;
+					dist.y = y - Math.round(y / freeTransformOptions.snap.drag) * freeTransformOptions.snap.drag;
+
+					if ( Math.abs(dist.x) <= freeTransformOptions.snapDist.drag ) { snap.x = dist.x; }
+					if ( Math.abs(dist.y) <= freeTransformOptions.snapDist.drag ) { snap.y = dist.y; }
+
+					// Repeat for bottom and right sides
+					x += bbox.width  - snap.x;
+					y += bbox.height - snap.y;
+				});
+
+				ft.attrs.translate.x -= snap.x;
+				ft.attrs.translate.y -= snap.y;
+			}
+			var corners = getBBox(obj);
+			var paper = obj.primeSvg;
+			var objBoundary = {
+					min:{
+						x:corners[0].x,
+						y:corners[0].y
+					},
+					max:{
+						x:corners[0].x,
+						y:corners[0].y
+					}
+			}
+			corners.map(function(corner,i){
+				var sizeFactor = 0;
+				if(obj.get_behavior_options().selection_box==true){
+					sizeFactor = 2*freeTransformOptions.size;
+				}
+				if(i==4 && obj.get_behavior_options().remove==true){
+					sizeFactor = 2*config.deleteImageSize/3;
+				}
+				objBoundary.min.x = Math.min(objBoundary.min.x,corner.x-sizeFactor);
+				objBoundary.min.y = Math.min(objBoundary.min.y,corner.y-sizeFactor);
+				objBoundary.max.x = Math.max(objBoundary.max.x,corner.x+sizeFactor);
+				objBoundary.max.y = Math.max(objBoundary.max.y,corner.y+sizeFactor);
+				
+			});
+			// Keep center within boundaries
+			if(objBoundary.max.x>paper.width){
+				ft.attrs.translate.x -=(objBoundary.max.x-paper.width)
+			}
+			if(objBoundary.max.y>paper.height){
+				ft.attrs.translate.y -=(objBoundary.max.y-paper.height)
+			}
+			if(objBoundary.min.y<0){
+				ft.attrs.translate.y +=(-objBoundary.min.y)
+			}
+			if(objBoundary.min.x<0){
+				ft.attrs.translate.x +=(-objBoundary.min.x)
+			}
+
+			// Snap to angle, rotate with increments
+			dist = Math.abs(ft.attrs.rotate % freeTransformOptions.snap.rotate);
+			dist = Math.min(dist, freeTransformOptions.snap.rotate - dist);
+
+			if ( dist < freeTransformOptions.snapDist.rotate ) {
+				ft.attrs.rotate = Math.round(ft.attrs.rotate / freeTransformOptions.snap.rotate) * freeTransformOptions.snap.rotate;
+			}
+
+			// Snap to scale, scale with increments
+			dist = {
+				x: Math.abs(( ft.attrs.scale.x * ft.attrs.size.x ) % freeTransformOptions.snap.scale),
+				y: Math.abs(( ft.attrs.scale.y * ft.attrs.size.x ) % freeTransformOptions.snap.scale)
+				};
+
+			dist = {
+				x: Math.min(dist.x, freeTransformOptions.snap.scale - dist.x),
+				y: Math.min(dist.y, freeTransformOptions.snap.scale - dist.y)
+				};
+
+			if ( dist.x < freeTransformOptions.snapDist.scale ) {
+				ft.attrs.scale.x = Math.round(ft.attrs.scale.x * ft.attrs.size.x / freeTransformOptions.snap.scale) * freeTransformOptions.snap.scale / ft.attrs.size.x;
+			}
+
+			if ( dist.y < freeTransformOptions.snapDist.scale ) {
+				ft.attrs.scale.y = Math.round(ft.attrs.scale.y * ft.attrs.size.y / freeTransformOptions.snap.scale) * freeTransformOptions.snap.scale / ft.attrs.size.y;
+			}
+
+			// Limit range of rotation
+			if ( freeTransformOptions.range.rotate ) {
+				var deg = ( 360 + ft.attrs.rotate ) % 360;
+
+				if ( deg > 180 ) { deg -= 360; }
+
+				if ( deg < freeTransformOptions.range.rotate[0] ) { ft.attrs.rotate += freeTransformOptions.range.rotate[0] - deg; }
+				if ( deg > freeTransformOptions.range.rotate[1] ) { ft.attrs.rotate += freeTransformOptions.range.rotate[1] - deg; }
+			}
+
+			// Limit scale
+			if ( freeTransformOptions.range.scale ) {
+				if ( ft.attrs.scale.x * ft.attrs.size.x < freeTransformOptions.range.scale[0] ) {
+					ft.attrs.scale.x = freeTransformOptions.range.scale[0] / ft.attrs.size.x;
+				}
+
+				if ( ft.attrs.scale.y * ft.attrs.size.y < freeTransformOptions.range.scale[0] ) {
+					ft.attrs.scale.y = freeTransformOptions.range.scale[0] / ft.attrs.size.y;
+				}
+
+				if ( ft.attrs.scale.x * ft.attrs.size.x > freeTransformOptions.range.scale[1] ) {
+					ft.attrs.scale.x = freeTransformOptions.range.scale[1] / ft.attrs.size.x;
+				}
+
+				if ( ft.attrs.scale.y * ft.attrs.size.y > freeTransformOptions.range.scale[1] ) {
+					ft.attrs.scale.y = freeTransformOptions.range.scale[1] / ft.attrs.size.y;
+				}
+			}
+		}
+
+		function keepRatio(axis) {
+			if ( axis === 'x' ) {
+				ft.attrs.scale.y = ft.attrs.scale.x / ft.attrs.ratio;
+			} else {
+				ft.attrs.scale.x = ft.attrs.scale.y * ft.attrs.ratio;
+			}
+		}
+
+
+		
+		/**
+		 * Recursive copy of object
+		 */
+		function cloneObj(obj) {
+			var i, clone = {};
+
+			for ( i in obj ) {
+				clone[i] = typeof obj[i] === 'object' ? cloneObj(obj[i]) : obj[i];
+			}
+			return clone;
+		}
+
+		
+		/** 
+		 * Get rotated bounding box
+		 */
+		function getBBox(object) {
+			var ft = object.freeTransform;
+			var rad = {
+				x: ( ft.attrs.rotate      ) * Math.PI / 180,
+				y: ( ft.attrs.rotate + 90 ) * Math.PI / 180
+				};
+
+			var radius = {
+				x: ft.attrs.size.x / 2 * ft.attrs.scale.x,
+				y: ft.attrs.size.y / 2 * ft.attrs.scale.y
+				};
+
+			var
+				corners = [],
+				signs   = [ { x: -1, y: -1 }, { x: 1, y: -1 }, { x: 1, y: 1 }, { x: -1, y: 1 } ]
+				;
+
+			signs.map(function(sign) {
+				corners.push({
+					x: ( ft.attrs.center.x + ft.attrs.translate.x + sign.x * radius.x * Math.cos(rad.x) ) + sign.y * radius.y * Math.cos(rad.y),
+					y: ( ft.attrs.center.y + ft.attrs.translate.y + sign.x * radius.x * Math.sin(rad.x) ) + sign.y * radius.y * Math.sin(rad.y)
+					});
+			});
+			corners.push({
+					x: ( ft.attrs.center.x + ft.attrs.translate.x + 1 * (radius.x+config.deleteImageXIncreament) * Math.cos(rad.x) ) + -1 * (radius.y-config.deleteImageYIncreament) * Math.cos(rad.y),
+					y: ( ft.attrs.center.y + ft.attrs.translate.y + 1 * (radius.x+config.deleteImageXIncreament) * Math.sin(rad.x) ) + -1 * (radius.y-config.deleteImageYIncreament) * Math.sin(rad.y)
+			});
+
+			return corners;
+		}
+		
+		
+		function getTransformation(obj) {
+			var ft = obj.freeTransform;
+			var raphaelObj;
+			// If subject is not of type set, the first item _is_ the subject
+			if ( obj.instance.type === 'set' ) {
+				raphaelObj = obj.instance.items[0];
+			} else {
+				raphaelObj = obj.instance;
+			}
+			if ( raphaelObj._ && raphaelObj._.transform && typeof raphaelObj._.transform === 'object' ) {
+				raphaelObj._.transform.map(function(transform) {
+					if ( transform[0] ) {
+						switch ( transform[0].toUpperCase() ) {
+							case 'T':
+								ft.attrs.translate.x += transform[1];
+								ft.attrs.translate.y += transform[2];
+								break;
+							case 'S':
+								ft.attrs.scale.x *= transform[1];
+								ft.attrs.scale.y *= transform[2];
+								break;
+							case 'R':
+								ft.attrs.rotate += transform[1];
+								break;
+						}
+					}
+				});
+			}
+		}
+		
+		
+		
+
+		/* FREE-TRANSFOREM END*/
+		
+		
+		
 		var defaultDragStartHandler = function (obj,x,y,event) {
-			// storing original coordinates
 				Utils.fireEvent(obj,obj.events.DRAG_START);
-				var bBox = this.getBBox(false);
-				this.ox = bBox.x;
-				this.oy = bBox.y;
-				console.log('a',this.ox,this.oy); 
-				this.transx = 0;
-				this.transy = 0;
+				obj.showHandles();
+			
+			/*   FREE-TRANSFORM START   */
+				var ft = obj.freeTransform;
+				
+				ft.o = cloneObj(ft.attrs);
+
+				ft.o.bbox = obj.instance.getBBox();
+
+				/*   FREE-TRANSFORM END   */				
 		};
 
 		var defaultDragMoveHandler = function (obj,dx,dy) {
-			var bBox = this.getBBox(false);
-			var trans_x = dx-this.transx;
-			var trans_y = dy-this.transy;
-			var nowX = Math.min(obj.primeSvg.width - bBox.width-config.deleteImageXIncreament-config.deleteImageSize-2, this.ox + trans_x);
-			var nowY = Math.min(obj.primeSvg.height - bBox.height-8, this.oy+ trans_y);
-			nowX = Math.max(8, nowX);
-			nowY = Math.max(-config.deleteImageYIncreament+2, nowY);      
-			//console.log(nowX-this.ox,nowY-this.oy);
-			if(nowX-this.ox!=0 || nowY-this.oy!=0) {
-				//console.log('b');
-				this.transform("...T" + (nowX-this.ox) + "," + (nowY-this.oy));
-				this.transx = nowX-this.ox+this.transx;
-				this.transy = nowY-this.oy+this.transy;
-				this.ox = nowX;
-				this.oy = nowY;
-			}
 			
+			/*   FREE-TRANSFORM START   */
+			var ft = obj.freeTransform;
+			ft.attrs.translate.x = ft.o.translate.x + dx;
+			ft.attrs.translate.y = ft.o.translate.y + dy;
+
+			var bbox = cloneObj(ft.o.bbox);
+
+			bbox.x += dx;
+			bbox.y += dy;
+
+			applyLimits(obj,bbox);
+
+			apply(obj);
+			obj.updateHandles();
+			/*   FREE-TRANSFORM END   */
 		};
 
-		var defaultDragEndHandler = function (obj) {
-			// restoring state
-			//this.attr({opacity: .5});
-			var bBox = this.getBBox(false);
-			var thumbBBox = this.thumbInstance.getBBox(false);
-			var config = obj.config;
-			this.thumbInstance.transform("...T" + (bBox.x*config.thumbRatio-thumbBBox.x) + "," + (bBox.y*config.thumbRatio-thumbBBox.y));
+		var defaultDragEndHandler = function (obj) {		
 			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
+			applyOnThumb(obj);
 			//Toch events are removed once the pick is brought to front, reattaching them
 			this.undrag();
 			this.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
@@ -185,277 +728,243 @@ com.compro.ppt.Pick = function(){
 		}; 
 
 		var defaultSelectPickHandler = function(){
-			if(this.get_behavior_options().selection_box==true){
-				var boxSet = this.primeSvg.set();
-				//get bounding box of the shapes
-				//instance.toBack();
-				var bBox = this.instance.getBBox(false);
-				var strokeWidth = parseInt(this.instance.attr('stroke-width')) + 1;
-				var rect_x = bBox.x - strokeWidth;
-				var rect_y = bBox.y - strokeWidth;
-				var rect_width = bBox.width + 2*strokeWidth;
-				var rect_height = bBox.height + 2*strokeWidth;
-				var selectionRect = this.primeSvg.rect(rect_x, rect_y, rect_width, rect_height);
-				/*var cursors = ['nw-resize','e-resize','ne-resize','n-resize']
-
-				for(var i = 0,x = rect_x - 4; i < 3; i++) {
-					for(var j = 0,y = rect_y - 4; j < 3; j++) {
-						if(!(i==1 && j==1)) {
-							var smallRect = this.primeSvg.rect(x, y, 8, 8);
-							boxSet.push(smallRect);
-							if(this.get_behavior_options().resize==true) {
-								smallRect.attr({
-									cursor:cursors[boxSet.length<=4?boxSet.length-1:8-boxSet.length]
-								});
-								smallRect.drag(Utils.proxy(this.resizing,this),Utils.proxy(this.resizeStart,this),Utils.proxy(this.resizeEnd,this));
-							}
-						}
-						y = y + (rect_height/2);
-					}
-					x = x + (rect_width/2);
-				}*/
-				var cursors = ['nw-resize','ne-resize','ne-resize','nw-resize']
-				for(var i = 0,x = rect_x - 4; i < 2; i++) {
-					for(var j = 0,y = rect_y - 4; j < 2; j++) {
-						var smallRect = this.primeSvg.rect(x, y, 8, 8);
-						boxSet.push(smallRect);
-						if(this.get_behavior_options().resize==true) {
-							console.log(cursors[boxSet.length-1]);
-							smallRect.attr({
-								cursor:cursors[boxSet.length-1]
-							});
-							smallRect.drag(Utils.proxy(this.resizing,this),Utils.proxy(this.resizeStart,this),Utils.proxy(this.resizeEnd,this));
-						}
-						y = y + (rect_height);
-					}
-					x = x + (rect_width);
-				}
-				if(this.get_behavior_options().rotate==true){
-					var circle_y = rect_y-28;
-					var line_y = rect_y;
-					if(circle_y<0){
-						circle_y = rect_y + (rect_height) + 28;
-						line_y = rect_y + (rect_height) + 24;
-					}
-					var rotateCircle = this.primeSvg.circle(rect_x+(rect_width/2),circle_y,4,4);
-					rotateCircle.attr({cursor:'crosshair'});
-					boxSet.push(rotateCircle);
-					rotateCircle.drag(Utils.proxy(this.rotating,this),Utils.proxy(this.rotateStart,this),Utils.proxy(this.rotateEnd,this));
-					var path = 'M' + (rect_x+(rect_width/2)) + ',' + line_y + 'L' + (rect_x+(rect_width/2)) + ',' + (line_y-24);
-					var line = this.primeSvg.path(path);
-					boxSet.push(line);
-				}
-				//adding the delete button
-				
-				boxSet.attr({"fill":"#FFF","stroke":"000","stroke-width":"1"});
-				selectionRect.attr({
-					"stroke":"#A1C9FF",
-					"stroke-width":"3", 
-					"stroke-linecap":"round",
-					"stroke-linejoin":"round"
-				});
-				boxSet.push(selectionRect);
-				if(this.get_behavior_options().remove==true){
-					var deleteIcon = this.primeSvg.image("/" + com.compro.cgrails.APPLICATIONNAME + "/images/deletered.png",rect_x+rect_width + config.deleteImageXIncreament, rect_y+config.deleteImageYIncreament, config.deleteImageSize, config.deleteImageSize);
-					deleteIcon.click(Utils.proxyChangeContext(this.deletePick,this));
-					boxSet.push(deleteIcon);
-				}
-			
-				
-				this.instance.boxSet = boxSet;
-			}
+			this.showHandles();
 		};
 
 		var defaultUnselectPickHandler = function(){
 			if(this.instance.boxSet!=null){
 				this.instance.boxSet.remove();
 			}	
+			this.hideHandles();
 		};
 
 		var defaultDeletePickHandler = function(){
 			this.unSelect();
-			this.instance.thumbInstance.remove();
+			this.thumbInstance.remove();
 			this.instance.remove();
 			Utils.fireEvent(this,this.events.PICK_DELETED);
 		};
 
 		var defaultMoveToFront = function(){
 			this.instance.toFront();
-			this.instance.thumbInstance.toFront();
+			this.thumbInstance.toFront();
 		};
 
 		var defaultResizeStartHandler = function(obj){
-			var bBoxInstance = obj.instance.getBBox(false);
-			var tempInstance;
-			if(obj.instance.type=='image'){
-				tempInstance = obj.primeSvg.rect(bBoxInstance.x,bBoxInstance.y,bBoxInstance.width,bBoxInstance.height);
-				tempInstance.attr({stroke:"#00F",
-					'stroke-width':2})
-			}else{
-				tempInstance = obj.instance.clone();
-			}
-			obj.instance.tempInstance=tempInstance;
-			tempInstance.attr({'fill-opacity':0.0,
-								"stroke-opacity":0.7,
-								"opacity":0.5});
-			var bBox = tempInstance.getBBox(false);
-			tempInstance.ox=0;
-			tempInstance.oy=0;
-			var dragBoxIndex = obj.instance.boxSet.items.indexOf(this);
-			tempInstance.mult_y=1;
-			tempInstance.mult_x=1;
-			tempInstance.ref_x = bBox.x;
-			tempInstance.ref_y = bBox.y;
-			if(dragBoxIndex==0||dragBoxIndex==2){
-				tempInstance.mult_y=-1;
-				tempInstance.ref_y = bBox.y2; 
-			}
+			/**
+			 * FREE-TRANSFORM START
+			 */
+			var ft = obj.freeTransform,
+			rotate = ( ( 360 - ft.attrs.rotate ) % 360 ) / 180 * Math.PI,
+			handlePos = this.attr(['x', 'y']);
 
-			/*if(dragBoxIndex==1||dragBoxIndex==6){
-				tempInstance.mult_y=0;
-			}
-
-			if(dragBoxIndex==3||dragBoxIndex==4){
-				tempInstance.mult_x=0;
-			}*/
-
-			if(dragBoxIndex<=1){
-				tempInstance.mult_x=-1;
-				tempInstance.ref_x = bBox.x2;
-			}
-			tempInstance.current_w =  bBox.width;
-			tempInstance.current_h = bBox.height;
-			document.body.style.cursor = this.attr("cursor");
-			
+			ft.o = cloneObj(ft.attrs);
+	
+			ft.o.handlePos = {
+				cx: handlePos.x + freeTransformOptions.size,
+				cy: handlePos.y + freeTransformOptions.size
+				};
+	
+			ft.o.rotate = {
+			sin: Math.sin(rotate),
+			cos: Math.cos(rotate)
+			};
 		}
+			
+		function keepRatio(axis,ft) {
+			if ( axis === 'x' ) {
+				ft.attrs.scale.y = ft.attrs.scale.x / ft.attrs.ratio;
+			} else {
+				ft.attrs.scale.x = ft.attrs.scale.y * ft.attrs.ratio;
+			}
+		}
+			
+		
 
 		var defaultResizeHandler = function(obj,dx,dy){
-			var tempInstance = obj.instance.tempInstance;
-			var bBox = tempInstance.getBBox(false);
-			var current_w = tempInstance.current_w;
-			var current_h = tempInstance.current_h;
-			var new_w = tempInstance.mult_x * (dx-tempInstance.ox) + current_w;
-			var new_h = tempInstance.mult_y * (dy-tempInstance.oy) + current_h;
-			if(new_w==0||new_h==0){
-				console.log(new_w,new_h,"zero");
+			
+			var ft = obj.freeTransform,
+				handle = this.handleParent;
+			if (freeTransformOptions.keepRatio) {
+				dx = handle.axis === 'x' ? -dy : dy;
 			}
-			var scale_x = new_w/current_w;
-			var scale_y = new_h/current_h;
-			var ref_x = tempInstance.ref_x;
-			var ref_y = tempInstance.ref_y;
-			var scale = scale_x>scale_y?scale_x:scale_y;
-			new_w = scale*current_w;
-			new_h = scale*current_h;
-			tempInstance.transform("...s" + (scale) + "," + (scale) + "," + ref_x + "," + ref_y);
-			tempInstance.ox = dx;
-			tempInstance.oy = dy;
-			tempInstance.current_w = new_w==0?new_w+0.0001:new_w;
-			tempInstance.current_h = new_h==0?new_h+0.0001:new_h;
-			console.log(tempInstance.current_w,tempInstance.current_h,new_w,new_h);
+
+			var sin, cos, rx, ry, rdx, rdy, mx, my, sx, sy;
+			
+			sin = ft.o.rotate.sin;
+			cos = ft.o.rotate.cos;
+			// First rotate dx, dy to element alignment
+			rx = dx * cos - dy * sin;
+			ry = dx * sin + dy * cos;
+
+			rx *= Math.abs(handle.x);
+			ry *= Math.abs(handle.y);
+
+			// And finally rotate back to canvas alignment
+			rdx = rx *   cos + ry * sin;
+			rdy = rx * - sin + ry * cos;
+
+			ft.attrs.translate = {
+				x: ft.o.translate.x + rdx / 2,
+				y: ft.o.translate.y + rdy / 2
+				};
+
+			// Mouse position, relative to element center after translation
+			mx = ft.o.handlePos.cx + dx - ft.attrs.center.x - ft.attrs.translate.x;
+			my = ft.o.handlePos.cy + dy - ft.attrs.center.y - ft.attrs.translate.y;
+
+			// Position rotated to align with element
+			rx = mx * cos - my * sin;
+			ry = mx * sin + my * cos;
+
+			// Scale element so that handle is at mouse position
+			sx = rx * 2 * handle.x / ft.o.size.x;
+			sy = ry * 2 * handle.y / ft.o.size.y;
+
+			ft.attrs.scale = {
+				x: sx || ft.attrs.scale.x,
+				y: sy || ft.attrs.scale.y
+				};
+
+
+			// Maintain aspect ratio
+			if (freeTransformOptions.keepRatio) {
+				keepRatio(handle.axis,ft);
+			}
+			ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
+			applyLimits(obj);
+			apply(obj);
+			obj.updateHandles();
 		}
 
 		var defaultResizeEndHandler = function(obj){
-			var tempInstance = obj.instance.tempInstance;
-			var bBoxTemp = tempInstance.getBBox(false);
-			var bBox = obj.instance.getBBox(false);
-
-			var new_w = tempInstance.current_w;
-			var new_h = tempInstance.current_h;
-
-			var ref_x = bBox.x;
-			var ref_y = bBox.y;
-			if(tempInstance.mult_x<0){
-				ref_x = bBox.x2;
-			}
-			if(tempInstance.mult_y<0){
-				ref_y = bBox.y2;
-			}
-
-			var scale_x = new_w/bBox.width;
-			var scale_y = new_h/bBox.height;
-			tempInstance.remove();
-			console.log("resize parameters:",scale_x,scale_y,ref_x,ref_y,bBox);
-			obj.resize(scale_x,scale_y,ref_x,ref_y);
-
 			document.body.style.cursor = 'auto';
+			applyOnThumb(obj);
+			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
 
 		}
 
 		var defaultRotateHandler = function(obj,dx,dy){
-			var bBoxInstance = obj.instance.getBBox(false);
-			var tempInstance = obj.instance.tempInstance;
-			var x = tempInstance.x_move = (tempInstance.x_move||0) + dx;
-			var y = tempInstance.y_move = (tempInstance.y_move||0) + dy;
-			console.log(y,x,dy,dx);
-			var rotate = 360 - ((180 / Math.PI) * Math.atan2(-dy, dx));
-		
-			/*if(tempInstance.previousRotate>180){
-				rotate = 360-rotate;
-			}*/
-			console.log(rotate);
-			tempInstance.transform("...R" + -tempInstance.previousRotate);
-			tempInstance.transform("...R" + rotate);
-			tempInstance.previousRotate = rotate;
+			var ft = obj.freeTransform,
+			cx = dx + this.ox,
+			cy = dy + this.oy
+			var rotate = true;
+			var scale = false;
+			var mirrored = {
+				x: ft.o.scale.x < 0,
+				y: ft.o.scale.y < 0
+				};
+	
+			if ( rotate ) {
+				var rad = Math.atan2(cy - ft.o.center.y - ft.o.translate.y, cx - ft.o.center.x - ft.o.translate.x);
+	
+				ft.attrs.rotate = rad * 180 / Math.PI - ( this.freeTransform.axis === 'y' ? 90 : 0 );
+				
+				if(this.freeTransform.invert){
+					ft.attrs.rotate += 180;
+				}
+				
+				if ( mirrored[this.freeTransform.axis] ) { ft.attrs.rotate -= 180; }
+			}
+
+			var radius = Math.sqrt(Math.pow(cx - ft.o.center.x - ft.o.translate.x, 2) + Math.pow(cy - ft.o.center.y - ft.o.translate.y, 2));
+	
+			if ( scale ) {
+				ft.attrs.scale[this.freeTransform.axis] = radius / ( ft.o.size[this.freeTransform.axis] / 2 * freeTransformOptions.distance );
+	
+				if ( mirrored[this.freeTransform.axis] ) { ft.attrs.scale[axis] *= -1; }
+			}
+	
+			
+	
+			// Maintain aspect ratio
+			if (freeTransformOptions.keepRatio) {
+				keepRatio(this.freeTransform.axis,ft);
+			} else {
+				ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
+			}
+			applyLimits(obj);
+			if ( ft.attrs.scale.x && ft.attrs.scale.y ) { apply(obj)}; 
+			obj.updateHandles(true);
 		}
 		var defaultRotateStartHandler = function(obj){
-			document.body.style.cursor = this.attr("cursor");
-			var bBoxInstance = obj.instance.getBBox(false);
-			var tempInstance;
-			if(obj.instance.type=='image'){
-				tempInstance = obj.primeSvg.rect(obj.instance.attr("x"),obj.instance.attr("y"),obj.instance.attr("width"),obj.instance.attr("height"));
-				tempInstance.attr({stroke:"#00F",
-					'stroke-width':2,
-					transform:obj.instance.attr("transform")});
-			}else{
-				tempInstance = obj.instance.clone();
-			}
-			obj.instance.tempInstance=tempInstance;
-			tempInstance.attr({'fill-opacity':0.0,
-								"stroke-opacity":0.7,
-								"opacity":0.5});
-			tempInstance.previousRotate = 0;
+			var ft = obj.freeTransform;
+			ft.o = cloneObj(ft.attrs);
+			this.ox = this.attrs.cx;
+			this.oy = this.attrs.cy;
+
 		}
 		var defaultRotateEndHandler = function(obj){
 			document.body.style.cursor = 'auto';
-			obj.rotate(obj.instance.tempInstance.previousRotate);
-			obj.instance.tempInstance.remove();
+			applyOnThumb(obj);
+			obj.updateHandles();
+			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
+			
 		}
 
 		function renderThumb(obj){
-			var thumbInstance = (obj.thumbSvg.add([{type:obj.properties.raphaelType}]))[0];
-			//keeping reference the thumbnail of the image in collage
-			obj.instance.thumbInstance = thumbInstance;
-			obj.instance.thumbInstance.attr(obj.properties.raphaelAttributes);
-			var instanceBbox = obj.instance.getBBox(false);
-			var thumbBbox = thumbInstance.getBBox(false);
-			var config = obj.config;
-			thumbInstance.attr({"stroke-width":thumbInstance.attr("stroke-width")*config.thumbRatio});
-			thumbInstance.transform("...s" + config.thumbRatio + "," + config.thumbRatio + "," + thumbBbox.x + "," + thumbBbox.y);
-			thumbBbox = thumbInstance.getBBox(false);
-			thumbInstance.transform("...T" + (instanceBbox.x*config.thumbRatio-thumbBbox.x) + "," + (instanceBbox.y*config.thumbRatio-thumbBbox.y));
+			obj.thumbInstance = obj.thumbSvg.set();
+			obj.properties.items.map(function(item){
+				var element = obj.thumbSvg.add([{type:item.raphaelType}])[0];
+				if(item.raphaelAttributes != null){
+					element.attr(item.raphaelAttributes);
+				} 
+				element.attr({"stroke-width":element.attr("stroke-width")*obj.config.thumbRatio});
+				obj.thumbInstance.push(element);
+			})
+			applyOnThumb(obj);
 		}
 
 		
 
-		function rendePick(pickRatio,obj){
-			obj.instance = (obj.primeSvg.add([{type:obj.properties.raphaelType}]))[0];
-			if(obj.properties.raphaelAttributes != null){
-				obj.instance.attr(obj.properties.raphaelAttributes);
-			} 
+		function renderPick(pickRatio,obj){
+			obj.instance = obj.primeSvg.set();
+			obj.properties.items.map(function(item){
+				var element = obj.primeSvg.add([{type:item.raphaelType}])[0]
+				if(item.raphaelAttributes != null){
+					element.attr(item.raphaelAttributes);
+				} 
+				obj.instance.push(element);
+			})
+			/* FREE-TRANSFORM START */
+			var bbox  = obj.instance.getBBox(true);
+			obj.freeTransform = {
+					// Keep track of transformations
+					attrs: {
+						x: bbox.x,
+						y: bbox.y,
+						size: { x: bbox.width, y: bbox.height },
+						center: { x: bbox.x + bbox.width  / 2, y: bbox.y + bbox.height / 2 },
+						rotate: 0,
+						scale: { x: 1, y: 1 },
+						translate: { x: 0, y: 0 },
+						ratio: 1
+					},
+					handles: { center: null, x: null, y: null },
+					strokeWidths:[]
+			}
+			
+			obj.instance.items.map(function(item,i){
+				obj.freeTransform.strokeWidths.push(item.attr("stroke-width"));
+			});
+			
+			getTransformation(obj);
+			
+			/* FREE-TRANSFORM END */
 			if(pickRatio){
 				if(pickRatio.x!=1||pickRatio.y!=1){
-					var temp = (obj.primeSvg.add([{type:obj.properties.raphaelType}]))[0];
-					temp.attr(obj.instance.attr());
-					var instanceBbox = obj.instance.getBBox(false);
-					var tempBbox = temp.getBBox(false);
-					temp.transform("...s" + pickRatio.x + "," + pickRatio.y + "," + instanceBbox.x + "," + instanceBbox.y);
-					tempBbox = temp.getBBox(false);
-					temp.transform("...T" + (instanceBbox.x*pickRatio.x-tempBbox.x) + "," + (instanceBbox.y*pickRatio.y-tempBbox.y));
-					obj.instance.remove();
-					obj.instance = temp;
+					var attrs = obj.freeTransform.attrs;
+					var scale_x_compensation = (attrs.size.x/2)*(pickRatio.x-1);
+					var scale_y_compensation = (attrs.size.y/2)*(pickRatio.x-1);
+					attrs.scale.x *= pickRatio.x;
+					attrs.scale.y *= pickRatio.y;
+					attrs.translate.x = (attrs.translate.x + attrs.x)*pickRatio.x - attrs.x + scale_x_compensation;
+					attrs.translate.y = (attrs.translate.y + attrs.y)*pickRatio.y - attrs.y + scale_y_compensation;
+					apply(obj);
+					obj.updateSavedProps();
+					
 				}
 			}
-			obj.properties.raphaelAttributes = obj.instance.attr();
 			obj.instance.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
 		}
 
@@ -483,9 +992,7 @@ com.compro.ppt.Pick = function(){
 			};
 
 			Utils.registerObjectForEvent(this);
-			Utils.addCustomEventListener(this,this.events.STATE_CHANGED,function(event){
-				this.properties.raphaelAttributes = this.instance.attr();
-			});
+			Utils.addCustomEventListener(this,this.events.STATE_CHANGED,this.updateSavedProps);
 		};
 		
 		// public API -- prototype
@@ -500,17 +1007,25 @@ com.compro.ppt.Pick = function(){
 			if(this.event_before_paint){
 				this.event_before_paint(pickRatio);
 			}
-			rendePick(pickRatio,this);
+			renderPick(pickRatio,this);
 			renderThumb(this);
 			if(this.event_after_paint){
 				this.event_after_paint(pickRatio);
 			}
 		}
+		
+		PickConstr.prototype.updateSavedProps= function() {
+			var obj = this;
+			this.properties.items.map(function(item,i){
+				item.raphaelAttributes = obj.instance[i].attr();
+				item.raphaelAttributes['stroke-width'] = obj.freeTransform.strokeWidths[i];
+			})
+		}
 
 		PickConstr.prototype.reRenderThumb=function(thumbSvgObj){
 			this.thumbSvg = thumbSvgObj;
-			if(this.instance.thumbInstance)
-				this.instance.thumbInstance.remove();
+			if(this.thumbInstance)
+				this.thumbInstance.remove();
 			this.config.thumbRatio=namespace.config.thumbRatio;
 			renderThumb(this);
 		}
@@ -518,7 +1033,7 @@ com.compro.ppt.Pick = function(){
 		PickConstr.prototype.reRender=function(primeSvgObj,thumbSvgObj,pickRatio){
 			this.primeSvg = primeSvgObj;
 			this.instance.remove();
-			rendePick(pickRatio,this);
+			renderPick(pickRatio,this);
 			this.reRenderThumb(thumbSvgObj);
 			this.properties.context.height = primeSvgObj.height;
             this.properties.context.width = primeSvgObj.width;
@@ -534,31 +1049,34 @@ com.compro.ppt.Pick = function(){
 		}
 
 		PickConstr.prototype.rotate =function(degree){
-			this.instance.transform("...R" + degree);
-			this.instance.thumbInstance.transform("...R" + degree);
-			if(this.instance.boxSet)
-				this.instance.boxSet.remove();
-			this.selectPick();
+			var ft = this.freeTransform;
+			ft.attrs.rotate += degree;
+			applyLimits(this);
+			apply(this);
+			applyOnThumb(this);
+			this.updateHandles();
 			Utils.fireEvent(this,this.events.STATE_CHANGED);
 		}
 
-		PickConstr.prototype.resize = function(scale_x,scale_y,ref_x,ref_y){
-			var main_scale_str = "...S" + (scale_x) + "," + (scale_y);
-			var thumb_scale_str = main_scale_str;
-			if(ref_x!=null && ref_y!=null){
-				var thumbref_x = ref_x*this.config.thumbRatio;
-				var thumbref_y = ref_y*this.config.thumbRatio;
-				thumb_scale_str = thumb_scale_str + "," + thumbref_x + "," + thumbref_y;
-				main_scale_str = main_scale_str + "," + ref_x + "," + ref_y;
+		PickConstr.prototype.resize = function(scale_x,scale_y){
+			var ft = this.freeTransform;
+			ft.attrs.scale.x *= scale_x;
+			ft.attrs.scale.y *= scale_y;
+			applyLimits(this);
+			apply(this);
+			this.updateHandles();
+			Utils.fireEvent(this,this.events.STATE_CHANGED);
+		}
+
+		PickConstr.prototype.translate = function(x,y){
+			var ft = this.freeTransform;
+			ft.attrs.translate.x += x; 
+			ft.attrs.translate.y += y;
+			applyLimits(this);
+			apply(this);
+			this.updateHandles();
 			}
-			if(this.instance.boxSet)
-				this.instance.boxSet.remove();
-			this.instance.transform(main_scale_str);
-			this.instance.thumbInstance.transform(thumb_scale_str);
-			this.selectPick();
-			Utils.fireEvent(this,this.events.STATE_CHANGED);
-		}
-
+		
 		
 		PickConstr.prototype.dragStart = defaultDragStartHandler;
 
@@ -599,14 +1117,19 @@ com.compro.ppt.Pick = function(){
 
 		PickConstr.prototype.moveToFront = defaultMoveToFront;
 		
+		PickConstr.prototype.updateHandles = defaultUpdateHandles;
+		PickConstr.prototype.showHandles = defaultShowHandles;
+		PickConstr.prototype.hideHandles = defaultHideHandles;
+			
+		
 		PickConstr.prototype.events = {
 				PICK_SELECTED:'pickSelected',
 				STATE_CHANGED:'stateChanged',
 				PICK_DELETED:'pickDeleted',
 				DRAG_END:'dragEnd',
 				DRAG_START:'dragStart'
-		}
-
+		};
+		
 		PickConstr.prototype.toJSON  = function() {
 			return {
            		 "properties": this.properties
@@ -618,7 +1141,7 @@ com.compro.ppt.Pick = function(){
 			if(jsonProps["stroke-width"]){
 				jsonProps["stroke-width"] = jsonProps["stroke-width"]*this.config.thumbRatio;
 			}
-			this.instance.thumbInstance.attr(jsonProps);
+			this.thumbInstance.attr(jsonProps);
 		}
 		
 		PickConstr.prototype.externalObject = function(){
@@ -631,10 +1154,9 @@ com.compro.ppt.Pick = function(){
 			}
 		}
 		
-
-		
 		
 		// return the constructor
 		return PickConstr;
-}();
 
+
+}();

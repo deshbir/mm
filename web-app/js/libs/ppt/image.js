@@ -40,15 +40,26 @@ com.compro.ppt.Image = function(){
 
 		var defaultProps = {
 				handler:'com.compro.ppt.Image',
-				raphaelType:'image',
-				raphaelAttributes:{
-					x:"0",
-					y:"0",
-					width:"100",
-					height:"100",
-					cursor:'move',
-					src:""
-				}
+				items: [{
+					raphaelType : 'rect',
+					raphaelAttributes:{
+						x:0,
+						y:0,
+						width:100,
+						height:100,
+						r:4,
+					}
+				},{
+						raphaelType:'image',
+						raphaelAttributes:{
+							x:"0",
+							y:"0",
+							width:"100",
+							height:"100",
+							cursor:'move',
+							src:""
+						}
+				}]
 		};
 
 	    var ImageConstr = function(params) {
@@ -58,12 +69,29 @@ com.compro.ppt.Image = function(){
 			if(params.isFromStorage) {
 				props = params.storageProps;
 			} else {
+				var clipRect = params.coordX + "," + params.coordY + "," + (params.toolsProps.raphaelAttributes.width||100) +"," +(params.toolsProps.raphaelAttributes.height||100) + ","+5; 
+
 				var newImageOverrides = {
-					raphaelAttributes:{
-						x:params.coordX,
-						y:params.coordY,
-						src:(params.toolsProps.source)
-					}
+					items:[{
+						raphaelAttributes:{
+							x:params.coordX-5,
+							y:params.coordY-5,
+							width:params.toolsProps.raphaelAttributes.width+10,
+							height:params.toolsProps.raphaelAttributes.height+10,
+							fill:'#3362AF',
+							stroke:'#3362AF'
+						}
+					},{
+						raphaelAttributes:{
+							x:params.coordX,
+							y:params.coordY,
+							src:(params.toolsProps.source),
+							//"clip-rect":clipRect,
+							width:params.toolsProps.raphaelAttributes.width,
+							height:params.toolsProps.raphaelAttributes.height,
+							
+						}
+					}]
 				};
 
 				props = Utils.merge_JSON(defaultProps,(Utils.merge_JSON(newImageOverrides,params.toolsProps)));
@@ -76,12 +104,12 @@ com.compro.ppt.Image = function(){
 		    constructor: {value:com.compro.ppt.Image}
 		 });
 
-		/* ImageConstr.prototype.get_behavior_options =function(){
+		/*ImageConstr.prototype.get_behavior_options =function(){
 			return {
-				selection_box:false,
+				selection_box:true,
 				resize:false,
-				rotate:false,
-				delete:false
+				rotate:true,
+				remove:true
 			};
 		}*/
 
