@@ -11,19 +11,22 @@ com.compro.ppt.Text = function(){
 	    
 		var defaultProps = {
 				handler:'com.compro.ppt.Text',
-				raphaelType:'text',
-				raphaelAttributes:{
-					x:"0",
-					y:"0",
-					text:"default text",
-					width:"100",
-					height:"100",
-					fontfamily:"arial",
-					fontsize:"10",
-					fontweight:"normal",
-					fontcolor:"black",
-					cursor:'move'
-				}
+				items: [{
+					raphaelType:'text',
+					raphaelAttributes:{
+						x:"0",
+						y:"0",
+						text:"default text",
+						width:"100",
+						height:"100",
+						fontfamily:"arial",
+						fontsize:"10",
+						fontweight:"normal",
+						fontcolor:"black",
+						cursor:'move',
+						"text-anchor":"start"
+					}
+				}]
 		};
 	    
 	    
@@ -64,13 +67,18 @@ com.compro.ppt.Text = function(){
 				props = params.storageProps;
 			} else {
 				var newImageOverrides = {
-					raphaelAttributes:{
-						x:params.coordX,
-						y:params.coordY
-					}
+					items:[{
+						raphaelAttributes:{
+							x:params.coordX,
+							y:parseFloat(params.coordY) + parseFloat(params.toolsProps.items[0].raphaelAttributes["font-size"])
+						}
+					}]
 				};
 
+				console.log("params.coordY" + params.coordY); 
+				console.log("***", (params.coordY + params.toolsProps.items[0].raphaelAttributes["font-size"]));
 				props = Utils.merge_JSON(defaultProps,(Utils.merge_JSON(newImageOverrides,params.toolsProps)));
+				console.log("***y ", props.items[0].raphaelAttributes["y"]);
 			}
 
 	    	Pick.call(this,params.primeSvg,params.thumbSvg,props);
@@ -92,3 +100,6 @@ com.compro.ppt.Text = function(){
 		
 		return TextConstr;
 }();
+
+
+

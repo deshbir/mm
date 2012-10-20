@@ -63,6 +63,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 			//passing element height width
 			jsonProperties.raphaelAttributes.width = elementDragged.offsetWidth;
 			jsonProperties.raphaelAttributes.height = elementDragged.offsetHeight;
+			
 			//Passing Properties and handler
 			//Params:Handler,coordX,coordY,properties,toolsProps,storageProp(null),isFromStorage
 			var handler = elementDragged.getAttribute(config.dataString + config.handlerString);
@@ -90,24 +91,39 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		coordY = coordY<0?(coordY+workspacePaddingTop):coordY;
 		
 		
-		
 		//Validating if coordinates lie inside the workspace
+		var elementWidth = el.offsetWidth;
+		var elementHeight = el.offsetHeight;
+		var isSvg = false;
+		
+		if(el.childNodes.length >0 && el.childNodes[0].nodeName == 'svg') {
+			elementWidth = el.width.animVal.value;
+			elementHeight = el.height.animVal.value;
+			console.log("elementWidth",elementWidth);	
+			console.log("elementHeight",elementHeight);
+			isSvg = true;
+		}
+		
 		if(coordX>=0 && 
-		(coordX<=workspaceEl.offsetWidth-el.offsetWidth) &&
-		coordY>=0 && coordY<=(workspaceEl.offsetHeight-el.offsetHeight))
+		(coordX<=workspaceEl.offsetWidth-elementWidth) &&
+		coordY>=0 && coordY<=(workspaceEl.offsetHeight-elementHeight))
 		{
-			if(coordX>workspaceEl.offsetWidth-el.offsetWidth - workspacePaddingRight - workspaceBorder)
+			console.log("Inside");
+			if(coordX>workspaceEl.offsetWidth-elementWidth - workspacePaddingRight - workspaceBorder)
 				coordX = coordX - workspacePaddingRight - workspaceBorder;
-			if(coordY>workspaceEl.offsetHeight-el.offsetHeight - workspacePaddingBottom - workspaceBorder)
+			if(coordY>workspaceEl.offsetHeight-elementHeight - workspacePaddingBottom - workspaceBorder)
 				coordY = coordY - workspacePaddingBottom - workspaceBorder;
 			isValid = true;
 		} else{
 			isValid = false;
 		}
+		console.log("****************el : ", el);
+		console.log("****************border : ", parseFloat(el.style.borderWidth));
 		return {
-			"coordX": coordX,
-			"coordY" : coordY,
+			"coordX": coordX + parseFloat((!isSvg)?  0 : (Utils.getCssComputedProperty(el, 'padding-left'))),
+			"coordY" : coordY + parseFloat((!isSvg)?  0 : ((parseFloat(Utils.getCssComputedProperty(el, 'padding-top'))) - parseFloat(el.style.borderWidth))),
 			"isValid" : isValid
+
 		};
 	}
 	
@@ -249,4 +265,5 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 
 
 }())
+
 

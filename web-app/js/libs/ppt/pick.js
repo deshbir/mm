@@ -215,7 +215,7 @@ com.compro.ppt.Pick = function(){
 			}
 			
 			if(this.get_behavior_options().remove==true){
-				ft.handles.deleteIcon = this.primeSvg.image("/" + com.compro.cgrails.APPLICATIONNAME + "/images/deletered.png",ft.attrs.center.x, ft.attrs.center.y, config.deleteImageSize, config.deleteImageSize);
+				ft.handles.deleteIcon = this.primeSvg.image(com.compro.cgrails.utils.resource("/images/deletered.png"),ft.attrs.center.x, ft.attrs.center.y, config.deleteImageSize, config.deleteImageSize);
 				ft.handles.deleteIcon.click(Utils.proxyChangeContext(this.deletePick,this));
 			}
 			
@@ -387,7 +387,6 @@ com.compro.ppt.Pick = function(){
 		 */
 		var apply = function(obj) {
 			var ft = obj.freeTransform;
-			var strokeWidths = ft.strokeWidths;
 				// Take offset values into account
 			var
 				center = {
@@ -409,12 +408,7 @@ com.compro.ppt.Pick = function(){
 					'S', scale.x, scale.y, center.x, center.y,
 					'T', translate.x, translate.y
 					] + '');
-				console.log(strokeWidths);
-				obj.instance.items.map(function(item,i){
-					if(strokeWidths[i]){
-					 item.attr("stroke-width",strokeWidths[i]*((ft.attrs.scale.x+ft.attrs.scale.y)/2))
-					}
-				});
+				
 				
 			}
 		
@@ -454,11 +448,7 @@ com.compro.ppt.Pick = function(){
 					'S', scale.x, scale.y, center.x, center.y,
 					'T', translate.x, translate.y
 					] + '');
-				obj.thumbInstance.items.map(function(item,i){
-					if(ft.strokeWidths[i]){
-					 item.attr("stroke-width",ft.strokeWidths[i]*((scale.x+scale.y)/2));
-					}
-				});
+				
 			}
 		
 		
@@ -941,12 +931,8 @@ com.compro.ppt.Pick = function(){
 						ratio: 1
 					},
 					handles: { center: null, x: null, y: null },
-					strokeWidths:[]
 			}
 			
-			obj.instance.items.map(function(item,i){
-				obj.freeTransform.strokeWidths.push(item.attr("stroke-width"));
-			});
 			
 			getTransformation(obj);
 			
@@ -1018,7 +1004,6 @@ com.compro.ppt.Pick = function(){
 			var obj = this;
 			this.properties.items.map(function(item,i){
 				item.raphaelAttributes = obj.instance[i].attr();
-				item.raphaelAttributes['stroke-width'] = obj.freeTransform.strokeWidths[i];
 			})
 		}
 
@@ -1064,6 +1049,7 @@ com.compro.ppt.Pick = function(){
 			ft.attrs.scale.y *= scale_y;
 			applyLimits(this);
 			apply(this);
+			applyOnThumb(this);
 			this.updateHandles();
 			Utils.fireEvent(this,this.events.STATE_CHANGED);
 		}
@@ -1074,6 +1060,7 @@ com.compro.ppt.Pick = function(){
 			ft.attrs.translate.y += y;
 			applyLimits(this);
 			apply(this);
+			applyOnThumb(this);
 			this.updateHandles();
 			}
 		

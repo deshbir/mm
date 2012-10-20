@@ -3,27 +3,27 @@
         {
         	"type": "line",
         	"raphaelType":"path",
-			"raphaelAttributes":"{'path':'M 100 100 L 200 0','stroke-width':'3','fill':'#fff','fill-opacity':'0.0'}"
+			"raphaelAttributes":"{'path':'M 0 0 L 100 0','stroke-width':'3','fill':'none','stroke':'black','fill-opacity':'0.0'}"
         },
         {
         	"type": "frame",
         	"raphaelType":"rect",
-			"raphaelAttributes":"{'x':0,'y':0,'width': 10,'height': 10,'stroke-width':'1','fill':'#fff','fill-opacity':'0.0'}"
+			"raphaelAttributes":"{'x':0,'y':0,'width': 60,'height': 50,'stroke-width':'4','fill':'#fff','stroke':'rgba(150, 155, 127, 1.0)','fill-opacity':'0.0'}"
         },
         {
         	"type": "box",
         	"raphaelType":"rect",
-			"raphaelAttributes":"{'x':0,'y':0,'width': 10,'height': 10,'stroke-width':'1','fill':'red','fill-opacity':'1.0'}"
+			"raphaelAttributes":"{'x':0,'y':0,'width': 50,'height': 50,'stroke':'#FDE869','stroke-width':'1','fill':'#FDE869','fill-opacity':'1.0'}"
         },
         {
         	"type": "circle",
 			"raphaelType":"circle",
-			"raphaelAttributes":"{'cx':5,'cy':5,'r':5,'stroke-width':'1','fill':'#fff','fill-opacity':'0.0'}"
+			"raphaelAttributes":"{'cx':50,'cy':50,'r':25,'stroke-width':'4','stroke':'rgba(150, 155, 127, 1.0)','fill':'#fff','fill-opacity':'0.0'}"
         },        
         {
         	"type": "star",
 			"raphaelType":"path",
-			"raphaelAttributes":"{'path':'M16,22.375L7.116,28.83L10.512,18.391999999999996L1.6290000000000013,11.933999999999996L12.608,11.935999999999996L16.002,1.5L19.393,11.934H30.374000000000002L21.488000000000003,18.391L24.884000000000004,28.83L16,22.375L16,22.375Z','stroke-width':'5','fill':'#fff','fill-opacity':'0.0'}"
+			"raphaelAttributes":"{'path':'M16,22.375L7.116,28.83L10.512,18.391999999999996L1.6290000000000013,11.933999999999996L12.608,11.935999999999996L16.002,1.5L19.393,11.934H30.374000000000002L21.488000000000003,18.391L24.884000000000004,28.83L16,22.375L16,22.375Z','stroke-width':'1','fill':'gray','stroke':'gray','fill-opacity':'1.0'}"
         }           
     ]    
 }

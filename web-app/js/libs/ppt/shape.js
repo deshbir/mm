@@ -15,13 +15,15 @@ com.compro.ppt.Shape = function(){
 
 		var defaultProps = {
 			handler:'com.compro.ppt.Shape',
-			raphaelAttributes:{
-				"stroke-width":'1',
-				"fill":"#fff",
-				"fill-opacity":'1.0',
-				 cursor:'move'
-				 
-			}
+			items:[{
+				raphaelAttributes:{
+					"stroke-width":'1',
+					"fill":"#fff",
+					"fill-opacity":'1.0',
+					 cursor:'move'
+					 
+				}
+			}]
 		}
 
 		/*
@@ -67,7 +69,6 @@ com.compro.ppt.Shape = function(){
 				props = params.storageProps;
 			} else {
 				var newShapeOverrides = {
-					type:params.toolsProps.type
 				}
 				props = Utils.merge_JSON(defaultProps,Utils.merge_JSON(newShapeOverrides,params.toolsProps));
 			}
@@ -85,20 +86,18 @@ com.compro.ppt.Shape = function(){
 		 ShapeConstr.prototype.event_after_paint = function(pickRatio){
 			if(this.isFromStorage==false){
 				var instance = this.instance;
-
+				var thumbInstance = this.thumbInstance;
 				var bBox = instance.getBBox(false);
 				var currentX = bBox.x;
 				var currentY = bBox.y;
-				var scale = 100/bBox.width;
+				//var scale = 100/bBox.width;
 				var transX = (this.coordX - currentX);
 				var transY =(this.coordY - currentY);
 				
 				var thumb_transY = transY*this.config.thumbRatio;
 				var thumb_transX = transX*this.config.thumbRatio;
-				var transfromStr = "...T" + transX + "," + transY + "s" + scale + "," + scale +  "," + currentX + ","  + currentY;
-				var thumbTransfromStr = "...T" + thumb_transX + "," + thumb_transY + "s" + scale + "," + scale  + "," + currentX + ","  + currentY;
-				instance.transform(transfromStr);
-				instance.thumbInstance.transform(thumbTransfromStr);
+				this.translate(transX,transY);
+				//this.resize(scale,scale);
 				Utils.fireEvent(this,"stateChanged");
 			}
 		 }

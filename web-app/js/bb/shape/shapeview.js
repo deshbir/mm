@@ -29,7 +29,7 @@ ShapeView = new function() {
 					var attr = modelJ.raphaelAttributes.replace(/\'/g,'"');
 					var raphaelAttr = JSON.parse(attr);
 					//adding into raphaelAttributes of text
-					var props = {raphaelType:modelJ.raphaelType,raphaelAttributes:raphaelAttr}; 
+					var props = {items:[{raphaelType:modelJ.raphaelType,raphaelAttributes:raphaelAttr}]}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Shape", props);
 				});
 				com.compro.application.mm.resetScrollbars();

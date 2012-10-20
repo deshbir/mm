@@ -31,7 +31,7 @@ TextView = new function() {
 					var attr = modelJ.raphaelAttributes.replace(/\'/g,'"');
 					var raphaelAttr = JSON.parse(attr);					
 					//adding into raphaelAttributes of text
-					var props = {raphaelAttributes:raphaelAttr};
+					var props = {items:[{raphaelAttributes:raphaelAttr}]};
 					//var props = {raphaelAttributes:{text: modelJ.text, "font-family": modelJ.fontfamily, "font-size": modelJ.fontsize, "font-weight": modelJ.fontweight, stroke: modelJ.fontcolor}}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Text", props);
 				});

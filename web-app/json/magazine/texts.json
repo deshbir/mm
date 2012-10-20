@@ -10,15 +10,15 @@
         },
         {
         	"type": "heading1",
-			"raphaelAttributes":"{'text':'This is a heading 1','font-family':'Arial','font-size':'14','font-weight':'bold','stroke':'#333333'}"
+			"raphaelAttributes":"{'text':'Heading 1','font-family':'Arial','font-size':'14','font-weight':'bold','stroke':'#333333'}"
         },
         {
         	"type": "heading2",
-        	"raphaelAttributes":"{'text':'This is a heading 2','font-family':'Arial','font-size':'13','font-weight':'bold','stroke':'#333333'}"
+        	"raphaelAttributes":"{'text':'Heading 2','font-family':'Arial','font-size':'13','font-weight':'bold','stroke':'#333333'}"
         },        
         {
         	"type": "para",
-        	"raphaelAttributes":"{'text': 'Para Para \\n Para','font-family':'Arial','font-size':'12','font-weight':'normal','stroke':'#333333'}"
+        	"raphaelAttributes":"{'text': 'Lorem ipsum dolor \\n sit amet,Lorem \\n ipsum dolor sit \\n amet','font-family':'Arial','font-size':'12','font-weight':'normal','stroke':'#333333'}"
         }           
     ]    
 }

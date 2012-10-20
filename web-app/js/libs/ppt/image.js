@@ -47,7 +47,7 @@ com.compro.ppt.Image = function(){
 						y:0,
 						width:100,
 						height:100,
-						r:4,
+						r:2,
 					}
 				},{
 						raphaelType:'image',
@@ -74,12 +74,12 @@ com.compro.ppt.Image = function(){
 				var newImageOverrides = {
 					items:[{
 						raphaelAttributes:{
-							x:params.coordX-5,
-							y:params.coordY-5,
-							width:params.toolsProps.raphaelAttributes.width+10,
-							height:params.toolsProps.raphaelAttributes.height+10,
-							fill:'#3362AF',
-							stroke:'#3362AF'
+							x:params.coordX-1,
+							y:params.coordY-1,
+							width:params.toolsProps.raphaelAttributes.width+2,
+							height:params.toolsProps.raphaelAttributes.height+2,
+							fill:'#CBD63C',
+							stroke:'#CBD63C'
 						}
 					},{
 						raphaelAttributes:{
