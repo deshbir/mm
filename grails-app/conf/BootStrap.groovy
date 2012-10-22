@@ -60,7 +60,7 @@ class BootStrap {
 			def allShapes = slurper.parseText(Shape.jsonPayload)
 			allShapes.shapes.each
 			{
-				new Shape(type: it.type, raphaelType: it.raphaelType, raphaelAttributes: it.raphaelAttributes).save(failOnError: true)
+				new Shape(type: it.type, options:it.options,raphaelType: it.raphaelType, raphaelAttributes: it.raphaelAttributes).save(failOnError: true)
 			}
 		}
 		

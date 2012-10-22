@@ -9,14 +9,17 @@ class Shape {
 	
 	String id
 	String type
+	String options
 	String raphaelType
 	String raphaelAttributes
 		
     static constraints = {
+		options nullable:true
     }
 	
 	static mapping = {
 		raphaelAttributes type:'text'
+		options type:'text'
 	}
 
 	/***********************************

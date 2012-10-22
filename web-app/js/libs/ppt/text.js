@@ -80,8 +80,15 @@ com.compro.ppt.Text = function(){
 				props = Utils.merge_JSON(defaultProps,(Utils.merge_JSON(newImageOverrides,params.toolsProps)));
 				console.log("***y ", props.items[0].raphaelAttributes["y"]);
 			}
-
-	    	Pick.call(this,params.primeSvg,params.thumbSvg,props);
+			
+			var pickConfig = {
+					scale:false,
+					rotate:false,
+					selection_box_attrs:{
+						padding:10
+					}
+			}
+	    	Pick.call(this,params.primeSvg,params.thumbSvg,props,pickConfig);
 	    }
 
 	    TextConstr.prototype = Object.create(Pick.prototype, {

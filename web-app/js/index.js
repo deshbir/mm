@@ -273,6 +273,7 @@ com.compro.application.mm = (function() {
 		myPPTApp.registerEvent("AFTER_PPT_INIT", handler);
 		//Main PPT Engine (Generic) Initialization
 		var pickConfig = {
+				snap: { rotate: 15},
 				pick_delete_image_attrs:{
 					url:"/" + com.compro.cgrails.APPLICATIONNAME + "/images/deletered.png"
 				}

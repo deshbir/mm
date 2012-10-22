@@ -65,14 +65,18 @@ com.compro.ppt.Shape = function(){
 		var ShapeConstr = function(params) {
 			
 			var props;
+			var pickConfig;
 			if(params.isFromStorage) {
 				props = params.storageProps;
+				pickConfig = params.storageProps.options;
 			} else {
 				var newShapeOverrides = {
 				}
+				pickConfig = params.toolsProps.options;
 				props = Utils.merge_JSON(defaultProps,Utils.merge_JSON(newShapeOverrides,params.toolsProps));
 			}
-	    	Pick.call(this,params.primeSvg,params.thumbSvg,props);
+			
+	    	Pick.call(this,params.primeSvg,params.thumbSvg,props,pickConfig);
 	    	this.isFromStorage = params.isFromStorage;
 	    	this.coordX = params.coordX;
 	    	this.coordY = params.coordY;

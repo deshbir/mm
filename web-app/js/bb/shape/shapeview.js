@@ -28,8 +28,19 @@ ShapeView = new function() {
 					var textEl = $("#text #" + modelJ.type);
 					var attr = modelJ.raphaelAttributes.replace(/\'/g,'"');
 					var raphaelAttr = JSON.parse(attr);
+					var options;
+					if(modelJ.options){
+						options = modelJ.options.replace(/\'/g,'"');
+						options = JSON.parse(options);
+					}
 					//adding into raphaelAttributes of text
-					var props = {items:[{raphaelType:modelJ.raphaelType,raphaelAttributes:raphaelAttr}]}; 
+					var props = {
+								options:options,
+								items:[{
+										raphaelType:modelJ.raphaelType,
+										raphaelAttributes:raphaelAttr
+										}]
+								}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Shape", props);
 				});
 				com.compro.application.mm.resetScrollbars();
