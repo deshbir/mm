@@ -18,17 +18,11 @@ class Text {
 	/***********************************
 	 * START Offline configurations
 	 ***********************************/
-
-		static String dataAPI = "/api/text/"
-
-		//returns list of models
-		def static JSON initialData() {
+	
+	def static String[] offlineCachedUrls() {
+		return  ["/api/text/"];
+	}
 			
-			def slurper = new JsonSlurper()
-			def allTexts = slurper.parseText(Text.jsonPayload)
-			return allTexts.texts
-		}
-		
 	/******************************
 	 * END Offline configurations
 	 *******************************/

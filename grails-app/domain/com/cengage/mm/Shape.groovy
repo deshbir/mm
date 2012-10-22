@@ -22,16 +22,10 @@ class Shape {
 	/***********************************
 	 * START Offline configurations
 	 ***********************************/
-
-		static String dataAPI = "/api/shape/"
-
-		//returns list of models
-		def static JSON initialData() {
-			
-			def slurper = new JsonSlurper()
-			def allShapes = slurper.parseText(Shape.jsonPayload)
-			return allShapes.shapes
-		}
+	
+	def static String[] offlineCachedUrls() {
+		return  ["/api/shape/"];
+	}	
 		
 	/******************************
 	 * END Offline configurations

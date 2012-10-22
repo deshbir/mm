@@ -18,19 +18,10 @@ class Tool {
 	/***********************************
 	 * START Offline configurations
 	 ***********************************/
-
-		static String dataAPI = "/api/tool/"
-
-		//returns list of models
-		def static JSON initialData() {
-			
-			def slurper = new JsonSlurper()
-			def allTools = slurper.parseText(Tool.jsonPayload)
-			
-			return allTools.tools
-			//def o = JSON.parse ("[{'toolid':'photo', 'name':'Photos' },{'toolid':'layout','name':'Layout'},{'toolid':'video','name':'Video & Audios'},{'toolid':'editor','name':'Editor'}]")
-			//return o as JSON
-		}
+	
+	def static String[] offlineCachedUrls() {
+		return  ["/api/tool/"];
+	}	
 		
 	/******************************
 	 * END Offline configurations
