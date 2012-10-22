@@ -92,15 +92,6 @@ Selection, Resize, Drag, Delete, Rotate
 - Automatically updating/syncing the Main Slide and Preview Thumbnails
 
 
-You can customize these default behaviors by overriding the default
-get_behavior_options function which return a "behavior_config" object.
-{
-	selection_box:true/false,//also turns off resize,rotate,delete
-	resize:true,
-	rotate:true,
-	remove:true
-}
-
 (3) Attaching your own custom behavior events.
 	When a pick is selected, a "pickSelected" event is triggred
 	to catch it inside the implemented class use:
@@ -128,32 +119,37 @@ com.compro.ppt.Pick = function(){
 		/********************************************************/
 		var Utils = com.compro.ppt.Utils;
 		var namespace = com.compro.ppt;
+		var namespacefn = c$.namespace("com.compro.ppt.GLOBAL");
 
 		/********************************************************/	
 		/*                 Private Members                      */ 
 		/********************************************************/
 		
-		
-		var freeTransformOptions = {
-				attrs: { fill: '#fff', stroke: '#000' },
-				distance: 1.3,
-				drag: true,
-				keepRatio: true,
+		var pickOptionsDefaults = {
+				selection_box:true,
+				selection_box_attrs: { fill: '#fff', stroke: '#000',padding:0 },
+				rotate_handle_distance: 1.3,
+				rotate_handle_axes: ['x','y'],
+				handle_box_size: 5,
 				range: { rotate: [ -180, 180 ], scale: [ -99999, 99999 ] },
+				drag: true,
 				rotate: true,
 				scale: true,
-				snap: { rotate: 10, scale:0 , drag: 20 },
-				snapDist: { rotate: 10, scale: 0, drag: 15 },
-				size: 5,
-				axes: ['x','y']
+				remove:true,
+				scale_keepRatio: true,
+				snap: { rotate: 0, scale:0 , drag: 0 },
+				pick_delete_image_attrs:{
+					size:12,
+					url:"images/deletered.png",
+					x_distance: 8,
+					y_distance: 0
+				}
+	   }
+		namespacefn.updatePickConfig = function(config){
+			if(config){
+				pickOptionsDefaults = Utils.merge_JSON(pickOptionsDefaults,config);
+			}
 		}
-		
-		var config = {
-				deleteImageSize:12,
-				deleteImageXIncreament:freeTransformOptions.size + 8,
-				deleteImageYIncreament:-freeTransformOptions.size
-		} 
-		
 		
 		var defaultHideHandles = function() {
 			var ft = this.freeTransform;
@@ -190,75 +186,77 @@ com.compro.ppt.Pick = function(){
 		var defaultShowHandles = function() {
 			
 			var ft = this.freeTransform;
+			var pickOptions = this.pickOptions;
 			this.hideHandles();
 			var paper = this.primeSvg;
-			if(this.get_behavior_options().rotate==true){
-				freeTransformOptions.axes.map(function(axis) {
+			if(pickOptions.rotate==true){
+				pickOptions.rotate_handle_axes.map(function(axis) {
 					ft.handles[axis] = {};
 	
 					ft.handles[axis].line = paper
 						.path([ 'M', ft.attrs.center.x, ft.attrs.center.y ])
 						.attr({
-							stroke: freeTransformOptions.attrs.stroke,
+							stroke: pickOptions.selection_box_attrs.stroke,
 							'stroke-dasharray': '- ',
 							opacity: .5
 							})
 						;
 	
 					ft.handles[axis].disc = paper
-						.circle(ft.attrs.center.x, ft.attrs.center.y, freeTransformOptions.size)
-						.attr(freeTransformOptions.attrs)
+						.circle(ft.attrs.center.x, ft.attrs.center.y, pickOptions.handle_box_size)
+						.attr(pickOptions.selection_box_attrs)
 						;
 					ft.handles[axis].disc.freeTransform = {axis : axis};
 				});
 				
 			}
 			
-			if(this.get_behavior_options().remove==true){
-				ft.handles.deleteIcon = this.primeSvg.image("/" + com.compro.cgrails.APPLICATIONNAME + "/images/deletered.png",ft.attrs.center.x, ft.attrs.center.y, config.deleteImageSize, config.deleteImageSize);
+			if(pickOptions.remove==true){
+				ft.handles.deleteIcon = this.primeSvg.image( pickOptions.pick_delete_image_attrs.url,ft.attrs.center.x, ft.attrs.center.y, pickOptions.pick_delete_image_attrs.size, pickOptions.pick_delete_image_attrs.size);
 				ft.handles.deleteIcon.click(Utils.proxyChangeContext(this.deletePick,this));
 			}
 			
-			if(this.get_behavior_options().selection_box==true) {
+			if(pickOptions.selection_box==true) {
 				ft.bbox = this.primeSvg
 					.path('')
 					.attr({
-						stroke: freeTransformOptions.attrs.stroke,
+						stroke: pickOptions.selection_box_attrs.stroke,
 						'stroke-dasharray': '- ',
 						opacity: .5
 						})
 					;
 
 				ft.handles.bbox = [];
-
-				var i, handle;
-
-				for ( i = 0; i < 4 ; i ++ ) {
-					handle = {};
-
-					handle.axis     = i % 2 ? 'x' : 'y';
-					handle.isCorner = i < 4;
-					
-					handle.element = this.primeSvg
-						.rect(ft.attrs.center.x, ft.attrs.center.y, freeTransformOptions.size * 2, freeTransformOptions.size * 2)
-						.attr(freeTransformOptions.attrs)
-						;
-					handle.element.handleParent = handle;
-
-					ft.handles.bbox[i] = handle;
+				if(pickOptions.scale){
+					var i, handle;
+	
+					for ( i = 0; i < 4 ; i ++ ) {
+						handle = {};
+	
+						handle.axis     = i % 2 ? 'x' : 'y';
+						handle.isCorner = i < 4;
+						
+						handle.element = this.primeSvg
+							.rect(ft.attrs.center.x, ft.attrs.center.y, pickOptions.handle_box_size * 2, pickOptions.handle_box_size * 2)
+							.attr(pickOptions.selection_box_attrs)
+							;
+						handle.element.handleParent = handle;
+	
+						ft.handles.bbox[i] = handle;
+					}
 				}
 			}
 
 
 			// Drag bbox corner handles
-			if (this.get_behavior_options().resize==true) {
+			if (pickOptions.scale==true) {
 				var that = this;
 				ft.handles.bbox.map(function(handle) {
 					handle.element.drag(Utils.proxy(that.resizing,that),Utils.proxy(that.resizeStart,that),Utils.proxy(that.resizeEnd,that) );
 				});
 			}
 			var self = this;
-			freeTransformOptions.axes.map(function(axis) {
+			pickOptions.rotate_handle_axes.map(function(axis) {
 				if ( !ft.handles[axis] ) { return; }
 
 				var
@@ -276,6 +274,7 @@ com.compro.ppt.Pick = function(){
 		 */
 		var defaultUpdateHandles = function(rotating) {
 				var ft = this.freeTransform;
+				var pickOptions = this.pickOptions;
 				var paper = this.primeSvg;
 				var corners = getBBox(this);
 
@@ -286,41 +285,41 @@ com.compro.ppt.Pick = function(){
 					};
 
 				var radius = {
-					x: ft.attrs.size.x / 2 * ft.attrs.scale.x,
-					y: ft.attrs.size.y / 2 * ft.attrs.scale.y
+					x: (ft.attrs.size.x / 2 * ft.attrs.scale.x) + pickOptions.selection_box_attrs.padding,
+					y: (ft.attrs.size.y / 2 * ft.attrs.scale.y) + pickOptions.selection_box_attrs.padding
 					};
 
-				freeTransformOptions.axes.map(function(axis) {
+				pickOptions.rotate_handle_axes.map(function(axis) {
 					if ( ft.handles[axis] ) {
 						var
-							cx = ft.attrs.center.x + ft.attrs.translate.x + radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]),
-							cy = ft.attrs.center.y + ft.attrs.translate.y + radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis])
+							cx = ft.attrs.center.x + ft.attrs.translate.x + radius[axis] * pickOptions.rotate_handle_distance * Math.cos(rad[axis]),
+							cy = ft.attrs.center.y + ft.attrs.translate.y + radius[axis] * pickOptions.rotate_handle_distance * Math.sin(rad[axis])
 							;
 						
 						if(!rotating){
 							ft.handles[axis].disc.freeTransform.invert = false;
-							if(cx + freeTransformOptions.size > paper.width || cx - freeTransformOptions.size < 0){
-								cx = ft.attrs.center.x  + ft.attrs.translate.x -( radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]));
-								cy = ft.attrs.center.y + ft.attrs.translate.y + radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]+Math.PI/2);
+							if(cx + pickOptions.handle_box_size > paper.width || cx - pickOptions.handle_box_size < 0){
+								cx = ft.attrs.center.x  + ft.attrs.translate.x -( radius[axis] * pickOptions.rotate_handle_distance * Math.cos(rad[axis]));
+								cy = ft.attrs.center.y + ft.attrs.translate.y + radius[axis] * pickOptions.rotate_handle_distance * Math.cos(rad[axis]+Math.PI/2);
 								ft.handles[axis].disc.freeTransform.invert = 'cx';
 							}
-							if(cy + freeTransformOptions.size > paper.height || cy + freeTransformOptions.size<0){
-								cx = ft.attrs.center.x  + ft.attrs.translate.x + radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis]-Math.PI/2);
-								cy = ft.attrs.center.y + ft.attrs.translate.y -( radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis]));
+							if(cy + pickOptions.handle_box_size > paper.height || cy + pickOptions.handle_box_size<0){
+								cx = ft.attrs.center.x  + ft.attrs.translate.x + radius[axis] * pickOptions.rotate_handle_distance * Math.sin(rad[axis]-Math.PI/2);
+								cy = ft.attrs.center.y + ft.attrs.translate.y -( radius[axis] * pickOptions.rotate_handle_distance * Math.sin(rad[axis]));
 								ft.handles[axis].disc.freeTransform.invert = 'cy';
 							}
 						} else if(ft.handles[axis].disc.freeTransform.invert){
 							if(ft.handles[axis].disc.freeTransform.invert=='cx'){
-								cx = ft.attrs.center.x  + ft.attrs.translate.x -( radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]));
-								cy = ft.attrs.center.y + ft.attrs.translate.y + radius[axis] * freeTransformOptions.distance * Math.cos(rad[axis]+Math.PI/2);
+								cx = ft.attrs.center.x  + ft.attrs.translate.x -( radius[axis] * pickOptions.rotate_handle_distance * Math.cos(rad[axis]));
+								cy = ft.attrs.center.y + ft.attrs.translate.y + radius[axis] * pickOptions.rotate_handle_distance * Math.cos(rad[axis]+Math.PI/2);
 							} else {
-								cx = ft.attrs.center.x  + ft.attrs.translate.x + radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis]-Math.PI/2);
-								cy = ft.attrs.center.y + ft.attrs.translate.y -( radius[axis] * freeTransformOptions.distance * Math.sin(rad[axis]));
+								cx = ft.attrs.center.x  + ft.attrs.translate.x + radius[axis] * pickOptions.rotate_handle_distance * Math.sin(rad[axis]-Math.PI/2);
+								cy = ft.attrs.center.y + ft.attrs.translate.y -( radius[axis] * pickOptions.rotate_handle_distance * Math.sin(rad[axis]));
 							}
 						}
 
 						ft.handles[axis].disc.attr({ cx: cx, cy: cy });
-						if((ft.handles[axis].disc.freeTransform.invert && (cx<-freeTransformOptions.size || cy<-freeTransformOptions.size || cx>paper.width + freeTransformOptions.size || cy>paper.height+freeTransformOptions.size))){
+						if((ft.handles[axis].disc.freeTransform.invert && (cx<-pickOptions.handle_box_size || cy<-pickOptions.handle_box_size || cx>paper.width + pickOptions.handle_box_size || cy>paper.height+pickOptions.handle_box_size))){
 							ft.handles[axis].line.attr({opacity:0.0});
 						} else
 						ft.handles[axis].line.attr({opacity:1.0,
@@ -363,8 +362,8 @@ com.compro.ppt.Pick = function(){
 
 							handle.element
 								.attr({
-									x: cx - (freeTransformOptions.size),
-									y: cy - (freeTransformOptions.size)
+									x: cx - (pickOptions.handle_box_size),
+									y: cy - (pickOptions.handle_box_size)
 									})
 								.transform('R' + ft.attrs.rotate)
 								;
@@ -376,8 +375,8 @@ com.compro.ppt.Pick = function(){
 				}
 				if(ft.handles.deleteIcon){
 					ft.handles.deleteIcon.attr({
-						x: corners[4].x - config.deleteImageSize/2,
-						y: corners[4].y - config.deleteImageSize/2
+						x: corners[4].x - pickOptions.pick_delete_image_attrs.size/2,
+						y: corners[4].y - pickOptions.pick_delete_image_attrs.size/2
 					});
 				}
 			
@@ -458,20 +457,20 @@ com.compro.ppt.Pick = function(){
 		 * Apply limits
 		 */
 		var applyLimits = function(obj,bbox) {
-			var ft = obj.freeTransform
+			var ft = obj.freeTransform;
+			var pickOptions = obj.pickOptions;
 			// Snap to grid
 			
 			var corners = getBBox(obj);
-			var min_x = Math.min(corners[0].x,(obj.get_behavior_options().remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
-			var max_x = Math.max(corners[0].x,(obj.get_behavior_options().remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
-			var min_y = Math.min(corners[0].y,(obj.get_behavior_options().remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
-			var max_y = Math.max(corners[0].y,(obj.get_behavior_options().remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
+			var min_x = Math.min(corners[0].x,(pickOptions.remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
+			var max_x = Math.max(corners[0].x,(pickOptions.remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
+			var min_y = Math.min(corners[0].y,(pickOptions.remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
+			var max_y = Math.max(corners[0].y,(pickOptions.remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
 			var current_width = (max_x - min_x)/Math.abs(ft.attrs.scale.x);
 			var current_height = (max_y - min_y)/Math.abs(ft.attrs.scale.y);
-			console.log(current_width,current_height);
-			ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1)*Math.min((obj.primeSvg.width-2*freeTransformOptions.size-config.deleteImageXIncreament)/current_width,Math.abs(ft.attrs.scale.x));
-			ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)*Math.min((obj.primeSvg.height-2*freeTransformOptions.size-config.deleteImageYIncreament)/current_height,Math.abs(ft.attrs.scale.y));
-			if(freeTransformOptions.keepRatio){
+			ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1)*Math.min((obj.primeSvg.width-2*pickOptions.handle_box_size-(pickOptions.pick_delete_image_attrs.x_distance + pickOptions.handle_box_size))/current_width,Math.abs(ft.attrs.scale.x));
+			ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)*Math.min((obj.primeSvg.height-2*pickOptions.handle_box_size-(pickOptions.pick_delete_image_attrs.y_distance - pickOptions.handle_box_size))/current_height,Math.abs(ft.attrs.scale.y));
+			if(pickOptions.scale_keepRatio){
 				ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1) * Math.min(Math.abs(ft.attrs.scale.x),Math.abs(ft.attrs.scale.y));
 				ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)* Math.abs(ft.attrs.scale.x);
 			}
@@ -490,11 +489,11 @@ com.compro.ppt.Pick = function(){
 			}
 			corners.map(function(corner,i){
 				var sizeFactor = 0;
-				if(obj.get_behavior_options().selection_box==true){
-					sizeFactor = 2*freeTransformOptions.size;
+				if(pickOptions.selection_box==true && pickOptions.scale){
+					sizeFactor = 2*pickOptions.handle_box_size;
 				}
-				if(i==4 && obj.get_behavior_options().remove==true){
-					sizeFactor = 2*config.deleteImageSize/3;
+				if(i==4 && pickOptions.remove==true){
+					sizeFactor = 2*pickOptions.pick_delete_image_attrs.size/3;
 				}
 				objBoundary.min.x = Math.min(objBoundary.min.x,corner.x-sizeFactor);
 				objBoundary.min.y = Math.min(objBoundary.min.y,corner.y-sizeFactor);
@@ -503,7 +502,7 @@ com.compro.ppt.Pick = function(){
 				
 			});
 			
-			if ( bbox && freeTransformOptions.snap.drag ) {
+			if ( bbox && pickOptions.snap.drag ) {
 				var
 					x    = bbox.x,
 					y    = bbox.y,
@@ -513,11 +512,11 @@ com.compro.ppt.Pick = function(){
 
 				[ 0, 1 ].map(function() {
 					// Top and left sides first
-					dist.x = x - Math.round(x / freeTransformOptions.snap.drag) * freeTransformOptions.snap.drag;
-					dist.y = y - Math.round(y / freeTransformOptions.snap.drag) * freeTransformOptions.snap.drag;
+					dist.x = x - Math.round(x / pickOptions.snap.drag) * pickOptions.snap.drag;
+					dist.y = y - Math.round(y / pickOptions.snap.drag) * pickOptions.snap.drag;
 
-					if ( Math.abs(dist.x) <= freeTransformOptions.snapDist.drag ) { snap.x = dist.x; }
-					if ( Math.abs(dist.y) <= freeTransformOptions.snapDist.drag ) { snap.y = dist.y; }
+					if ( Math.abs(dist.x) <= pickOptions.snap.drag ) { snap.x = dist.x; }
+					if ( Math.abs(dist.y) <= pickOptions.snap.drag ) { snap.y = dist.y; }
 
 					// Repeat for bottom and right sides
 					x += bbox.width  - snap.x;
@@ -542,58 +541,58 @@ com.compro.ppt.Pick = function(){
 			}
 
 			// Snap to angle, rotate with increments
-			dist = Math.abs(ft.attrs.rotate % freeTransformOptions.snap.rotate);
-			dist = Math.min(dist, freeTransformOptions.snap.rotate - dist);
+			dist = Math.abs(ft.attrs.rotate % pickOptions.snap.rotate);
+			dist = Math.min(dist, pickOptions.snap.rotate - dist);
 
-			if ( dist < freeTransformOptions.snapDist.rotate ) {
-				ft.attrs.rotate = Math.round(ft.attrs.rotate / freeTransformOptions.snap.rotate) * freeTransformOptions.snap.rotate;
+			if ( dist < pickOptions.snap.rotate ) {
+				ft.attrs.rotate = Math.round(ft.attrs.rotate / pickOptions.snap.rotate) * pickOptions.snap.rotate;
 			}
 
 			// Snap to scale, scale with increments
 			dist = {
-				x: Math.abs(( ft.attrs.scale.x * ft.attrs.size.x ) % freeTransformOptions.snap.scale),
-				y: Math.abs(( ft.attrs.scale.y * ft.attrs.size.x ) % freeTransformOptions.snap.scale)
+				x: Math.abs(( ft.attrs.scale.x * ft.attrs.size.x ) % pickOptions.snap.scale),
+				y: Math.abs(( ft.attrs.scale.y * ft.attrs.size.x ) % pickOptions.snap.scale)
 				};
 
 			dist = {
-				x: Math.min(dist.x, freeTransformOptions.snap.scale - dist.x),
-				y: Math.min(dist.y, freeTransformOptions.snap.scale - dist.y)
+				x: Math.min(dist.x, pickOptions.snap.scale - dist.x),
+				y: Math.min(dist.y, pickOptions.snap.scale - dist.y)
 				};
 
-			if ( dist.x < freeTransformOptions.snapDist.scale ) {
-				ft.attrs.scale.x = Math.round(ft.attrs.scale.x * ft.attrs.size.x / freeTransformOptions.snap.scale) * freeTransformOptions.snap.scale / ft.attrs.size.x;
+			if ( dist.x < pickOptions.snap.scale ) {
+				ft.attrs.scale.x = Math.round(ft.attrs.scale.x * ft.attrs.size.x / pickOptions.snap.scale) * pickOptions.snap.scale / ft.attrs.size.x;
 			}
 
-			if ( dist.y < freeTransformOptions.snapDist.scale ) {
-				ft.attrs.scale.y = Math.round(ft.attrs.scale.y * ft.attrs.size.y / freeTransformOptions.snap.scale) * freeTransformOptions.snap.scale / ft.attrs.size.y;
+			if ( dist.y < pickOptions.snap.scale ) {
+				ft.attrs.scale.y = Math.round(ft.attrs.scale.y * ft.attrs.size.y / pickOptions.snap.scale) * pickOptions.snap.scale / ft.attrs.size.y;
 			}
 
 			// Limit range of rotation
-			if ( freeTransformOptions.range.rotate ) {
+			if ( pickOptions.range.rotate ) {
 				var deg = ( 360 + ft.attrs.rotate ) % 360;
 
 				if ( deg > 180 ) { deg -= 360; }
 
-				if ( deg < freeTransformOptions.range.rotate[0] ) { ft.attrs.rotate += freeTransformOptions.range.rotate[0] - deg; }
-				if ( deg > freeTransformOptions.range.rotate[1] ) { ft.attrs.rotate += freeTransformOptions.range.rotate[1] - deg; }
+				if ( deg < pickOptions.range.rotate[0] ) { ft.attrs.rotate += pickOptions.range.rotate[0] - deg; }
+				if ( deg > pickOptions.range.rotate[1] ) { ft.attrs.rotate += pickOptions.range.rotate[1] - deg; }
 			}
 
 			// Limit scale
-			if ( freeTransformOptions.range.scale ) {
-				if ( ft.attrs.scale.x * ft.attrs.size.x < freeTransformOptions.range.scale[0] ) {
-					ft.attrs.scale.x = freeTransformOptions.range.scale[0] / ft.attrs.size.x;
+			if ( pickOptions.range.scale ) {
+				if ( ft.attrs.scale.x * ft.attrs.size.x < pickOptions.range.scale[0] ) {
+					ft.attrs.scale.x = pickOptions.range.scale[0] / ft.attrs.size.x;
 				}
 
-				if ( ft.attrs.scale.y * ft.attrs.size.y < freeTransformOptions.range.scale[0] ) {
-					ft.attrs.scale.y = freeTransformOptions.range.scale[0] / ft.attrs.size.y;
+				if ( ft.attrs.scale.y * ft.attrs.size.y < pickOptions.range.scale[0] ) {
+					ft.attrs.scale.y = pickOptions.range.scale[0] / ft.attrs.size.y;
 				}
 
-				if ( ft.attrs.scale.x * ft.attrs.size.x > freeTransformOptions.range.scale[1] ) {
-					ft.attrs.scale.x = freeTransformOptions.range.scale[1] / ft.attrs.size.x;
+				if ( ft.attrs.scale.x * ft.attrs.size.x > pickOptions.range.scale[1] ) {
+					ft.attrs.scale.x = pickOptions.range.scale[1] / ft.attrs.size.x;
 				}
 
-				if ( ft.attrs.scale.y * ft.attrs.size.y > freeTransformOptions.range.scale[1] ) {
-					ft.attrs.scale.y = freeTransformOptions.range.scale[1] / ft.attrs.size.y;
+				if ( ft.attrs.scale.y * ft.attrs.size.y > pickOptions.range.scale[1] ) {
+					ft.attrs.scale.y = pickOptions.range.scale[1] / ft.attrs.size.y;
 				}
 			}
 		}
@@ -617,14 +616,15 @@ com.compro.ppt.Pick = function(){
 		 */
 		function getBBox(object) {
 			var ft = object.freeTransform;
+			var pickOptions = object.pickOptions;
 			var rad = {
 				x: ( ft.attrs.rotate      ) * Math.PI / 180,
 				y: ( ft.attrs.rotate + 90 ) * Math.PI / 180
 				};
 
 			var radius = {
-				x: ft.attrs.size.x / 2 * ft.attrs.scale.x,
-				y: ft.attrs.size.y / 2 * ft.attrs.scale.y
+				x: (ft.attrs.size.x / 2 * ft.attrs.scale.x) + pickOptions.selection_box_attrs.padding,
+				y: (ft.attrs.size.y / 2 * ft.attrs.scale.y) + pickOptions.selection_box_attrs.padding
 				};
 
 			var
@@ -639,8 +639,8 @@ com.compro.ppt.Pick = function(){
 					});
 			});
 			corners.push({
-					x: ( ft.attrs.center.x + ft.attrs.translate.x + 1 * (radius.x+config.deleteImageXIncreament) * Math.cos(rad.x) ) + -1 * (radius.y-config.deleteImageYIncreament) * Math.cos(rad.y),
-					y: ( ft.attrs.center.y + ft.attrs.translate.y + 1 * (radius.x+config.deleteImageXIncreament) * Math.sin(rad.x) ) + -1 * (radius.y-config.deleteImageYIncreament) * Math.sin(rad.y)
+					x: ( ft.attrs.center.x + ft.attrs.translate.x + 1 * (radius.x+(pickOptions.pick_delete_image_attrs.x_distance + pickOptions.handle_box_size)) * Math.cos(rad.x) ) + -1 * (radius.y-(pickOptions.pick_delete_image_attrs.y_distance - pickOptions.handle_box_size)) * Math.cos(rad.y),
+					y: ( ft.attrs.center.y + ft.attrs.translate.y + 1 * (radius.x+(pickOptions.pick_delete_image_attrs.x_distance + pickOptions.handle_box_size)) * Math.sin(rad.x) ) + -1 * (radius.y-(pickOptions.pick_delete_image_attrs.y_distance - pickOptions.handle_box_size)) * Math.sin(rad.y)
 			});
 
 			return corners;
@@ -754,15 +754,15 @@ com.compro.ppt.Pick = function(){
 			/**
 			 * FREE-TRANSFORM START
 			 */
-			var ft = obj.freeTransform,
+			var ft = obj.freeTransform,pickOptions=obj.pickOptions,
 			rotate = ( ( 360 - ft.attrs.rotate ) % 360 ) / 180 * Math.PI,
 			handlePos = this.attr(['x', 'y']);
 
 			ft.o = cloneObj(ft.attrs);
 	
 			ft.o.handlePos = {
-				cx: handlePos.x + freeTransformOptions.size,
-				cy: handlePos.y + freeTransformOptions.size
+				cx: handlePos.x + pickOptions.handle_box_size,
+				cy: handlePos.y + pickOptions.handle_box_size
 				};
 	
 			ft.o.rotate = {
@@ -783,9 +783,9 @@ com.compro.ppt.Pick = function(){
 
 		var defaultResizeHandler = function(obj,dx,dy){
 			
-			var ft = obj.freeTransform,
+			var ft = obj.freeTransform,pickOptions=obj.pickOptions,
 				handle = this.handleParent;
-			if (freeTransformOptions.keepRatio) {
+			if (pickOptions.scale_keepRatio) {
 				dx = handle.axis === 'x' ? -dy : dy;
 			}
 
@@ -827,7 +827,7 @@ com.compro.ppt.Pick = function(){
 
 			ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
 			// Maintain aspect ratio
-			if (freeTransformOptions.keepRatio) {
+			if (pickOptions.scale_keepRatio) {
 				keepRatio(handle.axis,ft);
 			}
 			
@@ -837,14 +837,13 @@ com.compro.ppt.Pick = function(){
 		}
 
 		var defaultResizeEndHandler = function(obj){
-			document.body.style.cursor = 'auto';
 			applyOnThumb(obj);
 			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
 
 		}
 
 		var defaultRotateHandler = function(obj,dx,dy){
-			var ft = obj.freeTransform,
+			var ft = obj.freeTransform,pickOptions=obj.pickOptions
 			cx = dx + this.ox,
 			cy = dy + this.oy
 			var rotate = true;
@@ -866,17 +865,7 @@ com.compro.ppt.Pick = function(){
 			}
 
 			var radius = Math.sqrt(Math.pow(cx - ft.o.center.x - ft.o.translate.x, 2) + Math.pow(cy - ft.o.center.y - ft.o.translate.y, 2));
-	
-			
-	
-			
-	
-			// Maintain aspect ratio
-			/*if (freeTransformOptions.keepRatio) {
-				keepRatio(this.freeTransform.axis,ft);
-			} else {
-				ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
-			}*/
+		
 			applyLimits(obj);
 			apply(obj); 
 			obj.updateHandles(true);
@@ -955,6 +944,7 @@ com.compro.ppt.Pick = function(){
 					
 				}
 			}
+			if(obj.pickOptions.drag==true)
 			obj.instance.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
 		}
 
@@ -968,7 +958,7 @@ com.compro.ppt.Pick = function(){
 		/********************************************************/
 		
 		
-		var PickConstr = function (primeSvg, thumbSvg, properties) {
+		var PickConstr = function (primeSvg, thumbSvg, properties, pick_config) {
 			this.primeSvg = primeSvg;
 			this.thumbSvg = thumbSvg;
             this.properties = properties;
@@ -980,6 +970,7 @@ com.compro.ppt.Pick = function(){
 			this.config = {
 				thumbRatio: namespace.config.thumbRatio
 			};
+			this.pickOptions = Utils.merge_JSON(pickOptionsDefaults,pick_config);
 
 			Utils.registerObjectForEvent(this);
 			Utils.addCustomEventListener(this,this.events.STATE_CHANGED,this.updateSavedProps);
@@ -1026,15 +1017,6 @@ com.compro.ppt.Pick = function(){
 			this.reRenderThumb(thumbSvgObj);
 			this.properties.context.height = primeSvgObj.height;
             this.properties.context.width = primeSvgObj.width;
-		}
-
-		PickConstr.prototype.get_behavior_options =function(){
-			return {
-				selection_box:true,
-				resize:true,
-				rotate:true,
-				remove:true
-			};
 		}
 
 		PickConstr.prototype.rotate =function(degree){

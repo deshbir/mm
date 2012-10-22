@@ -4458,7 +4458,6 @@ window.Raphael.svg && function (R) {
     
         if (_.sx != 1 || _.sy != 1) {
             var sw = this.attrs[has]("stroke-width") ? this.attrs["stroke-width"] : 1;
-            console.log(sw);
             this.attr({"stroke-width": sw});
         }
 

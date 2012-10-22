@@ -272,7 +272,12 @@ com.compro.application.mm = (function() {
 		};
 		myPPTApp.registerEvent("AFTER_PPT_INIT", handler);
 		//Main PPT Engine (Generic) Initialization
-		myPPTApp.initialize("collage-container","the-slide");
+		var pickConfig = {
+				pick_delete_image_attrs:{
+					url:"/" + com.compro.cgrails.APPLICATIONNAME + "/images/deletered.png"
+				}
+		}
+		myPPTApp.initialize("collage-container","the-slide",pickConfig);
 		
 		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
