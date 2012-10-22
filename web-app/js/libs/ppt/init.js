@@ -30,8 +30,9 @@
 	namespacefn.eventMap[EVENT_AFTER_PPT_INIT] = [afterPPTInit];
 	namespacefn.eventMap[EVENT_ON_PICK_CLICK] = [onPickClick];
 	
-	namespacefn.initialize = function(collageid,workspaceid){
+	namespacefn.initialize = function(collageid,workspaceid,pickConfig){
 		$(document).ready(function(){
+			namespacefn.updatePickConfig(pickConfig);
 			namespacefn.initWorkspace(collageid,workspaceid);
 			namespacefn.triggerGlobalEvent(EVENT_AFTER_PPT_INIT,this);
 		});
