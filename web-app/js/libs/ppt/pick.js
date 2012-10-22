@@ -215,7 +215,7 @@ com.compro.ppt.Pick = function(){
 			}
 			
 			if(this.get_behavior_options().remove==true){
-				ft.handles.deleteIcon = this.primeSvg.image(com.compro.cgrails.utils.resource("/images/deletered.png"),ft.attrs.center.x, ft.attrs.center.y, config.deleteImageSize, config.deleteImageSize);
+				ft.handles.deleteIcon = this.primeSvg.image("/" + com.compro.cgrails.APPLICATIONNAME + "/images/deletered.png",ft.attrs.center.x, ft.attrs.center.y, config.deleteImageSize, config.deleteImageSize);
 				ft.handles.deleteIcon.click(Utils.proxyChangeContext(this.deletePick,this));
 			}
 			
@@ -458,31 +458,23 @@ com.compro.ppt.Pick = function(){
 		var applyLimits = function(obj,bbox) {
 			var ft = obj.freeTransform
 			// Snap to grid
-			if ( bbox && freeTransformOptions.snap.drag ) {
-				var
-					x    = bbox.x,
-					y    = bbox.y,
-					dist = { x: 0, y: 0 },
-					snap = { x: 0, y: 0 }
-					;
-
-				[ 0, 1 ].map(function() {
-					// Top and left sides first
-					dist.x = x - Math.round(x / freeTransformOptions.snap.drag) * freeTransformOptions.snap.drag;
-					dist.y = y - Math.round(y / freeTransformOptions.snap.drag) * freeTransformOptions.snap.drag;
-
-					if ( Math.abs(dist.x) <= freeTransformOptions.snapDist.drag ) { snap.x = dist.x; }
-					if ( Math.abs(dist.y) <= freeTransformOptions.snapDist.drag ) { snap.y = dist.y; }
-
-					// Repeat for bottom and right sides
-					x += bbox.width  - snap.x;
-					y += bbox.height - snap.y;
-				});
-
-				ft.attrs.translate.x -= snap.x;
-				ft.attrs.translate.y -= snap.y;
-			}
+			
 			var corners = getBBox(obj);
+			var min_x = Math.min(corners[0].x,(obj.get_behavior_options().remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
+			var max_x = Math.max(corners[0].x,(obj.get_behavior_options().remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
+			var min_y = Math.min(corners[0].y,(obj.get_behavior_options().remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
+			var max_y = Math.max(corners[0].y,(obj.get_behavior_options().remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
+			var current_width = (max_x - min_x)/Math.abs(ft.attrs.scale.x);
+			var current_height = (max_y - min_y)/Math.abs(ft.attrs.scale.y);
+			console.log(current_width,current_height);
+			ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1)*Math.min((obj.primeSvg.width-2*freeTransformOptions.size-config.deleteImageXIncreament)/current_width,Math.abs(ft.attrs.scale.x));
+			ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)*Math.min((obj.primeSvg.height-2*freeTransformOptions.size-config.deleteImageYIncreament)/current_height,Math.abs(ft.attrs.scale.y));
+			if(freeTransformOptions.keepRatio){
+				ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1) * Math.min(Math.abs(ft.attrs.scale.x),Math.abs(ft.attrs.scale.y));
+				ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)* Math.abs(ft.attrs.scale.x);
+			}
+			
+			corners = getBBox(obj);
 			var paper = obj.primeSvg;
 			var objBoundary = {
 					min:{
@@ -508,6 +500,31 @@ com.compro.ppt.Pick = function(){
 				objBoundary.max.y = Math.max(objBoundary.max.y,corner.y+sizeFactor);
 				
 			});
+			
+			if ( bbox && freeTransformOptions.snap.drag ) {
+				var
+					x    = bbox.x,
+					y    = bbox.y,
+					dist = { x: 0, y: 0 },
+					snap = { x: 0, y: 0 }
+					;
+
+				[ 0, 1 ].map(function() {
+					// Top and left sides first
+					dist.x = x - Math.round(x / freeTransformOptions.snap.drag) * freeTransformOptions.snap.drag;
+					dist.y = y - Math.round(y / freeTransformOptions.snap.drag) * freeTransformOptions.snap.drag;
+
+					if ( Math.abs(dist.x) <= freeTransformOptions.snapDist.drag ) { snap.x = dist.x; }
+					if ( Math.abs(dist.y) <= freeTransformOptions.snapDist.drag ) { snap.y = dist.y; }
+
+					// Repeat for bottom and right sides
+					x += bbox.width  - snap.x;
+					y += bbox.height - snap.y;
+				});
+
+				ft.attrs.translate.x -= snap.x;
+				ft.attrs.translate.y -= snap.y;
+			}
 			// Keep center within boundaries
 			if(objBoundary.max.x>paper.width){
 				ft.attrs.translate.x -=(objBoundary.max.x-paper.width)
@@ -578,15 +595,6 @@ com.compro.ppt.Pick = function(){
 				}
 			}
 		}
-
-		function keepRatio(axis) {
-			if ( axis === 'x' ) {
-				ft.attrs.scale.y = ft.attrs.scale.x / ft.attrs.ratio;
-			} else {
-				ft.attrs.scale.x = ft.attrs.scale.y * ft.attrs.ratio;
-			}
-		}
-
 
 		
 		/**
@@ -810,18 +818,17 @@ com.compro.ppt.Pick = function(){
 			// Scale element so that handle is at mouse position
 			sx = rx * 2 * handle.x / ft.o.size.x;
 			sy = ry * 2 * handle.y / ft.o.size.y;
-
-			ft.attrs.scale = {
+					ft.attrs.scale = {
 				x: sx || ft.attrs.scale.x,
 				y: sy || ft.attrs.scale.y
 				};
 
-
+			ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
 			// Maintain aspect ratio
 			if (freeTransformOptions.keepRatio) {
 				keepRatio(handle.axis,ft);
 			}
-			ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
+			
 			applyLimits(obj);
 			apply(obj);
 			obj.updateHandles();
@@ -839,7 +846,6 @@ com.compro.ppt.Pick = function(){
 			cx = dx + this.ox,
 			cy = dy + this.oy
 			var rotate = true;
-			var scale = false;
 			var mirrored = {
 				x: ft.o.scale.x < 0,
 				y: ft.o.scale.y < 0
@@ -859,22 +865,18 @@ com.compro.ppt.Pick = function(){
 
 			var radius = Math.sqrt(Math.pow(cx - ft.o.center.x - ft.o.translate.x, 2) + Math.pow(cy - ft.o.center.y - ft.o.translate.y, 2));
 	
-			if ( scale ) {
-				ft.attrs.scale[this.freeTransform.axis] = radius / ( ft.o.size[this.freeTransform.axis] / 2 * freeTransformOptions.distance );
-	
-				if ( mirrored[this.freeTransform.axis] ) { ft.attrs.scale[axis] *= -1; }
-			}
+			
 	
 			
 	
 			// Maintain aspect ratio
-			if (freeTransformOptions.keepRatio) {
+			/*if (freeTransformOptions.keepRatio) {
 				keepRatio(this.freeTransform.axis,ft);
 			} else {
 				ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
-			}
+			}*/
 			applyLimits(obj);
-			if ( ft.attrs.scale.x && ft.attrs.scale.y ) { apply(obj)}; 
+			apply(obj); 
 			obj.updateHandles(true);
 		}
 		var defaultRotateStartHandler = function(obj){
