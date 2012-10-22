@@ -40,7 +40,7 @@
 		</div>
 			
 		<div id="para" width="40px" height="30px" style="border:6px solid #DCE8FF; padding:2px 4px; margin:4px;">
-			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="105px" height="60px">
+			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="105px" height="70px">
 				<text style="text-anchor: start; cursor: move; font: 12px Arial;" x="0" y="22">
 					<tspan>Lorem ipsum dolor</tspan>
 					<tspan x="0" dy="14">sit amet,Lorem </tspan>
