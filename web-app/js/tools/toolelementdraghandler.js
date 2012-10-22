@@ -97,8 +97,8 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		var isSvg = false;
 		
 		if(el.childNodes.length >0 && el.childNodes[1].nodeName == 'svg') {
-			elementWidth = el.childNodes[1].width.animVal.value;
-			elementHeight = el.childNodes[1].height.animVal.value;
+			//elementWidth = el.childNodes[1].width.animVal.value;
+			//elementHeight = el.childNodes[1].height.animVal.value;
 			//console.log("elementWidth",elementWidth);	
 			//console.log("elementHeight",elementHeight);
 			isSvg = true;
