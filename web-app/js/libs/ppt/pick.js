@@ -320,8 +320,10 @@ com.compro.ppt.Pick = function(){
 						}
 
 						ft.handles[axis].disc.attr({ cx: cx, cy: cy });
-
-						ft.handles[axis].line.attr({
+						if((ft.handles[axis].disc.freeTransform.invert && (cx<-freeTransformOptions.size || cy<-freeTransformOptions.size || cx>paper.width + freeTransformOptions.size || cy>paper.height+freeTransformOptions.size))){
+							ft.handles[axis].line.attr({opacity:0.0});
+						} else
+						ft.handles[axis].line.attr({opacity:1.0,
 							path: [ [ 'M', ft.attrs.center.x + ft.attrs.translate.x, ft.attrs.center.y + ft.attrs.translate.y ], [ 'L', ft.handles[axis].disc.attrs.cx, ft.handles[axis].disc.attrs.cy ] ]
 							});
 
