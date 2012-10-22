@@ -96,11 +96,11 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		var elementHeight = el.offsetHeight;
 		var isSvg = false;
 		
-		if(el.childNodes.length >0 && el.childNodes[0].nodeName == 'svg') {
-			elementWidth = el.width.animVal.value;
-			elementHeight = el.height.animVal.value;
-			console.log("elementWidth",elementWidth);	
-			console.log("elementHeight",elementHeight);
+		if(el.childNodes.length >0 && el.childNodes[1].nodeName == 'svg') {
+			elementWidth = el.childNodes[1].width.animVal.value;
+			elementHeight = el.childNodes[1].height.animVal.value;
+			//console.log("elementWidth",elementWidth);	
+			//console.log("elementHeight",elementHeight);
 			isSvg = true;
 		}
 		
@@ -108,7 +108,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		(coordX<=workspaceEl.offsetWidth-elementWidth) &&
 		coordY>=0 && coordY<=(workspaceEl.offsetHeight-elementHeight))
 		{
-			console.log("Inside");
+			//console.log("Inside");
 			if(coordX>workspaceEl.offsetWidth-elementWidth - workspacePaddingRight - workspaceBorder)
 				coordX = coordX - workspacePaddingRight - workspaceBorder;
 			if(coordY>workspaceEl.offsetHeight-elementHeight - workspacePaddingBottom - workspaceBorder)
@@ -117,13 +117,10 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		} else{
 			isValid = false;
 		}
-		console.log("****************el : ", el);
-		console.log("****************border : ", parseFloat(el.style.borderWidth));
 		return {
-			"coordX": coordX + parseFloat((!isSvg)?  0 : (Utils.getCssComputedProperty(el, 'padding-left'))),
-			"coordY" : coordY + parseFloat((!isSvg)?  0 : ((parseFloat(Utils.getCssComputedProperty(el, 'padding-top'))) - parseFloat(el.style.borderWidth))),
+			"coordX": coordX + parseFloat((!isSvg) ?  0 : (parseFloat(Utils.getCssComputedProperty(el, 'padding-left')))),
+			"coordY": coordY + parseFloat((!isSvg) ?  0 : (parseFloat(Utils.getCssComputedProperty(el, 'padding-top' )))),
 			"isValid" : isValid
-
 		};
 	}
 	
@@ -137,6 +134,7 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		if(elementDragged==null) {
 			return;
 		}
+		console.log("Continue Dragging");
 		//var workspaceEl = Utils.getById("workspace");
 		//Calculating dragged image new coordinates
 		elementDragged.style.display="block";
@@ -222,9 +220,18 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		function dragStart(event, el) {
 			if(elementDragged==null){
 				elementDragged = el;
-				gElementDraggedX = event.pageX-$(elementDragged).offset().left;
-				gElementDraggedY = event.pageY-$(elementDragged).offset().top;
+				var borderWidthAjustment;
+				if(el.style.borderWidth == "") {
+					borderWidthAjustment = 0;
+				} else {
+					borderWidthAjustment = parseFloat(el.style.borderWidth);
+				}
+				console.log("borderWidthAjustment" + borderWidthAjustment);
+				gElementDraggedX = event.pageX-$(elementDragged).offset().left + borderWidthAjustment;
+				gElementDraggedY = event.pageY-$(elementDragged).offset().top + borderWidthAjustment;
 			}
+			
+			console.log("gElementDraggedX", gElementDraggedX, "gElementDraggedY", gElementDraggedY);
 			elementDragged = el;
 			var elementSibling = $(elementDragged).next();
 			var elementParent = $(elementDragged).parent();
@@ -247,10 +254,11 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 			$(cloneObj).appendTo($("body"));
 			cloneObj.style.zIndex=-1;
 			cloneObj.style.display="none";
-			cloneObj.style.left = offset.left + "px";
-			cloneObj.style.top = offset.top + "px";
+			cloneObj.style.left = (offset.left) + "px";
+			cloneObj.style.top = (offset.top) + "px";
 			cloneObj.style.position ="absolute";
 			cloneObj.style.zIndex = 999;
+			console.log("Left : ", cloneObj.style.left," Top : ", cloneObj.style.top);
 			
 			$(cloneObj).width(width);
 			elementDragged = cloneObj;
