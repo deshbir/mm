@@ -694,6 +694,7 @@ com.compro.ppt.Pick = function(){
 				ft.o = cloneObj(ft.attrs);
 
 				ft.o.bbox = obj.instance.getBBox();
+				obj.event_drag_start();
 
 				/*   FREE-TRANSFORM END   */				
 		};
@@ -723,7 +724,11 @@ com.compro.ppt.Pick = function(){
 			//Toch events are removed once the pick is brought to front, reattaching them
 			this.undrag();
 			this.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
+			
+			obj.event_drag_end();
 			Utils.fireEvent(obj,obj.events.DRAG_END);
+			
+			obj.event_pick_selected();
 			Utils.fireEvent(obj,obj.events.PICK_SELECTED);
 		}; 
 
@@ -736,12 +741,15 @@ com.compro.ppt.Pick = function(){
 				this.instance.boxSet.remove();
 			}	
 			this.hideHandles();
+			this.event_pick_unselected();
 		};
 
 		var defaultDeletePickHandler = function(){
+			this.event_before_deletion();
 			this.unSelect();
 			this.thumbInstance.remove();
 			this.instance.remove();
+			this.event_after_deletion();
 			Utils.fireEvent(this,this.events.PICK_DELETED);
 		};
 
@@ -769,6 +777,7 @@ com.compro.ppt.Pick = function(){
 			sin: Math.sin(rotate),
 			cos: Math.cos(rotate)
 			};
+			obj.event_resize_start();
 		}
 			
 		function keepRatio(axis,ft) {
@@ -838,6 +847,7 @@ com.compro.ppt.Pick = function(){
 
 		var defaultResizeEndHandler = function(obj){
 			applyOnThumb(obj);
+			obj.event_resize_end();
 			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
 
 		}
@@ -869,6 +879,7 @@ com.compro.ppt.Pick = function(){
 			applyLimits(obj);
 			apply(obj); 
 			obj.updateHandles(true);
+			obj.event_rotation_start();
 		}
 		var defaultRotateStartHandler = function(obj){
 			var ft = obj.freeTransform;
@@ -881,6 +892,7 @@ com.compro.ppt.Pick = function(){
 			document.body.style.cursor = 'auto';
 			applyOnThumb(obj);
 			obj.updateHandles();
+			obj.event_rotation_end()
 			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
 			
 		}
@@ -1048,7 +1060,7 @@ com.compro.ppt.Pick = function(){
 			apply(this);
 			applyOnThumb(this);
 			this.updateHandles();
-			}
+		}
 		
 		
 		PickConstr.prototype.dragStart = defaultDragStartHandler;
@@ -1093,7 +1105,29 @@ com.compro.ppt.Pick = function(){
 		PickConstr.prototype.updateHandles = defaultUpdateHandles;
 		PickConstr.prototype.showHandles = defaultShowHandles;
 		PickConstr.prototype.hideHandles = defaultHideHandles;
-			
+		
+		/**Default local event functions*/
+		PickConstr.prototype.event_pick_selected = function(){}
+		
+		PickConstr.prototype.event_pick_unselected = function(){}
+		
+		PickConstr.prototype.event_drag_start = function(){}
+		
+		PickConstr.prototype.event_drag_end = function(){}
+		
+		PickConstr.prototype.event_resize_start = function(){}
+		
+		PickConstr.prototype.event_resize_end = function(){}
+		
+		PickConstr.prototype.event_rotation_start = function(){}
+		
+		PickConstr.prototype.event_rotation_end = function(){}
+		
+		PickConstr.prototype.event_before_deletion = function(){}
+		
+		PickConstr.prototype.event_after_deletion = function(){}
+		
+		/**Default local event functions END*/
 		
 		PickConstr.prototype.events = {
 				PICK_SELECTED:'pickSelected',
