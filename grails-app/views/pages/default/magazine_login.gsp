@@ -31,7 +31,7 @@
 							<input type="password" name="password" class="" placeholder="Password" value="Password" onfocus="this.value='';">
 							<label class="checkbox">
 							<input type="checkbox" name="remember">Remember Me</label>
-							<a href="#" class="btn"><span>Log In</span></a>
+							<a href="<cgrails:switch_singlepage action="home"/>" class="btn"><span>Log In</span></a>
 				   		</form>
 			   		</div>
 		   	  </div>
