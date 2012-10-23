@@ -4,22 +4,20 @@ import grails.converters.JSON
 import groovy.json.JsonSlurper
 
 class Shape {
-
-	def static jsonPayload = new File("web-app/json/magazine/shapes.json").text
 	
 	String id
 	String type
-	String options
+	Map shapeConfig
 	String raphaelType
-	String raphaelAttributes
+	Map raphaelAttributes
 		
     static constraints = {
-		options nullable:true
+		shapeConfig nullable:true
     }
 	
 	static mapping = {
 		raphaelAttributes type:'text'
-		options type:'text'
+		shapeConfig type:'text'
 	}
 
 	/***********************************
@@ -33,5 +31,5 @@ class Shape {
 	/******************************
 	 * END Offline configurations
 	 *******************************/
-	
+
 }

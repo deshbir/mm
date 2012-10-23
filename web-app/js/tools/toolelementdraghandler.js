@@ -96,12 +96,13 @@ com.cengage.mm.tools.ToolElementDragHandler = (function(){
 		var elementHeight = el.offsetHeight;
 		var isSvg = false;
 		
-		if(el.childNodes.length >0 && el.childNodes[1].nodeName == 'svg') {
-			//elementWidth = el.childNodes[1].width.animVal.value;
-			//elementHeight = el.childNodes[1].height.animVal.value;
-			//console.log("elementWidth",elementWidth);	
-			//console.log("elementHeight",elementHeight);
-			isSvg = true;
+		if(el.childNodes.length >0) {
+			for(var num=0; num<el.childNodes.length; num++) {
+				if (el.childNodes[num].nodeName == 'svg') {
+					isSvg = true;
+					break;
+				}
+			}
 		}
 		
 		if(coordX>=0 && 

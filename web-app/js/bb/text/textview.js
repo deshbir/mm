@@ -27,11 +27,9 @@ TextView = new function() {
 				TextCollection.get().each(function(model){
 					var modelJ = model.toJSON();
 					
-					var textEl = $("#text #" + modelJ.type);
-					var attr = modelJ.raphaelAttributes.replace(/\'/g,'"');
-					var raphaelAttr = JSON.parse(attr);					
+					var textEl = $("#text #" + modelJ.type);				
 					//adding into raphaelAttributes of text
-					var props = {items:[{raphaelAttributes:raphaelAttr}]};
+					var props = {items:[{raphaelAttributes:modelJ.raphaelAttributes}]};
 					//var props = {raphaelAttributes:{text: modelJ.text, "font-family": modelJ.fontfamily, "font-size": modelJ.fontsize, "font-weight": modelJ.fontweight, stroke: modelJ.fontcolor}}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Text", props);
 				});

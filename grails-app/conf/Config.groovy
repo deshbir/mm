@@ -89,4 +89,5 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+	warn 'com.blockconsult.yuiminifyresources.YuiCompressorErrorReporter'
 }

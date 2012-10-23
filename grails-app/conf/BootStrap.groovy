@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+import org.codehaus.groovy.grails.commons.GrailsApplication
 
 //import org.grails.plugin.resource.ResourceTagLib
 
@@ -10,10 +11,17 @@ import com.cengage.mm.Shape
 class BootStrap {
 
     def init = { servletContext ->
+		
+		String jsonToolData = new File(servletContext.getRealPath("/json/magazine/tools.json")).text
+		String jsonShapesData = new File(servletContext.getRealPath("/json/magazine/shapes.json")).text
+		String jsonTextData = new File(servletContext.getRealPath("/json/magazine/texts.json")).text
+		String jsonPhotoData = new File(servletContext.getRealPath("/json/magazine/photo-media.json")).text
+		
+	
 		// Check whether the test data already exists.
 		if (!Tool.count()) {
 			def slurper = new JsonSlurper()
-			def allTools = slurper.parseText(Tool.jsonPayload)
+			def allTools = slurper.parseText(jsonToolData)
 			
 			allTools.tools.each
 			{
@@ -30,7 +38,7 @@ class BootStrap {
 		if (!Photo.count()) {
 			
 			def slurper = new JsonSlurper()
-			def allPhotos = slurper.parseText(Photo.jsonPayload)
+			def allPhotos = slurper.parseText(jsonPhotoData)
 			allPhotos.photos.each
 			{
 				new Photo(category: it.category, dir: it.dir, fullfilename: it.fullfilename , thumbfilename: it.thumbfilename , copyright: it.copyright).save(failOnError: true)
@@ -47,7 +55,7 @@ class BootStrap {
 		if (!Text.count()) {
 			
 			def slurper = new JsonSlurper()
-			def allTexts = slurper.parseText(Text.jsonPayload)
+			def allTexts = slurper.parseText(jsonTextData)
 			allTexts.texts.each
 			{
 				new Text(type: it.type, raphaelAttributes: it.raphaelAttributes).save(failOnError: true)
@@ -57,10 +65,11 @@ class BootStrap {
 		if (!Shape.count()) {
 			
 			def slurper = new JsonSlurper()
-			def allShapes = slurper.parseText(Shape.jsonPayload)
+			
+			def allShapes = slurper.parseText(jsonShapesData)
 			allShapes.shapes.each
 			{
-				new Shape(type: it.type, options:it.options,raphaelType: it.raphaelType, raphaelAttributes: it.raphaelAttributes).save(failOnError: true)
+				new Shape(type: it.type, shapeConfig:it.shapeConfig, raphaelType: it.raphaelType, raphaelAttributes: it.raphaelAttributes).save(failOnError: true)
 			}
 		}
 		

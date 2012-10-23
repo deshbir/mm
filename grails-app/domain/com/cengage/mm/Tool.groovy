@@ -4,8 +4,6 @@ import grails.converters.JSON
 import groovy.json.JsonSlurper
 
 class Tool {
-
-	def static jsonPayload = new File("web-app/json/magazine/tools.json").text
 	
 	String id
 	String toolid

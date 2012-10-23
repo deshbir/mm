@@ -4,8 +4,6 @@ import grails.converters.JSON
 import groovy.json.JsonSlurper
 
 class Photo {
-
-	def static jsonPayload = new File("web-app/json/magazine/photo-media.json").text
 	
 	String id
 	String category
