@@ -28,7 +28,7 @@ ShapeView = new function() {
 					var raphaelAttr = JSON.parse(modelJ.raphaelAttributes);
 					var options;
 					if(modelJ.shapeConfig){
-			         options = JSON.parse(options);
+			         options = JSON.parse(modelJ.shapeConfig);
 			       }
 					//adding into raphaelAttributes of text
 					var props = {
