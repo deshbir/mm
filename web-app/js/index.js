@@ -275,7 +275,7 @@ com.compro.application.mm = (function() {
 		var pickConfig = {
 				snap: { rotate: 15},
 				pick_delete_image_attrs:{
-					url:"/" + com.compro.cgrails.APPLICATIONNAME + "/images/deletered.png"
+					url:com.compro.cgrails.utils.resource("/images/deletered.png")
 				}
 		}
 		myPPTApp.initialize("collage-container","the-slide",pickConfig);

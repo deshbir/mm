@@ -140,7 +140,7 @@ com.compro.ppt.Pick = function(){
 				snap: { rotate: 0, scale:0 , drag: 0 },
 				pick_delete_image_attrs:{
 					size:12,
-					url:com.compro.cgrails.utils.resource("images/deletered.png"),
+					url:"images/deletered.png",
 					x_distance: 8,
 					y_distance: 0
 				}

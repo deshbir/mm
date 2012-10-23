@@ -29,7 +29,7 @@ TextView = new function() {
 					
 					var textEl = $("#text #" + modelJ.type);				
 					//adding into raphaelAttributes of text
-					var props = {items:[{raphaelAttributes:modelJ.raphaelAttributes}]};
+					var props = {items:[{raphaelAttributes:JSON.parse(modelJ.raphaelAttributes)}]};
 					//var props = {raphaelAttributes:{text: modelJ.text, "font-family": modelJ.fontfamily, "font-size": modelJ.fontsize, "font-weight": modelJ.fontweight, stroke: modelJ.fontcolor}}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Text", props);
 				});

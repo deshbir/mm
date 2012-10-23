@@ -25,11 +25,9 @@ ShapeView = new function() {
 				ShapeCollection.get().each(function(model){
 					var modelJ = model.toJSON();
 					var textEl = $("#text #" + modelJ.type);
-					var attr = modelJ.raphaelAttributes.replace(/\'/g,'"');
-					var raphaelAttr = JSON.parse(attr);
+					var raphaelAttr = JSON.parse(modelJ.raphaelAttributes);
 					var options;
 					if(modelJ.shapeConfig){
-			         options = modelJ.shapeConfig.replace(/\'/g,'"');
 			         options = JSON.parse(options);
 			       }
 					//adding into raphaelAttributes of text
