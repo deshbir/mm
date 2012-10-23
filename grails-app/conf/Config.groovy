@@ -66,6 +66,10 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
+		//Completely disable css and/or js processor
+		grails.resources.mappers.yuicssminify.disable=true
+		grails.resources.mappers.yuijsminify.disable=true
+		grails.resources.debug = true
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
@@ -91,3 +95,6 @@ log4j = {
            'net.sf.ehcache.hibernate'
 	warn 'com.blockconsult.yuiminifyresources.YuiCompressorErrorReporter'
 }
+
+grails.plugin.cloudfoundry.username = "deshbir.dugal@me.com"
+grails.plugin.cloudfoundry.password = "compro4lsc"

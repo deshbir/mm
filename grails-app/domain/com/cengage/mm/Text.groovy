@@ -7,7 +7,7 @@ class Text {
 	
 	String id
 	String type
-	Map raphaelAttributes
+	String raphaelAttributes
 		
     static constraints = {
 		raphaelAttributes type:'text'

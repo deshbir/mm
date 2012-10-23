@@ -7,9 +7,9 @@ class Shape {
 	
 	String id
 	String type
-	Map shapeConfig
+	String shapeConfig
 	String raphaelType
-	Map raphaelAttributes
+	String raphaelAttributes
 		
     static constraints = {
 		shapeConfig nullable:true
