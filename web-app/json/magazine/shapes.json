@@ -2,7 +2,7 @@
     "shapes": [
         {
         	"type": "line",
-        	"shapeConfig" : "{\"selection_box_attrs\":{\"padding\":\"10\"},\"snap\": {\"rotate\": \"45\"}}",
+        	"shapeConfig" : "{\"selection_box_attrs\":{\"padding\":10},\"snap\": {\"rotate\": 45}}",
         	"raphaelType":"path",
 			"raphaelAttributes":"{\"path\":\"M 0 0 L 100 0\",\"stroke-width\":\"3\",\"fill\":\"none\",\"stroke\":\"black\",\"fill-opacity\":\"0.0\"}"
         },
