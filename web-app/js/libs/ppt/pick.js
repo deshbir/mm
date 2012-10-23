@@ -733,14 +733,22 @@ com.compro.ppt.Pick = function(){
 		}; 
 
 		var defaultSelectPickHandler = function(){
+			if(this.isSelected == true){
+				return;
+			}
+			this.isSelected = true;
 			this.showHandles();
 		};
 
 		var defaultUnselectPickHandler = function(){
+			if(!this.isSelected){
+				return;
+			}
 			if(this.instance.boxSet!=null){
 				this.instance.boxSet.remove();
 			}	
 			this.hideHandles();
+			this.isSelected = false;
 			this.event_pick_unselected();
 		};
 
@@ -928,7 +936,7 @@ com.compro.ppt.Pick = function(){
 					attrs: {
 						x: bbox.x,
 						y: bbox.y,
-						size: { x: bbox.width, y: bbox.height },
+						size: { x: (bbox.width == 0 ) ? 1 : bbox.width, y: (bbox.height==0) ? 1: bbox.height},
 						center: { x: bbox.x + bbox.width  / 2, y: bbox.y + bbox.height / 2 },
 						rotate: 0,
 						scale: { x: 1, y: 1 },
@@ -1143,12 +1151,36 @@ com.compro.ppt.Pick = function(){
        		};
 		}
 		
-		PickConstr.prototype.updateProperties  = function(jsonProps) {
-			this.instance.attr(jsonProps);
-			if(jsonProps["stroke-width"]){
-				jsonProps["stroke-width"] = jsonProps["stroke-width"]*this.config.thumbRatio;
+		PickConstr.prototype.updateFTProps = function(){
+			var bbox  = this.instance.getBBox(true);
+			var freeTransform = {
+					attrs: {
+						x: bbox.x,
+						y: bbox.y,
+						size: { x: bbox.width, y: bbox.height },
+						center: { x: bbox.x + bbox.width  / 2, y: bbox.y + bbox.height / 2 },
+					}
 			}
-			this.thumbInstance.attr(jsonProps);
+			this.freeTransform = Utils.merge_JSON(this.freeTransform,freeTransform);
+		} 
+		
+		PickConstr.prototype.setProperties  = function(setIndex, attributes) {
+			if(attributes.transform)
+				return;
+			this.instance[setIndex].attr(attributes);
+			if(attributes["stroke-width"]){
+				attributes["stroke-width"] = attributes["stroke-width"]*this.config.thumbRatio;
+			}
+			this.thumbInstance[setIndex].attr(attributes);
+			this.updateFTProps();
+			apply(this);
+			applyOnThumb(this);
+			this.updateHandles();
+		}
+		
+		PickConstr.prototype.getProperties  = function(setIndex) {
+			return this.instance[setIndex].attr();
+
 		}
 		
 		PickConstr.prototype.externalObject = function(){
@@ -1156,7 +1188,7 @@ com.compro.ppt.Pick = function(){
 				rotate:this.rotate,
 				resize:this.resize,
 				deletePick:this.deletePick,
-				updateProperties: this.updateProperties,
+				updateProperties: this.setProperties,
 				handler:this.properties.handler
 			}
 		}
