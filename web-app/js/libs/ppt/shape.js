@@ -65,14 +65,14 @@ com.compro.ppt.Shape = function(){
 		var ShapeConstr = function(params) {
 			
 			var props;
-			var pickConfig;
+			var pickConfig = {scale_keepRatio:false};
 			if(params.isFromStorage) {
 				props = params.storageProps;
-				pickConfig = params.storageProps.options;
+				pickConfig = Utils.merge_JSON(pickConfig,params.storageProps.options);
 			} else {
 				var newShapeOverrides = {
 				}
-				pickConfig = params.toolsProps.options;
+				pickConfig = Utils.merge_JSON(pickConfig,params.toolsProps.options);
 				props = Utils.merge_JSON(defaultProps,Utils.merge_JSON(newShapeOverrides,params.toolsProps));
 			}
 			
