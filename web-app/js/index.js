@@ -387,9 +387,17 @@ com.compro.application.mm = (function() {
 					showMyPhotos();
 				});
 
-				 el_library_photos_btn.click(function(e) {
+				el_library_photos_btn.click(function(e) {
 					showLibraryPhotos();
 				});
+				
+				$("#login_in").click(function(e) {
+					TemplateManager.get('loged-panel', 
+						function(template){
+							$("<place to append>").append(template);
+					});
+				});
+				
 				// Specific change for RTL.
 				if(document_dir == "rtl") {
 					$(el_slide_toggle.find("i")).removeClass("icon-caret-left");
@@ -405,6 +413,7 @@ com.compro.application.mm = (function() {
 				backbone_init_routers();
 				backbone_start_navigation();
 				init_ppt_engine();
+
 			});
 
 			$(window).resize(function() {

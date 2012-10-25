@@ -1,4 +1,4 @@
-<g:set var="appName"><g:meta name="app.name"/></g:set>
+<g:set var="contextPath" value="${request.contextPath}"/>
 <div class="header fixed-row">
 	<div class="navbar">
 		<div class="navbar-inner">
@@ -42,8 +42,8 @@
                          <li><a href="?lang=ja">Japanese</a></li>
                          <li class="set-paddings">Skin</li>
                          <hr/>
-                    	 <li><a href="/${appName}/default/">Default</a></li>
-                         <li><a href="/${appName}/gray/">Gray</a></li>
+                    	 <li><a href="${contextPath}/default/singlepage/home">Default</a></li>
+                         <li><a href="${contextPath}/gray/singlepage/home">Gray</a></li>
                     </ul>
                </li>
             </ul>

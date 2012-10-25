@@ -1,5 +1,5 @@
 <g:set var="contextPath" value="${request.contextPath}"/>
-<div class="header fixed-row">
+<div class="header fixed-row ${contextPath}" >
 	<div class="navbar">
 		<div class="navbar-inner">
         	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
