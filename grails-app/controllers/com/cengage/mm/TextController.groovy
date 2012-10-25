@@ -1,6 +1,7 @@
 package com.cengage.mm
 
 import grails.converters.JSON
+import net.sf.json.groovy.JsonSlurper
 
 class TextController {
 
@@ -27,7 +28,21 @@ class TextController {
 		}
 		else {
 			def allText = Text.list()
-			render allText as JSON
+			def returnList = []
+			allText.each { text ->
+				def returnArray = [:]
+				text.properties.each{prop, val ->
+					if(prop == "raphaelAttributes" && val!=null){
+						def slurper = new JsonSlurper()
+						def jsonRaphaelAttributes = slurper.parseText(val)
+						returnArray[prop] = jsonRaphaelAttributes
+					} else{
+						returnArray[prop] = val
+					}
+				}
+				returnList.add(returnArray)
+			}
+			render returnList as JSON
 		}
 	}
 }

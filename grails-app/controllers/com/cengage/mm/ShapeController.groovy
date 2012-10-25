@@ -1,7 +1,7 @@
 package com.cengage.mm
 
 import grails.converters.JSON
-import com.cengage.mm.Shape
+import net.sf.json.groovy.JsonSlurper
 
 class ShapeController {
 
@@ -28,7 +28,21 @@ class ShapeController {
 		}
 		else {
 			def allShapes = Shape.list()
-			render allShapes as JSON
+			def returnList = []
+			allShapes.each { shape ->
+				def returnArray = [:]
+				shape.properties.each{prop, val ->
+					if(prop == "raphaelAttributes"|| prop == "shapeConfig" && val!=null){
+						def slurper = new JsonSlurper()
+						def jsonRaphaelAttributes = slurper.parseText(val)
+						returnArray[prop] = jsonRaphaelAttributes
+					} else{
+						returnArray[prop] = val
+					}
+				}
+				returnList.add(returnArray)
+			}
+			render returnList as JSON
 		}
 	}
 }
