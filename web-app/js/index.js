@@ -241,6 +241,7 @@ com.compro.application.mm = (function() {
 		EditorView.routerInitialize();
 		TextView.routerInitialize();
 		ShapeView.routerInitialize();
+		VideoView.routerInitialize();
 	}
 	
 	function backbone_start_navigation()	{

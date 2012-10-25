@@ -81,6 +81,11 @@ modules = {
 		resource url:'js/bb/shape/shapemodel.js'
 		resource url:'js/bb/shape/shapecollection.js'
 		resource url:'js/bb/shape/shapeview.js'
+
+		//Backbone Video View & Models & Collections
+		resource url:'js/bb/video/videomodel.js'
+		resource url:'js/bb/video/videocollection.js'
+		resource url:'js/bb/video/videoview.js'
 	}
 	
 }
