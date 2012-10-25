@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<a class="brand" href="#">
+			<a class="brand" href="<cgrails:switch_singlepage action="index"/>">
 			     <r:img dir="images" file="NG_logo.png" alt="NG-logo-img"/>
 				 <p><g:message code="header.national.geogrpahic"/></p>
 				 <span><g:message code="header.magazine.maker" /></span>

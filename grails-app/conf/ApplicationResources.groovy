@@ -16,6 +16,7 @@ modules = {
 		resource url:'js/libs/bootstrap-collapse.js'
 		resource url:'js/libs/bootstrap-dropdown.js'
 		resource url:'js/libs/bootstrap-transition.js'
+		resource url:'js/libs/bootstrap-modal.js'
 
 		//Custom Scrollbar JS
 		resource url:'js/libs/jquery-ui-1.9.0.custom.js'

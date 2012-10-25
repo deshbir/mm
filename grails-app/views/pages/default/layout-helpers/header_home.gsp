@@ -14,8 +14,8 @@
 			</a>
 			<div class="nav-collapse">
             <ul class="nav">
-				<li class="new-slide"><a href="#" class="btn"><span>Information</span></a></li>
-				<li><a href="<cgrails:switch_singlepage action="home"/>" class="btn"><span>Help</span></a></li>
+				<li class="new-slide"><a href="#" class="btn"><span><g:message code="homepanel.information"/></span></a></li>
+				<li><a href="#" class="btn"><span><g:message code="homepanel.help"/></span></a></li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 	                   	<i class="icon-cog"></i>

@@ -100,7 +100,7 @@ com.compro.application.mm = (function() {
 		TABLET_MIN_WIDTH:768,
 		TABLET_MAX_WIDTH : 980,
 		DESKTOP_MIN_WIDTH : 981,
-		MIN_HEIGHT_THRESHOLD : 700,
+		MIN_HEIGHT_THRESHOLD : 650,
 		margins_el_maincontainer : 27,
 		scrollbar_el_maincontainer : 10,
 		borders_el_maincontainer : 12,
@@ -288,12 +288,12 @@ com.compro.application.mm = (function() {
 		$(".new-slide").click(function (event) {
 			addNewSlide();
 		});
-		$("#delete-slide").click(function (event) {
+		$("#delete-slide-confirm").click(function (event) {
 			deleteSlide();
 		});
 		
 		//Binding touch event for Touch devices Starts. 
-		$("#delete-slide").bind("touchstart", function (event) {
+		$("#delete-slide-confirm").bind("touchstart", function (event) {
 	        var e = event.originalEvent;
 	        deleteSlide();
 	    });
@@ -309,13 +309,13 @@ com.compro.application.mm = (function() {
 	}	
 	
 	function deleteSlide(){
-		var ans = confirm("Are you sure you want to delete the selected slide?");
-		if(ans)	{
+		if($(".collage-element").length > 1) {
 			myPPTApp.deleteSelectedSlide();
+			if(!checkAppleDevice()) {
+				$("#collage-scroll").mCustomScrollbar("update");
+			}
 		}
-		if(!checkAppleDevice()) {
-			$("#collage-scroll").mCustomScrollbar("update");
-		}
+		$('#confirm-modal').modal('hide');
 	}
 	function addNewSlide(){
 		myPPTApp.addNewSlide();
@@ -361,6 +361,16 @@ com.compro.application.mm = (function() {
 			}
 		}
 	}
+	
+	/*function callTinyMceEditor() {
+		$('textarea.tinymce').tinymce({
+			// Location of TinyMCE script
+		script_url : '../../js/libs/tiny_mce.js',
+
+			// General options
+			theme : "simple"
+		});
+	}*/
 
 	/********************************************************/
 	/*                 ONE TIME INIT FUNCTION              */

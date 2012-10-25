@@ -8,13 +8,26 @@
     	<div class="left col" id="leftsidebar">
     		<div id="collage-buttonbar">
     			<a href="#" class="new-slide"><i class="icon-check-empty"></i></a> | 
-    			<a href="#" id="delete-slide"><i class="icon-trash"></i></a>
+    			<a href="#confirm-modal" data-toggle="modal" id="delete-slide"><i class="icon-trash"></i></a>
     		</div>
     		<div id="collage-scroll" class="scroll-pane">
     			<div id="collage-container"></div>
     		</div>
         </div>
-
+        
+		<div class="modal hide" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">Confirm Box</h3>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to delete the selected slide?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" id="delete-slide-confirm">Ok</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			</div>
+		</div>
         <!-- Main Pane where content is painted -->
         <a class="btn" href="#" id="slide-toggle"><i class="icon-caret-left"></i></a>
         <div class="med col scroll-pane" id="main-container">
