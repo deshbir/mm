@@ -25,17 +25,16 @@ ShapeView = new function() {
 				ShapeCollection.get().each(function(model){
 					var modelJ = model.toJSON();
 					var textEl = $("#text #" + modelJ.type);
-					var raphaelAttr = JSON.parse(modelJ.raphaelAttributes);
 					var options;
 					if(modelJ.shapeConfig){
-			         options = JSON.parse(modelJ.shapeConfig);
-			       }
+			         options = (modelJ.shapeConfig);
+					}
 					//adding into raphaelAttributes of text
 					var props = {
 								options:options,
 								items:[{
 										raphaelType:modelJ.raphaelType,
-										raphaelAttributes:raphaelAttr
+										raphaelAttributes:modelJ.raphaelAttributes
 										}]
 								}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Shape", props);

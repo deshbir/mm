@@ -10,7 +10,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>	    
 		<!--  Javascript includes START in body, make it load in head, you need to specify disposition='head' with r:require-->
-		<r:require modules="mmLib"/>
+		<r:require modules="mmLib1,mmLib"/>
 		<!--  Javascript includes END -->		
 
 	    <cgrails:stylesheet src="index"/>

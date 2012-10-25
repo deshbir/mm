@@ -1,7 +1,7 @@
 //Photo Backbone Collection
 PhotoCollection = new function() {
 	  var collectionMap = new Object;
-	  var defaulturlGET = "/" + com.compro.cgrails.APPLICATIONNAME + "/api/photo/";
+	  var defaulturlGET = com.compro.cgrails.REQUEST_CONTEXT + "/api/photo/";
 	  
 	  var Collection = Backbone.Collection.extend({
 	          model: PhotoModel.get(),
@@ -10,7 +10,7 @@ PhotoCollection = new function() {
 	  
  	  this.get = function(category){ // Each backbone collection needs to define "get()" function
  		  
- 		  var urlGET = "/" + com.compro.cgrails.APPLICATIONNAME + "/api/photo/";
+ 		  var urlGET = com.compro.cgrails.REQUEST_CONTEXT + "/api/photo/";
  		  if (typeof category != "undefined") {
  			  urlGET =  urlGET + category ;
  		  } 	  

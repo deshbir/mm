@@ -69,7 +69,6 @@ environments {
 		//Completely disable css and/or js processor
 		grails.resources.mappers.yuicssminify.disable=true
 		grails.resources.mappers.yuijsminify.disable=true
-		grails.resources.debug = true
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }

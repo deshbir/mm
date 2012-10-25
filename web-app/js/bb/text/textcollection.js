@@ -3,7 +3,7 @@ TextCollection = new function() {
 	  var collection = null;
 	  var Collection = Backbone.Collection.extend({
 	          model: TextModel.get(),
-	          url: "/" + com.compro.cgrails.APPLICATIONNAME + "/api/text/"
+	          url: com.compro.cgrails.REQUEST_CONTEXT + "/api/text/"
 		    
 	  });
  	  this.get = function(){ // Each backbone collection needs to define "get()" function

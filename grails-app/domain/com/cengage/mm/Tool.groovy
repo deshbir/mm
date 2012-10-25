@@ -5,7 +5,6 @@ import groovy.json.JsonSlurper
 
 class Tool {
 	
-	String id
 	String toolid
 	String name
 	

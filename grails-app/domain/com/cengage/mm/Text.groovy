@@ -5,7 +5,6 @@ import groovy.json.JsonSlurper
 
 class Text {
 	
-	String id
 	String type
 	String raphaelAttributes
 		

@@ -25,9 +25,14 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-            pooled = true
+            dbCreate = "create-drop"
+			dialect = org.hibernate.dialect.MySQLInnoDBDialect
+			driverClassName = 'com.mysql.jdbc.Driver'
+			url = 'jdbc:mysql://localhost:3306/db?useUnicode=true&characterEncoding=utf8'
+            //url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+			username = ""
+			password = ""
+			pooled = true
             properties {
                maxActive = -1
                minEvictableIdleTimeMillis=1800000

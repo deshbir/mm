@@ -5,7 +5,6 @@ import groovy.json.JsonSlurper
 
 class Photo {
 	
-	String id
 	String category
 	String dir
 	String fullfilename

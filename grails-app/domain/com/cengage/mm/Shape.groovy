@@ -5,7 +5,6 @@ import groovy.json.JsonSlurper
 
 class Shape {
 	
-	String id
 	String type
 	String shapeConfig
 	String raphaelType

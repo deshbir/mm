@@ -1,4 +1,11 @@
 modules = {
+	mmLib1 {
+				//'cgrailsLibs' includes JQuery, Backbone, JSON2 & Underscore
+				dependsOn 'cgrailsLibs'
+				//Utils function for namespace
+				resource url:'js/libs/ppt/compro.js'
+			}
+	
     mmLib {
 
 		//'cgrailsLibs' includes JQuery, Backbone, JSON2 & Underscore
@@ -12,7 +19,7 @@ modules = {
 
 		//Custom Scrollbar JS
 		resource url:'js/libs/jquery-ui-1.9.0.custom.js'
-		resource url:'js/libs/jquery.mousewheel.min.js'
+		resource url:'js/libs/jquery.mousewheel.js'
 		resource url:'js/libs/jquery.mCustomScrollbar.js'
 		
 		//View Templates
@@ -20,16 +27,13 @@ modules = {
 		
 		//raphael
 		resource url:'js/libs/raphael.js'
-		
-		//Utils function for namespace
-		resource url:'js/libs/ppt/compro.js'
-		
+				
 		//jQuery imagesLoaded plugin v2.1.0
 		resource url:'js/libs/jquery.imagesloaded.js'
     }
 	
 	mmPPT {
-		dependsOn 'mmLib'
+		dependsOn 'mmLib, mmLib1'
 		
 		//Core PPT Engine
 		resource url:'js/libs/ppt/init.js'
