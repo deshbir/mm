@@ -2,7 +2,7 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 		/*
 		* Creating a singleton object(application has only single "workspace")
 		*/
-		com.compro.ppt.workspace = (function(stateStr){
+		com.compro.ppt.workspace = (function(stateStr, storedSelectedSlide){
 			/********************************************************/
 			/*                   DEPENDENCIES                       */ 
 			/********************************************************/
@@ -74,6 +74,7 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 
 			var clearState = namespace.GLOBAL.clearState =  function(){
 				localStorage.removeItem('slideList');
+				localStorage.removeItem('ppt_selectedslide');
 				document.location.reload(true);
 			}
 
@@ -94,8 +95,7 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 				Utils.addCustomEventListener(slide,"slideSelected",function(event){
 					selectSlide(event.target);
 				});
-				selectedSlide = slideList.length-1;
-				slide.show();
+				selectSlide(slide);
 				return slide;
 			}
 
@@ -116,6 +116,7 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 				var index = slideList.indexOf(slide)
 				slideList[index].show();
 				selectedSlide = index;
+				localStorage.setItem("ppt_selectedslide",selectedSlide);
 			}
 
 			namespace.GLOBAL.addNewSlide = function(){
@@ -189,6 +190,9 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 					slide.resetOLdValues();
 				}
 				checkAndReRenderThumbs();
+				if(storedSelectedSlide && storedSelectedSlide!=-1){
+					selectSlide(slideList[storedSelectedSlide]);
+				}
 				saveState();
 			}
 			else{
@@ -197,5 +201,5 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 
 			//return object
 			return workspaceObj;
-		}) (localStorage.getItem("slideList"));
+		}) (localStorage.getItem("slideList"),localStorage.getItem("ppt_selectedslide"));
 }
