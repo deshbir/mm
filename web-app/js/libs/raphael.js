@@ -347,7 +347,10 @@
             transform: "",
             width: 0,
             x: 0,
-            y: 0
+            y: 0,
+	    // Compro Update START  ## Text - Wrap##
+            "wrap-width" : ""
+	    // Compro Update END  ## Text - Wrap##
         },
         availableAnimAttrs = R._availableAnimAttrs = {
             blur: nu,
@@ -1297,8 +1300,9 @@
     var pathDimensions = R.pathBBox = function (path) {
         var pth = paths(path);
         if (pth.bbox) {
-            /*Fixing getbBox error-ankur*/
+    	    // Compro Update Start  ## Fixing getbBox error
             return clone(pth.bbox);
+    	    // Compro Update Start  ## Fixing getbBox error
         }
         if (!path) {
             return {x: 0, y: 0, width: 0, height: 0, x2: 0, y2: 0};
@@ -3522,13 +3526,18 @@
         }
         return this;
     };
+   
+    // Compro Update START
     setproto.getBBox = function (isWithOutTransformation) {
+    // Compro Update END  
         var x = [],
             y = [],
             x2 = [],
             y2 = [];
         for (var i = this.items.length; i--;) if (!this.items[i].removed) {
+	// Compro Update START
             var box = this.items[i].getBBox(isWithOutTransformation);
+	// Compro Update END
             x.push(box.x);
             y.push(box.y);
             x2.push(box.x + box.width);
@@ -4097,7 +4106,9 @@ window.Raphael.svg && function (R) {
                         break;
                     case "clip-rect":
                         var rect = Str(value).split(separator);
+			// Compro Update START
                         if (rect.length == 4 || rect.length == 5) {
+			// Compro Update END
                             o.clip && o.clip.parentNode.parentNode.removeChild(o.clip.parentNode);
                             var el = $("clipPath"),
                                 rc = $("rect");
@@ -4107,7 +4118,9 @@ window.Raphael.svg && function (R) {
                                 y: rect[1],
                                 width: rect[2],
                                 height: rect[3],
+			// Compro Update START
                                 r: rect[4] || 0, rx: rect[4] || 0, ry: rect[4] || 0
+			// Compro Update END
                             });
                             el.appendChild(rc);
                             o.paper.defs.appendChild(el);
@@ -4301,7 +4314,9 @@ window.Raphael.svg && function (R) {
         node.style.visibility = vis;
     },
     leading = 1.2,
-    tuneText = function (el, params) {
+    
+    // Compro Update START Original tuneText Function
+   /* tuneText = function (el, params) {
         if (el.type != "text" || !(params[has]("text") || params[has]("font") || params[has]("font-size") || params[has]("x") || params[has]("y"))) {
             return;
         }
@@ -4337,7 +4352,65 @@ window.Raphael.svg && function (R) {
         var bb = el._getBBox(),
             dif = a.y - (bb.y + bb.height / 2);
         dif && R.is(dif, "finite") && $(tspans[0], {dy: dif});
+    },*/
+    // Compro Update END
+    
+     
+     // Compro Update START ## Text Wrapping ##
+    tuneText = function (el, params) {
+        if (el.type != "text" || !(params[has]("text") || params[has]("font") || params[has]("font-size") || params[has]("x") || params[has]("y") || params[has]("wrap-width"))) {
+            return;
+        }
+        var a = el.attrs,
+            node = el.node,
+            fontSize = node.firstChild ? toInt(R._g.doc.defaultView.getComputedStyle(node.firstChild, E).getPropertyValue("font-size"), 10) : 10;
+            if (params[has]("text")) {
+                a.text = params.text;
+            }
+            
+            var wrapWidth = params["wrap-width"] || a["wrap-width"];
+            
+            while (node.firstChild) {
+                node.removeChild(node.firstChild);
+            }
+            var texts = Str(a.text).split("\n"),
+                tspans = [],
+                tspan;
+            for (var i = 0, ii = texts.length, num=0; i < ii; i++) {
+            	console.log("Inside For statetemt");
+                tspan = $("tspan");
+                i && $(tspan, {dy: fontSize * leading, x: a.x});
+                tspan.appendChild(R._g.doc.createTextNode(texts[i]));
+                node.appendChild(tspan);
+                if(wrapWidth) {
+					var words = texts[i].split(' ');
+					tspan.firstChild.data = "";
+					for(var num=0; num<words.length; num++) {
+						var len = tspan.firstChild.data.length;
+						tspan.firstChild.data += " " + words[num];
+	                    if (tspan.getComputedTextLength() > wrapWidth)
+	                    {
+	                        tspan.firstChild.data = tspan.firstChild.data.slice(0, len);    // Remove added word
+	                        tspan = $("tspan");
+	                        tspan.appendChild(R._g.doc.createTextNode(words[num]));
+	                        node.appendChild(tspan);
+	                        $(tspan, {dy: fontSize * leading, x: a.x});
+	                    }
+					}
+                }
+              
+                tspans[i] = tspan;
+                $(tspan, {dy: fontSize * leading, x: a.x});
+            }
+        $(node, {x: a.x, y: a.y});
+        el._.dirty = 1;
+        var bb = el._getBBox(),
+            dif = a.y - (bb.y + bb.height / 2);
+        console.log("dif : ", dif);
+        dif && R.is(dif, "finite") && $(tspans[0], {dy: fontSize * leading});
     },
+    // Compro Update END
+
     Element = function (node, svg) {
         var X = 0,
             Y = 0;
@@ -4451,8 +4524,10 @@ window.Raphael.svg && function (R) {
         }
         R._extractTransform(this, tstr);
 
+	// Compro Update START 
         //Clip path should not be transformed while transforming the element
         //this.clip && $(this.clip, {transform: this.matrix.invert()});
+	// Compro Update END
         this.pattern && updatePosition(this);
         this.node && $(this.node, {transform: this.matrix});
     

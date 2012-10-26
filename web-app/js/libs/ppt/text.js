@@ -24,7 +24,8 @@ com.compro.ppt.Text = function(){
 						fontweight:"normal",
 						fontcolor:"black",
 						cursor:'move',
-						"text-anchor":"start"
+						"text-anchor":"start",
+						"wrap-width" : 200
 					}
 				}]
 		};
