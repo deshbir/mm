@@ -18,7 +18,7 @@
 	    
 	    <g:layoutHead/>
 		<r:layoutResources/>
-				
+		<ga:trackPageview />
 	</head>
 	<body dir="${direction}">
 		<g:include view="layout-helpers/header.gsp"/>

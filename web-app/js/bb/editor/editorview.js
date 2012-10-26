@@ -38,6 +38,7 @@ EditorView = new function() {
 				$("#forward").click(function (event) {
 					myPPTApp.moveObjectToFront();
 				});
+				
 			}		
 		});		
 		

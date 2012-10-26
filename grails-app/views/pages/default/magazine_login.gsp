@@ -41,7 +41,7 @@
 							<input type="text" name="password"  placeholder="Password" value="Password" onfocus="this.value='';">
 							<label class="checkbox">
 							<input type="checkbox" name="remember"><g:message code="homepanel.remember"/></label>
-							<a id="login_in" href="<cgrails:switch_singlepage action="home"/>" class="btn"><span>&nbsp;&nbsp;&nbsp;&nbsp;<g:message code="homepanel.login"/>&nbsp;&nbsp;&nbsp;</span></a>
+							<a id="login_in" class="btn"><span>&nbsp;&nbsp;&nbsp;&nbsp;<g:message code="homepanel.login"/>&nbsp;&nbsp;&nbsp;</span></a>
 				   		</form>
 			   		</div>
 		   	  </div>

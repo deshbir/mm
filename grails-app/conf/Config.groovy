@@ -97,3 +97,5 @@ log4j = {
 
 grails.plugin.cloudfoundry.username = "deshbir.dugal@me.com"
 grails.plugin.cloudfoundry.password = "compro4lsc"
+
+google.analytics.webPropertyID = "UA-35888908-1"

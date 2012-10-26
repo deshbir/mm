@@ -257,16 +257,28 @@ com.compro.application.mm = (function() {
 	myPPTApp.registerEvent("ON_PICK_CLICK", function(obj){
 		
 		var handler = obj.handler;
-		if (!($('.accordion-group > #editor').hasClass("in")))
-			$('.accordion-heading > a[href="#editor"]').click();		
-		if (handler == "com.compro.ppt.Image") {
-			$('#image-editor').css('display','block');
-			$('#text-editor').css('display','none');
+		if (!($('.accordion-group > #editor').hasClass("in"))) {
+			$('.accordion-heading > a[href="#editor"]').click();
+		} else {
+			editorDisplayController();
 		}
-		if (handler == "com.compro.ppt.Text") {
-			$('#image-editor').css('display','none');
-			$('#text-editor').css('display','block');
-		}		
+
+		$('#editor').on('shown.onPickClick', function () {
+			editorDisplayController();
+			$('#editor').off('shown.onPickClick');			
+		});
+		
+		function editorDisplayController() {
+			if (handler == "com.compro.ppt.Image") {
+				$('#image-editor').css('display','block');
+				$('#text-editor').css('display','none');
+			}
+			if (handler == "com.compro.ppt.Text") {
+				$('#image-editor').css('display','none');
+				$('#text-editor').css('display','block');
+			}
+		}
+		
 	});
 	
 	function init_ppt_engine() {
