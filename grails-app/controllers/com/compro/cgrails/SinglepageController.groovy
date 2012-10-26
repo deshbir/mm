@@ -12,4 +12,9 @@ class SinglepageController {
 	def home() {
 		render (view:"magazine_home",model:[:])
 	}
+	
+	def logout() {
+		session.removeAttribute("userLoggedIn");
+		redirect(action:"index")
+	}
 }

@@ -257,10 +257,16 @@ com.compro.application.mm = (function() {
 	myPPTApp.registerEvent("ON_PICK_CLICK", function(obj){
 		
 		var handler = obj.handler;
+		if (!($('.accordion-group > #editor').hasClass("in")))
+			$('.accordion-heading > a[href="#editor"]').click();		
 		if (handler == "com.compro.ppt.Image") {
-			if (!($('.accordion-group > #editor').hasClass("in")))
-				$('.accordion-heading > a[href="#editor"]').click();
+			$('#image-editor').css('display','block');
+			$('#text-editor').css('display','none');
 		}
+		if (handler == "com.compro.ppt.Text") {
+			$('#image-editor').css('display','none');
+			$('#text-editor').css('display','block');
+		}		
 	});
 	
 	function init_ppt_engine() {
@@ -291,7 +297,7 @@ com.compro.application.mm = (function() {
 		$("#delete-slide-confirm").click(function (event) {
 			deleteSlide();
 		});
-		
+				
 		//Binding touch event for Touch devices Starts. 
 		$("#delete-slide-confirm").bind("touchstart", function (event) {
 	        var e = event.originalEvent;
@@ -389,13 +395,6 @@ com.compro.application.mm = (function() {
 
 				el_library_photos_btn.click(function(e) {
 					showLibraryPhotos();
-				});
-				
-				$("#login_in").click(function(e) {
-					TemplateManager.get('loged-panel', 
-						function(template){
-							$("<place to append>").append(template);
-					});
 				});
 				
 				// Specific change for RTL.

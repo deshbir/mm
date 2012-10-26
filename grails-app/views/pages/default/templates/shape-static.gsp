@@ -7,8 +7,8 @@
 	</p>
 	<div class="left-col">
 	       <div id="line" style="padding:2px 8px; margin:4px;">
-				<svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink"  width="100px" height="2px">
-				    <path x="5" y="10" d="M 0 0 L 100 0" style="stroke-width:3;stroke:black;"/>
+				<svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink"  width="100px" height="10px">
+				    <path x="5" y="10" d="M 0 5 L 100 5" style="stroke-width:4;stroke:rgba(150, 155, 127, 1.0);"/>
 				</svg>	    
 				<p>Line</p>
 		    </div>

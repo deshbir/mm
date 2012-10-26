@@ -27,8 +27,19 @@ EditorView = new function() {
 				});
 				//Reset scrollbars on the main windows
 				setTimeout('com.compro.application.mm.resetScrollbars();', 60);
-			}
-		});
+
+				var myPPTApp = com.compro.ppt.GLOBAL;			
+				$("#deleteobject").click(function (event) {
+					myPPTApp.removeObject();
+				});
+				$("#sendback").click(function (event) {
+					myPPTApp.moveObjectToBack();
+				});
+				$("#forward").click(function (event) {
+					myPPTApp.moveObjectToFront();
+				});
+			}		
+		});		
 		
 	};
 	this.routerInitialize = function(){
