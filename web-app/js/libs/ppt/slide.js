@@ -216,6 +216,16 @@ com.compro.ppt.Slide = function() {
 		}
 	}
 	
+	slideproto.getSelectedPick = function(){
+		if(this.selectedPick!=-1){
+			var pickIndex = this.selectedPick;
+			var pick = this.pickList[pickIndex];
+			return pick.externalObject();
+		}else{
+			null;
+		}
+	}
+	
 	slideproto.movePickToBack = function(){
 		if(this.selectedPick!=-1){
 			var pickIndex = this.selectedPick;

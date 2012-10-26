@@ -158,6 +158,14 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 					return -1;
 				}
 			}
+			
+			namespace.GLOBAL.getSelectedObject = function(){
+				if(selectedSlide!=-1){
+					return slideList[selectedSlide].getSelectedPick();
+				} else{
+					return null;
+				}
+			}
 
 			var checkAndReRenderThumbs= function(){
 				if(collageScrollVisible!=(collageDiv.scrollHeight>collageDiv.offsetHeight)){
