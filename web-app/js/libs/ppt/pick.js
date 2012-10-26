@@ -850,8 +850,8 @@ com.compro.ppt.Pick = function(){
 			ry = mx * sin + my * cos;
 
 			// Scale element so that handle is at mouse position
-			sx = rx * 2 * handle.x / ft.o.size.x;
-			sy = ry * 2 * handle.y / ft.o.size.y;
+			sx = (rx * 2 * handle.x - 2*pickOptions.selection_box_attrs.padding)  / ft.o.size.x
+			sy = (ry * 2 * handle.y - 2*pickOptions.selection_box_attrs.padding)/ ft.o.size.y
 					ft.attrs.scale = {
 				x: sx || ft.attrs.scale.x,
 				y: sy || ft.attrs.scale.y
