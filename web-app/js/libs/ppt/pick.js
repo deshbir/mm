@@ -468,8 +468,8 @@ com.compro.ppt.Pick = function(){
 			var max_y = Math.max(corners[0].y,(pickOptions.remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
 			var current_width = (max_x - min_x)/Math.abs(ft.attrs.scale.x);
 			var current_height = (max_y - min_y)/Math.abs(ft.attrs.scale.y);
-			ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1)*Math.min((obj.primeSvg.width-2*pickOptions.handle_box_size-(pickOptions.pick_delete_image_attrs.x_distance + pickOptions.handle_box_size))/current_width,Math.abs(ft.attrs.scale.x));
-			ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)*Math.min((obj.primeSvg.height-2*pickOptions.handle_box_size-(pickOptions.pick_delete_image_attrs.y_distance - pickOptions.handle_box_size))/current_height,Math.abs(ft.attrs.scale.y));
+			ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1)*Math.min((obj.primeSvg.width-2*pickOptions.handle_box_size-( pickOptions.pick_delete_image_attrs.x_distance + pickOptions.handle_box_size))/current_width,Math.abs(ft.attrs.scale.x));
+			ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)*Math.min((obj.primeSvg.height-2*pickOptions.handle_box_size-(pickOptions.pick_delete_image_attrs.y_distance + pickOptions.pick_delete_image_attrs.size))/current_height,Math.abs(ft.attrs.scale.y));
 			if(pickOptions.scale_keepRatio){
 				ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1) * Math.min(Math.abs(ft.attrs.scale.x),Math.abs(ft.attrs.scale.y));
 				ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)* Math.abs(ft.attrs.scale.x);
@@ -856,7 +856,6 @@ com.compro.ppt.Pick = function(){
 				x: sx || ft.attrs.scale.x,
 				y: sy || ft.attrs.scale.y
 				};
-
 			ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
 			// Maintain aspect ratio
 			if (pickOptions.scale_keepRatio) {
