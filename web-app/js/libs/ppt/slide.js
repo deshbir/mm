@@ -151,8 +151,35 @@ com.compro.ppt.Slide = function() {
 		},this));
 
 		Utils.addCustomEventListener(pick,pick.events.DRAG_START,Utils.proxy(function(obj,event){
-			obj.unSelectPick();
-			obj.movePickToFront(event.target);
+			if(!event.target.isSelected)
+				obj.unSelectPick();
+		},this));
+		
+		Utils.addCustomEventListener(pick,pick.events.MOVED_TO_FRONT,Utils.proxy(function(obj,event){
+			var pickIndex = obj.pickList.indexOf(event.target);
+			var selectedPickObj = null;
+			if(obj.selectedPick!=-1)
+				selectedPickObj = obj.pickList[obj.selectedPick];
+			obj.pickList.splice(pickIndex,1);
+			obj.pickList.push(event.target);
+			if(selectedPickObj!=null)
+				obj.selectedPick = obj.pickList.indexOf(selectedPickObj);
+			obj.saveState();
+		},this));
+		
+		Utils.addCustomEventListener(pick,pick.events.MOVED_TO_BACK,Utils.proxy(function(obj,event){
+			var pickIndex = obj.pickList.indexOf(event.target);
+			var selectedPickObj = null;
+			if(obj.selectedPick!=-1)
+				selectedPickObj = obj.pickList[obj.selectedPick];
+			obj.pickList.splice(pickIndex,1);
+			obj.pickList.splice(0,0,event.target);
+			if(selectedPickObj!=null)
+				obj.selectedPick = obj.pickList.indexOf(selectedPickObj);
+			obj.backRect.toBack();
+			obj.backRect.unclick();
+			obj.backRect.click(Utils.proxyChangeContext(obj.unSelectPick,obj));
+			obj.saveState();
 		},this));
 
 		return pick;
@@ -177,13 +204,38 @@ com.compro.ppt.Slide = function() {
 		pick.selectPick();
 		this.selectedPick = this.pickList.indexOf(pick);
 	}
-
-	slideproto.movePickToFront=function(pick){
-		var pickIndex = this.pickList.indexOf(pick);
-		this.pickList.splice(pickIndex,1);
-		this.pickList.push(pick);
-		pick.moveToFront();
+	
+	slideproto.movePickToFront = function(){
+		if(this.selectedPick!=-1){
+			var pickIndex = this.selectedPick;
+			var pick = this.pickList[pickIndex];
+			pick.moveToFront();
+			return 1;
+		}else{
+			return -1;
+		}
 	}
+	
+	slideproto.movePickToBack = function(){
+		if(this.selectedPick!=-1){
+			var pickIndex = this.selectedPick;
+			var pick = this.pickList[pickIndex];
+			pick.moveToBack();
+			return 1;
+		}else{
+			return -1;
+		}
+	}
+	
+	slideproto.removePick = function(){
+		if(this.selectedPick!=-1){
+			this.pickList[this.selectedPick].deletePick();
+			return 1;
+		}else{
+			return -1;
+		}
+	}
+
 
 	slideproto.removePickfromList = function(pick){
 		var pickIndex = this.pickList.indexOf(pick);
@@ -220,7 +272,6 @@ com.compro.ppt.Slide = function() {
 	}
 
 	slideproto.reRender = function(){
-		console.log("in reRender");
 		var pickRatio = {
 			x:(this.workspace.offsetWidth/this.svgWidth),
 			y:(this.workspace.offsetHeight/this.svgHeight)

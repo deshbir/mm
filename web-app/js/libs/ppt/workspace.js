@@ -124,6 +124,30 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 				checkAndReRenderThumbs();
 				saveState();
 			}
+			
+			namespace.GLOBAL.moveObjectToFront = function(){
+				if(selectedSlide!=-1){
+					return  slideList[selectedSlide].movePickToFront();
+				} else{
+					return -1;
+				}
+			}
+			
+			namespace.GLOBAL.moveObjectToBack = function(){
+				if(selectedSlide!=-1){
+					return  slideList[selectedSlide].movePickToBack();
+				} else{
+					return -1;
+				}
+			}
+			
+			namespace.GLOBAL.removeObject = function(){
+				if(selectedSlide!=-1){
+					return  slideList[selectedSlide].removePick();
+				} else{
+					return -1;
+				}
+			}
 
 			var checkAndReRenderThumbs= function(){
 				if(collageScrollVisible!=(collageDiv.scrollHeight>collageDiv.offsetHeight)){

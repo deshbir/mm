@@ -721,10 +721,7 @@ com.compro.ppt.Pick = function(){
 		var defaultDragEndHandler = function (obj) {		
 			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
 			applyOnThumb(obj);
-			//Toch events are removed once the pick is brought to front, reattaching them
-			this.undrag();
-			this.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
-			
+						
 			obj.event_drag_end();
 			Utils.fireEvent(obj,obj.events.DRAG_END);
 			
@@ -764,6 +761,24 @@ com.compro.ppt.Pick = function(){
 		var defaultMoveToFront = function(){
 			this.instance.toFront();
 			this.thumbInstance.toFront();
+			if(this.isSelected == true){
+				this.showHandles();
+			}
+			//Touch events are removed once the pick is brought to front, reattaching them
+			this.instance.undrag();
+			this.instance.drag(Utils.proxy(this.dragMove,this), Utils.proxy(this.dragStart,this), Utils.proxy(this.dragEnd,this));
+			Utils.fireEvent(this,this.events.MOVED_TO_FRONT);
+		};
+		
+		var defaultMoveToBack = function(){
+			for(var i=this.instance.items.length-1;i>=0;i--){
+				this.instance[i].toBack();
+				this.thumbInstance[i].toBack();
+			}
+			//Touch events are removed once the pick is brought to front, reattaching them
+			this.instance.undrag();
+			this.instance.drag(Utils.proxy(this.dragMove,this), Utils.proxy(this.dragStart,this), Utils.proxy(this.dragEnd,this));
+			Utils.fireEvent(this,this.events.MOVED_TO_BACK);
 		};
 
 		var defaultResizeStartHandler = function(obj){
@@ -1114,6 +1129,8 @@ com.compro.ppt.Pick = function(){
 
 		PickConstr.prototype.moveToFront = defaultMoveToFront;
 		
+		PickConstr.prototype.moveToBack = defaultMoveToBack;
+		
 		PickConstr.prototype.updateHandles = defaultUpdateHandles;
 		PickConstr.prototype.showHandles = defaultShowHandles;
 		PickConstr.prototype.hideHandles = defaultHideHandles;
@@ -1146,7 +1163,9 @@ com.compro.ppt.Pick = function(){
 				STATE_CHANGED:'stateChanged',
 				PICK_DELETED:'pickDeleted',
 				DRAG_END:'dragEnd',
-				DRAG_START:'dragStart'
+				DRAG_START:'dragStart',
+				MOVED_TO_FRONT: 'movedToFront',
+				MOVED_TO_BACK:'movedToBack'
 		};
 		
 		PickConstr.prototype.toJSON  = function() {
