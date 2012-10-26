@@ -4377,7 +4377,6 @@ window.Raphael.svg && function (R) {
                 tspans = [],
                 tspan;
             for (var i = 0, ii = texts.length, num=0; i < ii; i++) {
-            	console.log("Inside For statetemt");
                 tspan = $("tspan");
                 i && $(tspan, {dy: fontSize * leading, x: a.x});
                 tspan.appendChild(R._g.doc.createTextNode(texts[i]));
@@ -4406,7 +4405,6 @@ window.Raphael.svg && function (R) {
         el._.dirty = 1;
         var bb = el._getBBox(),
             dif = a.y - (bb.y + bb.height / 2);
-        console.log("dif : ", dif);
         dif && R.is(dif, "finite") && $(tspans[0], {dy: fontSize * leading});
     },
     // Compro Update END
