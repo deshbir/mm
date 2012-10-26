@@ -1,5 +1,6 @@
 <g:set var="contextPath" value="${request.contextPath}"/>
-<div class="header fixed-row ${contextPath}" >
+<g:set var="userLoggedIn" value="${session.userLoggedIn}"/>
+<div class="header fixed-row" >
 	<div class="navbar">
 		<div class="navbar-inner">
         	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -16,6 +17,19 @@
             <ul class="nav">
 				<li class="new-slide"><a href="#" class="btn"><span><g:message code="homepanel.information"/></span></a></li>
 				<li><a href="#" class="btn"><span><g:message code="homepanel.help"/></span></a></li>
+					<li id="userInfo" class="dropdown" <g:if test="${userLoggedIn != 'true'}">style="display:none"</g:if>>
+	                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+	                    	<i class="icon-user"></i>
+	                    	<b class="caret"></b>
+	                    </a>
+	                    <ul class="dropdown-menu">
+	                       <li><a href="#">( <g:message code="header.dropdown.profile"/> )</a></li>
+	                       <li class="divider"></li>
+	                       <li><a href="#" data-original-title="Not active in demo" rel="tooltip"><g:message code="header.dropdown.change.password"/></a></li>
+	                       <li><a href="#" data-original-title="Not active in demo" rel="tooltip"><g:message code="header.dropdown.preferences"/></a></li>
+	                       <li><a href="<cgrails:switch_singlepage action="logout"/>"><g:message code="header.dropdown.signout"/></a></li>
+	                    </ul>
+	                </li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 	                   	<i class="icon-cog"></i>

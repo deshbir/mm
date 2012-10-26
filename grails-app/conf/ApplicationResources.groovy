@@ -6,6 +6,13 @@ modules = {
 				resource url:'js/libs/ppt/compro.js'
 			}
 	
+	mmHome {
+		//'cgrailsLibs' includes JQuery, Backbone, JSON2 & Underscore
+		dependsOn 'cgrailsLibs'
+		//Document load function for home page
+		resource url:'js/home.js'
+	}
+	
     mmLib {
 
 		//'cgrailsLibs' includes JQuery, Backbone, JSON2 & Underscore
