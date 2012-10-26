@@ -76,14 +76,11 @@ com.compro.ppt.Text = function(){
 					}]
 				};
 
-				console.log("params.coordY" + params.coordY); 
-				console.log("***", (params.coordY + params.toolsProps.items[0].raphaelAttributes["font-size"]));
 				props = Utils.merge_JSON(defaultProps,(Utils.merge_JSON(newImageOverrides,params.toolsProps)));
-				console.log("***y ", props.items[0].raphaelAttributes["y"]);
 			}
 			
 			var pickConfig = {
-					scale:false,
+					scale:true,
 					rotate:false,
 					selection_box_attrs:{
 						padding:10
@@ -94,7 +91,24 @@ com.compro.ppt.Text = function(){
 
 	    TextConstr.prototype = Object.create(Pick.prototype, {
 		    constructor: {value:com.compro.ppt.Text}
-		 });	
+		 });
+	    
+	    
+	    TextConstr.prototype.resizing = function(object, dx, dy) {
+	    	var ft = object.freeTransform;
+	    	var wrapWidth =	ft.o.wrapWidth;
+	    	console.log("** resizzing : ", wrapWidth, " ** dx : ",dx);
+	    	object.setProperties(0,{"wrap-width":wrapWidth+dx});
+	    };
+	    
+	    TextConstr.prototype.resizeStart = function(object){
+			var ft = object.freeTransform;
+			if(!ft.o){
+				ft.o={};
+			}
+			ft.o.wrapWidth =  object.getProperties(0)["wrap-width"]||"";
+	    	console.log("** resize start : ", ft.o.wrapWidth);
+	    };
 
 		/********************************************************/	
 		/*                 Private Members                     */ 
