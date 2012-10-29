@@ -4378,10 +4378,24 @@ window.Raphael.svg && function (R) {
             var texts = Str(a.text).split("\n"),
                 tspans = [],
                 tspan;
+    	    // Compro Update START  ## Changing dy when adding single/multiple "\n" ##            
+            var YUpdateFactor = 1;
+    	    // Compro Update END  ## Changing dy when adding single/multiple "\n" ##            
             for (var i = 0, ii = texts.length, num=0; i < ii; i++) {
                 tspan = $("tspan");
-                i && $(tspan, {dy: fontSize * leading, x: a.x});
+        	    // Compro Update START  ## Changing dy when adding single/multiple "\n" ##
+                i && $(tspan, {dy: fontSize * leading * YUpdateFactor, x: a.x});
+        	    // Compro Update END  ## Changing dy when adding single/multiple "\n" ##
                 tspan.appendChild(R._g.doc.createTextNode(texts[i]));
+                
+                // Compro Update START  ## Changing dy when adding single/multiple "\n" ##                
+                if(texts[i].length == 0) {
+                	YUpdateFactor ++;	
+                } else {
+                    	YUpdateFactor = 1;	
+                }
+        	    // Compro Update END  ## Changing dy when adding single/multiple "\n" ##
+                
                 node.appendChild(tspan);
                 if(wrapWidth) {
 					var words = texts[i].split(' ');
@@ -4395,19 +4409,20 @@ window.Raphael.svg && function (R) {
 	                        tspan = $("tspan");
 	                        tspan.appendChild(R._g.doc.createTextNode(words[num]));
 	                        node.appendChild(tspan);
-	                        $(tspan, {dy: fontSize * leading, x: a.x});
+	                        $(tspan, {dy: fontSize * leading , x: a.x});
+	                      
 	                    }
 					}
                 }
               
-                tspans[i] = tspan;
+/*                tspans[i] = tspan;
                 $(tspan, {dy: fontSize * leading, x: a.x});
-            }
+*/            }
         $(node, {x: a.x, y: a.y});
         el._.dirty = 1;
         var bb = el._getBBox(),
             dif = a.y - (bb.y + bb.height / 2);
-        dif && R.is(dif, "finite") && $(tspans[0], {dy: fontSize * leading});
+       // dif && R.is(dif, "finite") && $(tspans[0], {dy: fontSize * leading});
     },
     // Compro Update END
 
