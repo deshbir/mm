@@ -58,6 +58,9 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 				Utils.addCustomEventListener(pick,pick.events.PICK_SELECTED,function(event){
 					namespace.GLOBAL.triggerGlobalEvent("ON_PICK_CLICK",pick,pick);
 				});
+				Utils.addCustomEventListener(pick,pick.events.PICK_UNSELECTED,function(event){
+					namespace.GLOBAL.triggerGlobalEvent("ON_PICK_UNSELECT",pick,pick);
+				});
 				saveState();
 			}
 
@@ -66,6 +69,9 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 				var pick = slideList[selectedSlide].addPick(handler,coordX,coordY,null,storageProps,true);
 				Utils.addCustomEventListener(pick,pick.events.PICK_SELECTED,function(event){
 					namespace.GLOBAL.triggerGlobalEvent("ON_PICK_CLICK",pick,pick);
+				});
+				Utils.addCustomEventListener(pick,pick.events.PICK_UNSELECTED,function(event){
+					namespace.GLOBAL.triggerGlobalEvent("ON_PICK_UNSELECT",pick,pick);
 				});
 				if(saveStateFlag){
 					saveState();

@@ -23,12 +23,19 @@
 		callHandlers(handlers,obj,[obj]);
 	}
 	
+	function onPickUnSelect(handlers,pick){
+		var obj = pick.externalObject();
+		callHandlers(handlers,obj,[obj]);
+	}
+	
 	var EVENT_ON_PICK_CLICK = "ON_PICK_CLICK";
+	var EVENT_ON_PICK_UNSELECT = "ON_PICK_UNSELECT";
 	var EVENT_AFTER_PPT_INIT = "AFTER_PPT_INIT";
 	
 	namespacefn.eventMap = {};
 	namespacefn.eventMap[EVENT_AFTER_PPT_INIT] = [afterPPTInit];
 	namespacefn.eventMap[EVENT_ON_PICK_CLICK] = [onPickClick];
+	namespacefn.eventMap[EVENT_ON_PICK_UNSELECT] = [onPickUnSelect];
 	
 	namespacefn.initialize = function(collageid,workspaceid,pickConfig){
 		$(document).ready(function(){

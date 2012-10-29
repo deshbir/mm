@@ -724,9 +724,6 @@ com.compro.ppt.Pick = function(){
 						
 			obj.event_drag_end();
 			Utils.fireEvent(obj,obj.events.DRAG_END);
-			
-			obj.event_pick_selected();
-			Utils.fireEvent(obj,obj.events.PICK_SELECTED);
 		}; 
 
 		var defaultSelectPickHandler = function(){
@@ -735,6 +732,8 @@ com.compro.ppt.Pick = function(){
 			}
 			this.isSelected = true;
 			this.showHandles();
+			this.event_pick_selected();
+			Utils.fireEvent(this,this.events.PICK_SELECTED);
 		};
 
 		var defaultUnselectPickHandler = function(){
@@ -747,6 +746,7 @@ com.compro.ppt.Pick = function(){
 			this.hideHandles();
 			this.isSelected = false;
 			this.event_pick_unselected();
+			Utils.fireEvent(this,this.events.PICK_UNSELECTED);
 		};
 
 		var defaultDeletePickHandler = function(){
@@ -1159,6 +1159,7 @@ com.compro.ppt.Pick = function(){
 		
 		PickConstr.prototype.events = {
 				PICK_SELECTED:'pickSelected',
+				PICK_UNSELECTED:'pickUnSelected',
 				STATE_CHANGED:'stateChanged',
 				PICK_DELETED:'pickDeleted',
 				DRAG_END:'dragEnd',
