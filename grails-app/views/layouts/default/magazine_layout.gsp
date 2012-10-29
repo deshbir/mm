@@ -11,6 +11,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>	    
 		<meta name="description" content="National Geographic Learning, 2012">
 		<meta name="author" content="Compro Technologies Pvt. Ltd.">
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 		<!--  Javascript includes START in body, make it load in head, you need to specify disposition='head' with r:require-->
 		<r:require modules="mmLib1,mmLib,mmApp,mmPPT"/>
 		<!--  Javascript includes END -->		

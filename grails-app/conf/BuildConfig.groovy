@@ -12,7 +12,7 @@ grails.project.dependency.resolution = {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
         // excludes 'ehcache'
     }
-    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
 
     repositories {
@@ -46,7 +46,7 @@ grails.project.dependency.resolution = {
 		runtime ":zipped-resources:1.0" //Provides support for GZIPPED static resources.
 		runtime ":cached-resources:1.0" //Provides support for caching expiry headers for static resources.
 		runtime ":yui-minify-resources:0.1.5" //Provides support for minifying static resources.
-		runtime	":cloud-foundry:1.2.3" //The Cloud Foundry plugin for Grails integrates Cloud Foundry's cloud deployment services.
+		//runtime	":cloud-foundry:1.2.3" //The Cloud Foundry plugin for Grails integrates Cloud Foundry's cloud deployment services.
 		runtime	":grails-melody:1.13" //JavaMelody Grails Plugin
 		runtime	":google-analytics:2.0" //plugin provides a simple taglib to embed Google Analytics pageview tracking to your Grails application.
         //Uncomment these (or add new ones) to enable additional resources capabilities

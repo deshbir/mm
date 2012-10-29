@@ -5,7 +5,7 @@
 @loginpanel-input-border-color:rgb(251,217,8);
 @loginpanel-well-box-shadow-color:rgb(89,105,6);
 @loginpanel-well-bg-color:@white;
-
+@yellow-color:#F9CC00;
 h1, h2, h3, h4, h5, h6 {
 	font-family:Verdana;
 }
@@ -112,7 +112,7 @@ body {
 		}
 	}
 	.footer-info {
-	/*	margin-left:2em;*/
+	 	padding-top:2em;
 		clear: both;
 		color:white;
 		font-family:Verdana;
@@ -120,16 +120,15 @@ body {
 		text-align:center;
 	}
 	hr.footer{
-
-	display: block;
-	height: 1px;
-    border: 0; 
-    border-top: 3px solid #F9CC00;
-    margin: 0 auto; 
-    padding: 0; 
-    width:80%;
-    
- }
+		display: block;
+		height: 0px;
+	    border: 0; 
+	    color:@yellow-color;
+	    border-top: 2px solid @yellow-color;
+	    margin: 0 auto; 
+	    padding: 0; 
+	    width:80%;
+ 	}
 }
 
 

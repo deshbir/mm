@@ -2,7 +2,7 @@
   	<div id="student-login" class="well">
   		<h3><g:message code="homepanel.welcome"/>&nbsp;<span><g:message code="homepanel.student"/></span></h3>
   		<p><g:message code="homepanel.department"/></p>
-  		<a id="create-magazine" href="<cgrails:switch_singlepage action="home"/>" class="btn"><span><g:message code="homepanel.createmagazine"/></span></a>
+  		<a id="create-magazine" href="<cgrails:switch_singlepage action="home"/>" class="btn"><span>&nbsp;&nbsp;<g:message code="homepanel.createmagazine"/>&nbsp;&nbsp;</span></a>
   	</div>
   	<div id="magazine-details-container" class="well scroll-pane">
    		<table class="table" id="magazine-details">
