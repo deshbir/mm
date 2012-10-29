@@ -1,0 +1,69 @@
+@container-div-bg-color :rgb(240, 240, 240);
+@info-h2-text-shadow :#B9B9B9;
+@info-span-color: #2F2F2F;
+@loginpanel-input-bg-color: rgb(240, 240, 240);
+@loginpanel-input-border-color:#CCCCCC;
+@loginpanel-well-box-shadow-color:#555555;
+@loginpanel-well-bg-color:@white;
+@heading-two-color:#555555;
+@info-panel-color:#333333;
+
+img {
+    -webkit-filter: grayscale(100%);
+       -moz-filter: grayscale(100%);
+         -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+            filter: grayscale(100%); 
+}
+
+.container-div  {
+	.body-container {
+		.info-panel {
+			.info {
+				h2 {
+					color:@heading-two-color;
+				}
+				p {
+					color:@info-panel-color;
+				}
+			}
+		}
+		.login-panel {
+			a#login_in {
+			 	padding: 4px 3px;
+				color:@heading-color;
+				background:none;
+				background-color:darken(@top-navbar-btn-color, 10%);
+			 	span {
+				 	background:none;
+				 	background-color:darken(@top-navbar-btn-color, 10%);
+					padding: 3px 9px;
+					text-shadow: none;
+					font-weight:bold;
+				}
+			}
+		}
+		#student-login {
+			a#create-magazine {
+				padding: 4px 3px;
+				color:@heading-color;
+				background:none;
+				background-color:darken(@top-navbar-btn-color, 10%);
+			 	span {
+				 	background:none;
+				 	background-color:darken(@top-navbar-btn-color, 10%);
+					padding: 3px 9px;
+					text-shadow: none;
+					font-weight:bold;
+				}
+			}
+		} 
+	}
+	.footer-info {
+		color:@info-panel-color;
+	}
+	hr.footer {
+		border-color:@header-border-color;
+	}
+}
+
