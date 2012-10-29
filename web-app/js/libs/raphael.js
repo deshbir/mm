@@ -2249,14 +2249,16 @@
                             y = e.clientY + scrollY;
                     if (supportsTouch && touchMap[has](type)) {
                         for (var i = 0, ii = e.targetTouches && e.targetTouches.length; i < ii; i++) {
-                            if (e.targetTouches[i].target == obj) {
-                                var olde = e;
+                        	//COMPRO START-Fixing dragging for text node
+                        	if (e.targetTouches[i].target == obj || (e.targetTouches[i].target.tagName=='tspan' && e.targetTouches[i].target.parentNode == obj)) {
+                        	 //COMPRO END-Fixing dragging for text node
+                        	   var olde = e;
                                 e = e.targetTouches[i];
                                 e.originalEvent = olde;
                                 e.preventDefault = preventTouch;
                                 e.stopPropagation = stopTouch;
                                 break;
-                            }
+                           }
                         }
                     }
                     return fn.call(element, e, x, y);
