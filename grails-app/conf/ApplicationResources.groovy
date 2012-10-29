@@ -11,6 +11,10 @@ modules = {
 		dependsOn 'cgrailsLibs'
 		//Document load function for home page
 		resource url:'js/home.js'
+		//Bootstrap tooltip dependency for popover
+		resource url:'js/libs/bootstrap-tooltip.js'
+		//Bootstrap popover
+		resource url:'js/libs/bootstrap-popover.js'
 	}
 	
     mmLib {

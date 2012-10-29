@@ -1,6 +1,6 @@
 <g:set var="contextPath" value="${request.contextPath}"/>
 <g:set var="userLoggedIn" value="${session.userLoggedIn}"/>
-<div class="header fixed-row" >
+<div class="header" >
 	<div class="navbar">
 		<div class="navbar-inner">
         	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -14,9 +14,10 @@
 				 <span><g:message code="header.magazine.maker" /></span>
 			</a>
 			<div class="nav-collapse">
+			
             <ul class="nav">
-				<li class="new-slide"><a href="#" class="btn"><span><g:message code="homepanel.information"/></span></a></li>
-				<li><a href="#" class="btn"><span><g:message code="homepanel.help"/></span></a></li>
+				<li class="new-slide"><a href="#" rel="popover" title="<g:message code="homepanel.information"/>" class="btn"><span><g:message code="homepanel.information"/></span></a></li>
+				<li><a href="#" class="btn" rel="popover" title="<g:message code="homepanel.help"/>"><span><g:message code="homepanel.help"/></span></a></li>
 					<li id="userInfo" class="dropdown" <g:if test="${userLoggedIn != 'true'}">style="display:none"</g:if>>
 	                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 	                    	<i class="icon-user"></i>

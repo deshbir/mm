@@ -258,15 +258,14 @@ com.compro.application.mm = (function() {
 		
 		var handler = obj.handler;
 		if (!($('.accordion-group > #editor').hasClass("in"))) {
+			$(EditorView).bind('painted.onPickClick', function () {
+				editorDisplayController();
+				$(EditorView).off('painted.onPickClick');			
+			});			
 			$('.accordion-heading > a[href="#editor"]').click();
 		} else {
 			editorDisplayController();
 		}
-
-		$('#editor').on('shown.onPickClick', function () {
-			editorDisplayController();
-			$('#editor').off('shown.onPickClick');			
-		});
 		
 		function editorDisplayController() {
 			if (handler == "com.compro.ppt.Image") {
@@ -276,10 +275,51 @@ com.compro.application.mm = (function() {
 			if (handler == "com.compro.ppt.Text") {
 				$('#image-editor').css('display','none');
 				$('#text-editor').css('display','block');
+				$('#tinymce-editor').val(obj.getProperties(0).text);
 			}
 		}
 		
 	});
+	
+	/* Click event mapping when any component (image/text etc..) 
+	 * is unselected in mail container
+	 * 
+	 */ 
+	myPPTApp.registerEvent("ON_PICK_UNSELECT", function(obj){
+		
+		var handler = obj.handler;
+		if (handler == "com.compro.ppt.Text") {
+			$('#tinymce-editor').val("");
+		}		
+	});
+	
+	
+	// Text editor Sync function
+	function syncText(textEditorObject) {
+		var selectedObject = myPPTApp.getSelectedObject();
+		if (selectedObject != null)
+			selectedObject.setProperties(0,{text:$(textEditorObject).val()});
+	}
+	
+	// Text font increase function
+	function textFontIncrease() {
+		var selectedObject = myPPTApp.getSelectedObject();
+		if (selectedObject != null) {
+			var currentFontSize = selectedObject.getProperties(0)['font-size'];
+			currentFontSize = parseFloat(currentFontSize) + 1;
+			selectedObject.setProperties(0,{'font-size':currentFontSize});
+		}
+	}
+	
+	// Text font increase function
+	function textFontDecrease() {
+		var selectedObject = myPPTApp.getSelectedObject();
+		if (selectedObject != null) {
+			var currentFontSize = selectedObject.getProperties(0)['font-size'];
+			currentFontSize = parseFloat(currentFontSize) - 1;
+			selectedObject.setProperties(0,{'font-size':currentFontSize});
+		}
+	}
 	
 	function init_ppt_engine() {
 		var handler = function(){
@@ -427,6 +467,29 @@ com.compro.application.mm = (function() {
 
 			});
 
+			//FIX: iphone viewport scaling bug. The bug occurs when you set the viewport width
+			// to device-width and rotate the phone to landscape view.
+			(function(doc) {
+
+			    var addEvent = 'addEventListener',
+			        type = 'gesturestart',
+			        qsa = 'querySelectorAll',
+			        scales = [1, 1],
+			        meta = qsa in doc ? doc[qsa]('meta[name=viewport]') : [];
+
+			    function fix() {
+			        meta.content = 'width=device-width,minimum-scale=' + scales[0] + ',maximum-scale=' + scales[1];
+			        doc.removeEventListener(type, fix, true);
+			    }
+
+			    if ((meta = meta[meta.length - 1]) && addEvent in doc) {
+			        fix();
+			        scales = [.25, 1.6];
+			        doc[addEvent](type, fix, true);
+			    }
+
+			}(document));
+			
 			$(window).resize(function() {
 			    screenWidth = el_body.width();
 			    //console.log("screenWidth *****" + screenWidth);
@@ -476,7 +539,10 @@ com.compro.application.mm = (function() {
 	return	{
 		"config":config,
 		"resetScrollbars":setAccordionScroll,
-		"updateScrollbar":updateScrollbar
+		"updateScrollbar":updateScrollbar,
+		"syncText":syncText,
+		"textFontDecrease":textFontDecrease,
+		"textFontIncrease":textFontIncrease
 	}
 
 })();

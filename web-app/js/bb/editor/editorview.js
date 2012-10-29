@@ -24,6 +24,7 @@ EditorView = new function() {
 			success: function(){
 				TemplateManager.get('editor-panel', function(template){
 					$("#library-editor").html(template);
+					$(EditorView).triggerHandler("painted");
 				});
 				//Reset scrollbars on the main windows
 				setTimeout('com.compro.application.mm.resetScrollbars();', 60);
@@ -38,7 +39,6 @@ EditorView = new function() {
 				$("#forward").click(function (event) {
 					myPPTApp.moveObjectToFront();
 				});
-				
 			}		
 		});		
 		
