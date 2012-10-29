@@ -1210,13 +1210,14 @@ com.compro.ppt.Pick = function(){
 		PickConstr.prototype.externalObject = function(){
 			var self = this;
 			return {
-				rotate:function(degree){self.rotate(degree)},
-				resize:function(scale_x,scale_y){self.resize(scale_x,scale_y)},
-				deletePick:function(){self.deletePick()},
-				setProperties:function(setIndex, attributes){self.setProperties(setIndex, attributes)},
+				rotate:function(degree){return self.rotate(degree);},
+				resize:function(scale_x,scale_y){return self.resize(scale_x,scale_y);},
+				deletePick:function(){return self.deletePick();},
+				setProperties:function(setIndex, attributes){return self.setProperties(setIndex, attributes);},
 				handler:this.properties.handler,
-				moveToFront: function(){self.moveToFront()},
-				moveToBack: function(){self.moveToBack()}
+				moveToFront: function(){return self.moveToFront();},
+				moveToBack: function(){return self.moveToBack();},
+				getProperties:function(setIndex){return self.getProperties(setIndex);}
 			}
 		}
 		
