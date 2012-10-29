@@ -324,10 +324,11 @@ com.compro.application.mm = (function() {
 	function init_ppt_engine() {
 		var handler = function(){
 			//do something
-			$("#collage-container").sortable();
+			//$("#collage-container").sortable();
 			if(!checkAppleDevice()) {
 				$("#collage-scroll").mCustomScrollbar({scrollInertia:0});
 			}
+			com.cengage.mm.drag.DragHandler.drag("collage-element");
 		};
 		myPPTApp.registerEvent("AFTER_PPT_INIT", handler);
 		//Main PPT Engine (Generic) Initialization
@@ -376,12 +377,13 @@ com.compro.application.mm = (function() {
 		$('#confirm-modal').modal('hide');
 	}
 	function addNewSlide(){
-		myPPTApp.addNewSlide();
+		var newSlide = myPPTApp.addNewSlide().thumbDiv;
 	
 		//Update Scrollbar when content is added.
 		if(!checkAppleDevice()) {
 			$("#collage-scroll").mCustomScrollbar("update");
 		}
+		com.cengage.mm.drag.DragHandler.applyDragonElement(newSlide);
     }
 	
 	/**

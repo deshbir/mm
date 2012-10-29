@@ -144,9 +144,12 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 			}
 
 			namespace.GLOBAL.addNewSlide = function(){
-				newSlide();
+				var slide = newSlide();
 				checkAndReRenderThumbs();
 				saveState();
+				return {
+					"thumbDiv":slide.collageDiv
+				}
 			}
 			
 			namespace.GLOBAL.moveObjectToFront = function(){

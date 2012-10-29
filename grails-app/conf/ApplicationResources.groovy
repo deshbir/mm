@@ -60,6 +60,8 @@ modules = {
 		
 		//MM Tool Handler
 		resource url:'js/tools/toolelementdraghandler.js'
+		resource url:'js/tools/collage-drag.js'
+		
 		
 	}
 	
