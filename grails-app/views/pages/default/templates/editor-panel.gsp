@@ -34,12 +34,12 @@
 	<h4>
 		<g:message code="rightpanel.editortab.texteditor"/> 
 		<span class="btn-group">
-			 <a href="#" class="btn"><i class="icon-text-height"></i></a>
-		 	 <a href="#" class="btn"><i class=" icon-text-width"></i></a>
+			 <a href="javascript:com.compro.application.mm.textFontIncrease();" class="btn"><i class="icon-text-height"></i></a>
+		 	 <a href="javascript:com.compro.application.mm.textFontDecrease();" class="btn"><i class=" icon-text-width"></i></a>
 	 	 </span> 
 	</h4>
 	<div>
-		<textarea id="tinymce-editor" name="tinymce-editor" rows="5" cols="10" class="tinymce">
+		<textarea id="tinymce-editor" name="tinymce-editor" rows="5" cols="10" class="tinymce" onKeyUp="com.compro.application.mm.syncText(this);">
 			
 		</textarea>
 	</div>
