@@ -24,8 +24,8 @@ com.compro.ppt.Text = function(){
 						fontweight:"normal",
 						fontcolor:"black",
 						cursor:'move',
-						"text-anchor":"start",
-						"wrap-width" : 200
+						"text-anchor":"start"
+
 					}
 				}]
 		};
@@ -106,7 +106,7 @@ com.compro.ppt.Text = function(){
 			if(!ft.o){
 				ft.o={};
 			}
-			ft.o.wrapWidth =  object.getProperties(0)["wrap-width"]||"";
+			ft.o.wrapWidth =  object.getProperties(0)["wrap-width"]||ft.attrs.size.x;
 	    	console.log("** resize start : ", ft.o.wrapWidth);
 	    };
 
