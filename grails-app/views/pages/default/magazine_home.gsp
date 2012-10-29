@@ -48,5 +48,5 @@
 		<div class="right col accordion" id="toolbar">
         </div>
        <!-- Right col ends -->	
-	<body/>
+	</body>
 </html>
