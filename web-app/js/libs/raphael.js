@@ -4797,7 +4797,9 @@ window.Raphael.svg && function (R) {
             throw new Error("SVG container not found.");
         }
         var cnvs = $("svg"),
-            css = "overflow:hidden;",
+	    // Compro Update START  ## setting direction ltr ##
+        	css = "overflow:hidden;direction:ltr;",
+        // Compro Update END  ## setting direction ltr ##
             isFloating;
         x = x || 0;
         y = y || 0;
