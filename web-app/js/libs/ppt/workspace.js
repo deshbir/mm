@@ -129,6 +129,14 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 			namespace.GLOBAL.moveSlide = function(srcIndex, destinationIndex){
 				if(srcIndex<0||destinationIndex>=slideList.length)
 					return -1;
+				if(selectedSlide == srcIndex){
+					selectedSlide = destinationIndex;
+				} else if(selectedSlide<=destinationIndex && selectedSlide>srcIndex){
+					selectedSlide--;
+				}else if(selectedSlide>=destinationIndex && selectedSlide<srcIndex){
+					selectedSlide++;
+				}
+				localStorage.setItem("ppt_selectedslide",selectedSlide);
 				var slide = slideList[srcIndex];
 				slideList.splice(srcIndex,1);
 				slideList.splice(destinationIndex,0,slide);
