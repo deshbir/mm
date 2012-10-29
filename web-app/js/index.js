@@ -173,16 +173,18 @@ com.compro.application.mm = (function() {
 	}
 
 	function setMainSlideHeight() {
+		//console.log("paddings:" + parseInt(el_slide_toggle.css("padding-left").substring(0, el_slide_toggle.css("padding-left").indexOf("px")))
+									//  + parseInt(el_slide_toggle.css("padding-right").substring(0, el_slide_toggle.css("padding-right").indexOf("px"))));
 		var containerHeight = el_maincontainer.height();
 		var containerWidth = el_maincontainer.width();
 		var consumedWidth = device_vars.borders_el_maincontainer + device_vars.paddings_el_maincontainer
-							+ device_vars.scrollbar_el_maincontainer + device_vars.margins_el_maincontainer + $(".copyright-info").height() + 5;
+							+ device_vars.scrollbar_el_maincontainer + 2*device_vars.margins_el_maincontainer;
 		if(containerHeight <= device_vars.MIN_HEIGHT_THRESHOLD)	{
 			slideWidth = (containerWidth - consumedWidth);
 			slideHeight = slideWidth / 0.77;
 		} else {
 			var consumedHeight = device_vars.borders_el_maincontainer + device_vars.paddings_el_maincontainer
-								 + device_vars.scrollbar_el_maincontainer + device_vars.margins_el_maincontainer + $(".copyright-info").height() + 5;
+								 + device_vars.scrollbar_el_maincontainer + 2*device_vars.margins_el_maincontainer;
 			slideHeight = containerHeight - consumedHeight;
 			slideWidth = slideHeight * 0.77;
 			if (slideWidth >= (containerWidth - consumedWidth))	{
@@ -195,7 +197,7 @@ com.compro.application.mm = (function() {
 		el_the_slide.css ( {
 			"margin-top": device_vars.margins_el_maincontainer,
 			"margin-right": "auto",
-			"margin-bottom": "5px",
+			"margin-bottom": device_vars.margins_el_maincontainer,
 			"margin-left": "auto"
 		});
 		if(!checkAppleDevice()) {
