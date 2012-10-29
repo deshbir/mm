@@ -6,5 +6,5 @@
 	<label class="checkbox">
 	<input type="checkbox" name="remember"><g:message code="homepanel.remember"/></label>
 	<a id="login_in" class="btn"><span>&nbsp;&nbsp;&nbsp;&nbsp;<g:message code="homepanel.login"/>&nbsp;&nbsp;&nbsp;</span></a>
-	<span id="login_spinner" style="visibility:hidden"><r:img dir="images/home" file="spinner.gif" style="margin-top: 25px;"/></span>
+	<span id="login_spinner" style="visibility:hidden"><r:img dir="images/home" file="spinner.gif" style="margin-top: 25px;margin-left: 10px;"/></span>
 </form>

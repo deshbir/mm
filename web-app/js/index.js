@@ -173,18 +173,16 @@ com.compro.application.mm = (function() {
 	}
 
 	function setMainSlideHeight() {
-		//console.log("paddings:" + parseInt(el_slide_toggle.css("padding-left").substring(0, el_slide_toggle.css("padding-left").indexOf("px")))
-									//  + parseInt(el_slide_toggle.css("padding-right").substring(0, el_slide_toggle.css("padding-right").indexOf("px"))));
 		var containerHeight = el_maincontainer.height();
 		var containerWidth = el_maincontainer.width();
 		var consumedWidth = device_vars.borders_el_maincontainer + device_vars.paddings_el_maincontainer
-							+ device_vars.scrollbar_el_maincontainer + 2*device_vars.margins_el_maincontainer;
+							+ device_vars.scrollbar_el_maincontainer + device_vars.margins_el_maincontainer + $(".copyright-info").height() + 5;
 		if(containerHeight <= device_vars.MIN_HEIGHT_THRESHOLD)	{
 			slideWidth = (containerWidth - consumedWidth);
 			slideHeight = slideWidth / 0.77;
 		} else {
 			var consumedHeight = device_vars.borders_el_maincontainer + device_vars.paddings_el_maincontainer
-								 + device_vars.scrollbar_el_maincontainer + 2*device_vars.margins_el_maincontainer;
+								 + device_vars.scrollbar_el_maincontainer + device_vars.margins_el_maincontainer + $(".copyright-info").height() + 5;
 			slideHeight = containerHeight - consumedHeight;
 			slideWidth = slideHeight * 0.77;
 			if (slideWidth >= (containerWidth - consumedWidth))	{
@@ -197,7 +195,7 @@ com.compro.application.mm = (function() {
 		el_the_slide.css ( {
 			"margin-top": device_vars.margins_el_maincontainer,
 			"margin-right": "auto",
-			"margin-bottom": device_vars.margins_el_maincontainer,
+			"margin-bottom": "5px",
 			"margin-left": "auto"
 		});
 		if(!checkAppleDevice()) {
@@ -306,7 +304,7 @@ com.compro.application.mm = (function() {
 		var selectedObject = myPPTApp.getSelectedObject();
 		if (selectedObject != null) {
 			var currentFontSize = selectedObject.getProperties(0)['font-size'];
-			currentFontSize = parseFloat(currentFontSize) + 1;
+			currentFontSize = parseFloat(currentFontSize) + 2;
 			selectedObject.setProperties(0,{'font-size':currentFontSize});
 		}
 	}
@@ -316,7 +314,7 @@ com.compro.application.mm = (function() {
 		var selectedObject = myPPTApp.getSelectedObject();
 		if (selectedObject != null) {
 			var currentFontSize = selectedObject.getProperties(0)['font-size'];
-			currentFontSize = parseFloat(currentFontSize) - 1;
+			currentFontSize = parseFloat(currentFontSize) - 2;
 			selectedObject.setProperties(0,{'font-size':currentFontSize});
 		}
 	}
@@ -469,6 +467,42 @@ com.compro.application.mm = (function() {
 
 			});
 
+
+			/*! Normalized address bar hiding for iOS & Android (c) @scottjehl MIT License */
+			(function( win ){
+			    var doc = win.document;
+
+			    // If there's a hash, or addEventListener is undefined, stop here
+			    if( !location.hash && win.addEventListener ){
+
+			        //scroll to 1
+			        window.scrollTo( 0, 1 );
+			        var scrollTop = 1,
+			            getScrollTop = function(){
+			                return win.pageYOffset || doc.compatMode === "CSS1Compat" && doc.documentElement.scrollTop || doc.body.scrollTop || 0;
+			            },
+
+			        //reset to 0 on bodyready, if needed
+			            bodycheck = setInterval(function(){
+			                if( doc.body ){
+			                    clearInterval( bodycheck );
+			                    scrollTop = getScrollTop();
+			                    win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+			                }
+			            }, 15 );
+
+			        win.addEventListener( "load", function(){
+			            setTimeout(function(){
+			                //at load, if user hasn't scrolled more than 20 or so...
+			                if( getScrollTop() < 20 ){
+			                    //reset to hide addr bar at onload
+			                    win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+			                }
+			            }, 0);
+			        } );
+			    }
+			})( this );
+			
 			//FIX: iphone viewport scaling bug. The bug occurs when you set the viewport width
 			// to device-width and rotate the phone to landscape view.
 			(function(doc) {
