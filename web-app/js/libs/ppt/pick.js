@@ -1055,6 +1055,9 @@ com.compro.ppt.Pick = function(){
 			this.reRenderThumb(thumbSvgObj);
 			this.properties.context.height = primeSvgObj.height;
             this.properties.context.width = primeSvgObj.width;
+            if(this.isSelected){
+            	this.showHandles();
+            }
 		}
 
 		PickConstr.prototype.rotate =function(degree){
@@ -1201,11 +1204,11 @@ com.compro.ppt.Pick = function(){
 			apply(this);
 			applyOnThumb(this);
 			this.updateHandles();
+			Utils.fireEvent(this,this.events.STATE_CHANGED);
 		}
 		
 		PickConstr.prototype.getProperties  = function(setIndex) {
 			return this.instance[setIndex].attr();
-
 		}
 		
 		PickConstr.prototype.externalObject = function(){
