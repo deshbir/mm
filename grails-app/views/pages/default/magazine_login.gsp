@@ -2,10 +2,10 @@
 <html>
 	<head>		
 		<meta name="layout" content="home_layout">
-	</head>
-	<script type="text/javascript">
-		var loggedIn = false;
-	</script>	
+		<script type="text/javascript">
+			var loggedIn = false;
+		</script>
+	</head>		
 	<body>
 		<div class="container-div">
 		    <div class="body-container">
@@ -44,5 +44,5 @@
 		  </div>
 		  <div class="spiral-div col">
 		  </div> 
-	<body/>
+	</body>
 </html>
