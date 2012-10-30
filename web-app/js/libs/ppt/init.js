@@ -37,10 +37,10 @@
 	namespacefn.eventMap[EVENT_ON_PICK_CLICK] = [onPickClick];
 	namespacefn.eventMap[EVENT_ON_PICK_UNSELECT] = [onPickUnSelect];
 	
-	namespacefn.initialize = function(collageid,workspaceid,pickConfig){
+	namespacefn.initialize = function(collageid,workspaceid,pickConfig, stateJson, selectedSlide){
 		$(document).ready(function(){
 			namespacefn.updatePickConfig(pickConfig);
-			namespacefn.initWorkspace(collageid,workspaceid);
+			namespacefn.initWorkspace(collageid,workspaceid,stateJson,selectedSlide);
 			namespacefn.triggerGlobalEvent(EVENT_AFTER_PPT_INIT,this);
 		});
 	}
