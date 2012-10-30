@@ -31,14 +31,23 @@ $(document).ready(function() {
 		});
 	};
 	
-	$("[rel=popover]").popover({
+	$('a[rel*="popover"]').popover({
 	    trigger: 'click',
-	    placement: 'bottom',
+	    title: "Title",
+	    position:'bottom',
+	    fadeOut:1000,
 	    content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 	});
 	
-	$("[rel=popover]").focusout(function(){
-		$("[rel=popover]").popover('hide');
+	$('a[rel*="popover"]').click(function(event) {
+		$(this).popover('hideAll');
+		event.preventDefault();
+		event.stopPropagation();
+		var title = $(this).attr('title');
+		$(this).popover(
+			'title',
+			title
+		).popover('show');
 	});
-	
+
 });
