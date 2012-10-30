@@ -70,8 +70,8 @@
       this.$element[dimension](this.$element[0][scroll])
       //do only when event is fired from top navigation bar
       if(this.$element.hasClass('nav-collapse')) {
-		// $(".header").css("height","278px");
-		 //$(".col").css("top","226px");
+		 $(".header").css("height","440px");
+		 $(".col").css("top","450px");
 		 $('#slide-toggle').css("margin-top","25em");
 	  }
     }
@@ -85,8 +85,8 @@
       this.$element[dimension](0)
       //do only when event is fired from top navigation bar
       if(this.$element.hasClass('nav-collapse')) {
-		 // $(".header").css("height","45px");
-		 // $(".col").css("top","50px");
+		  $(".header").css("height","45px");
+		  $(".col").css("top","50px");
 		  $('#slide-toggle').css("margin-top","3.5em");
 	  }
     }

@@ -18,7 +18,7 @@ TextView = new function() {
 		
 		TemplateManager.get('text-static', 
 			function(template){
-				$("#text > .accordion-inner ").html("<div class='scroll-pane'></div>");
+				$("#text > .accordion-inner ").html("<div class='scroll-pane' id='text-shape-editor'></div>");
 				$("#text .scroll-pane").append(template);
 			});
 		

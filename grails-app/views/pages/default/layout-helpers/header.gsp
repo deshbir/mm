@@ -8,8 +8,9 @@
 				<span class="icon-bar"></span>
 			</a>
 			<a class="brand" href="<cgrails:switch_singlepage action="index"/>">
-			     <r:img dir="images" file="NG_logo.png" alt="NG-logo-img"/>
-				 <p><g:message code="header.national.geogrpahic"/></p>
+			     <r:img dir="images" file="NG_logo.png" alt="NG-logo-img" id="ng-img"/>
+			     <r:img dir="images" file="NG_logo-black.png" alt="NG-logo-img" id="ng-black-img"/>
+				 <p>NATIONAL GEOGRAPHIC</p>
 				 <span><g:message code="header.magazine.maker" /></span>
 			</a>
 			<div class="nav-collapse">

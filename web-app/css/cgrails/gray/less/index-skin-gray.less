@@ -1,4 +1,4 @@
-@header-bckgrnd-color:rgb(190,190,190);
+@header-bckgrnd-color:#D3D3D3;
 @body-bckgrnd-color:rgb(240, 240, 240);
 @main-container-color:rgb(215,215,215);
 @header-border-color:rgb(21, 21, 21);
@@ -9,6 +9,7 @@
 @heading-color:#555555;
 @top-navbar-btn-color:rgb(249,249,249);
 @toolbar-bckgrnd-color:rgb(204,204,204);
+@delete-modal-bg-color:rgb(240, 240, 240);
 
 
 body {
@@ -17,6 +18,21 @@ body {
 
 .header {
 	border-bottom: 2px solid lighten(@header-border-color,10%);
+}
+
+#ng-black-img {
+	display:block;
+}
+
+#ng-img {
+	display:none;
+}
+
+.navbar {
+     .navbar-inner {
+     	 background:none;
+	     background-color:@header-bckgrnd-color;
+     }
 }
 
 .navbar {

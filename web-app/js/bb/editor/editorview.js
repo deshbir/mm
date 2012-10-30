@@ -18,7 +18,8 @@ EditorView = new function() {
 		
 		TemplateManager.get('editor-static', 
 				function(template){
-			$("#editor > .accordion-inner ").html(template);
+			$("#editor > .accordion-inner ").html("<div class='scroll-pane' id='editor-container'></div>");
+			$("#editor .scroll-pane").append(template);
 		});		
 		EditorCollection.get().fetch({
 			success: function(){

@@ -14,6 +14,7 @@
 @layout-frame-color:rgb(220,232,255);
 @active-slide-color:#F9CC00;
 @divider-color:rgba(150, 155, 127, 0.5);
+@delete-modal-bg-color:#D4DF9A;
 
 body {
 	background-color:@body-bckgrnd-color;
@@ -21,6 +22,14 @@ body {
 
 .scroll-pane {
 	overflow-y: auto;
+}
+
+#ng-black-img {
+	display:none;
+}
+
+#ng-img {
+	display:block;
 }
 
 .col {
@@ -164,7 +173,7 @@ body {
 	    }
 	    .border-line-hor {
 	    	border-bottom: 1px dotted @divider-color;
-			margin: 1em 2em;
+			margin: 1em 2em 0;
 	    	width: 220px;
 	    }
 		#library-text {
@@ -192,6 +201,8 @@ body {
 		    	> div {
 					text-align:center;
 					border-bottom:1px dotted @divider-color;
+					padding:2px 8px;
+	       	    	margin:4px;
 		    	}
 		    }
 		    .remove-border {
@@ -199,6 +210,9 @@ body {
 		    }
 		   .right-col {
 	    		width:35%;
+	       }
+	       #star {
+	       		padding:2px 20px;
 	       }
     	}
 		.border-line {
@@ -218,13 +232,18 @@ body {
     		}
     	}
     }
+    #text-shape-editor, #editor-container {
+    	p {
+        	width:95%;
+        }
+    }
     #editor {
     	h4 {
     		margin-bottom:0.5em;
     	}
         .btn {
     		padding:3px 5px;
-    		margin:0 0.7em;
+    		margin:0 0.5em;
     		i {
 	        	font-size:28px;
 	        	padding: 5px;
@@ -242,13 +261,10 @@ body {
         	padding:5px 8px;
         	margin:0 0.3em;
         }
-        #library-editor {
-        	margin-top:0.5em;
-        }
 		#text-editor {
 			float:left;
 	    	width:95%;
-	    	margin-top:1.5em;
+	    	margin-top:1em;
 		    #size-label {
 		    	margin-top:0.5em;
 		    	display: block;
@@ -263,34 +279,37 @@ body {
 		    		margin-top: 5px;
 		    	}
 		    	.font-span {
-		    		font-size: 30px;
-    				margin: 3px;
-		    	}
-		    	.font-span-small {
-		    		font-size:20px;
-		    		margin: 3px 7px;
+		    		font-size: 20px;
+		    		margin:0;
 		    	}
 		    }
 		    
 	    	textarea {
 				border:1px solid @divider-color;
-				margin: 1em 0.5em;
+				margin: 0em 0.5em 0.5em;
 				overflow-y:auto;
 				width:83%;
 			}
 			.btn {
 				height: 25px;
 			    margin: 0 5px;
-			    width: 25px;
+			    width: 40px;
+			    padding: 9px 3px 3px 6px;
 			}
 			i {
-	        	font-size:20px;
+	        	font-size:19px;
 	        }
-	        
+	        .remove-padding {
+	        	padding:0;
+	        }
+	        .icon-sort-down {
+	        	margin-top: -4px;
+	        }
 	    }
 	    #image-editor {
 	    	float:left;
 	    	width:90%;
+	    	margin-top:1em;
 	    	border-bottom:1px solid @divider-color;
 	    	span {
 				display: inline-block;
@@ -392,6 +411,46 @@ a#slide-toggle {
 a#slide-toggle:hover {
 	background-position: 0 0px;
 	.vertical-gradient(@body-bckgrnd-color, darken(@body-bckgrnd-color,10%));
+}
+
+
+
+.modal-backdrop, .modal-backdrop.fade.in {
+	opacity:0.2;
+}
+
+.close {
+	opacity:0.8;
+}
+
+#confirm-modal {
+	.modal-header {
+		background-color:@white;
+		border-bottom:solid 2px @header-border-color;
+		i {
+			font-size:35px;
+			float:left;
+		}
+		h3 {
+			span {
+				display:block;
+				margin-left:40px;
+			}
+		}
+	}
+	.modal-body {
+		background-color:@delete-modal-bg-color;
+		padding:30px;
+		p {
+			font-size:16px;
+		}
+	}
+	.modal-footer {
+		padding:10px 15px;
+		background-color:@delete-modal-bg-color;
+		border-top:0 none;
+		.box-shadow(none);
+	}
 }
 
 

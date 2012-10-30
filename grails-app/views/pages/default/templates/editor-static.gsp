@@ -6,6 +6,6 @@
 <span class="divider-vertical"></span> 
 <a id="deleteobject" title="Delete" href="#" class="btn"><span class="float-left"><g:message code="rightpanel.editortab.delete"/></span><i class="icon-trash"></i></a>
 <div class="border-line-hor"></div> 
-<div id="library-editor" class="scroll-pane">
+<div id="library-editor">
 	<!-- Fill Photo-panel here -->
 </div>

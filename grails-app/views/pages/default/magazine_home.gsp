@@ -13,19 +13,18 @@
     		<div id="collage-scroll" class="scroll-pane">
     			<div id="collage-container"></div>
     		</div>
-        </div>
-        
-		<div class="modal hide" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        </div>        
+		<div class="modal hide fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="confirm-modal-label" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3 id="myModalLabel">Confirm Box</h3>
+				<h3 id="confirm-modal-label"><i class="icon-trash"></i> <span><g:message code="leftpanel.delete.heading"/></span> </h3>
 			</div>
 			<div class="modal-body">
-				<p>Are you sure you want to delete the selected slide?</p>
+				<p><g:message code="leftpanel.delete.info"/></p>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary" id="delete-slide-confirm">Ok</button>
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button class="btn-large" id="delete-slide-confirm"><g:message code="leftpanel.delete.yes"/></button>
+				<button class="btn-large" data-dismiss="modal" aria-hidden="true"><g:message code="leftpanel.delete.no"/></button>
 			</div>
 		</div>
         <!-- Main Pane where content is painted -->

@@ -12,24 +12,33 @@ h1, h2, h3, h4, h5, h6 {
 body {
 	background-color:@container-div-bg-color;
 }
+.header-border {
+	border-bottom: 8px solid @header-border-color;
+}
+
+.navbar {
+	margin-bottom:0;
+}
+
+.container-fluid {
+	padding-left:0;
+	padding-right:0;
+}
 
 .spiral-div {
 	background-image:url('../../../../images/home/background-img.jpg');
 	background-color: @main-container-color;
 	background-repeat:repeat-y;
 	background-position: top center;
-	left:85%;
-	right:0;
 	opacity:0.3;
+	float:left;
+	min-height:25em;
+	width:15%;
 }
 
-#login-main-container{
-	overflow:visible;	
-}
 .container-div {
 	width:85%;
-}
-.container-div {
+	float:left;
 	background-color:@container-div-bg-color;
 	.body-container {
 		float:left;
@@ -53,7 +62,7 @@ body {
 				}
 				.national-img {
 					width:59%;
-					opacity:0.8;
+					opacity:0.9;
 					margin-top:-1em;
 				}
 			}
