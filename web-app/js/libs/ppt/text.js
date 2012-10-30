@@ -98,70 +98,47 @@ com.compro.ppt.Text = function(){
 	    
 	    TextConstr.prototype.resizing = function(obj, dx, dy) {
 	    	
-		var ft = obj.freeTransform,pickOptions=obj.pickOptions,
-		handle = this.handleParent;
+			var ft = obj.freeTransform,pickOptions=obj.pickOptions,
+			handle = this.handleParent;
+		
+			var sin, cos, rx, ry, rdx, rdy, mx, my, sx, sy;
+			
+			sin = ft.o.rotate.sin;
+			cos = ft.o.rotate.cos;
+			// First rotate dx, dy to element alignment
+			rx = dx * cos - dy * sin;
+			ry = dx * sin + dy * cos;
 	
-		var sin, cos, rx, ry, rdx, rdy, mx, my, sx, sy;
-		
-		sin = ft.o.rotate.sin;
-		cos = ft.o.rotate.cos;
-		// First rotate dx, dy to element alignment
-		rx = dx * cos - dy * sin;
-		ry = dx * sin + dy * cos;
-
-		rx *= Math.abs(handle.x);
-		ry *= Math.abs(handle.y);
-
-		// And finally rotate back to canvas alignment
-		rdx = rx *   cos + ry * sin;
-		rdy = rx * - sin + ry * cos;
-
-		ft.attrs.center = {
-			x: ft.o.center.x + rdx / 2,
-			y: ft.o.center.y + rdy / 2
-			};
-
-		// Mouse position, relative to element center after translation
-		mx = ft.o.handlePos.cx + dx - ft.attrs.center.x - ft.attrs.translate.x;
-		my = ft.o.handlePos.cy + dy - ft.attrs.center.y - ft.attrs.translate.y;
-
-		// Position rotated to align with element
-		rx = mx * cos - my * sin;
-		ry = mx * sin + my * cos;
-
-		// Scale element so that handle is at mouse position
-/*		sx = (rx * 2 * handle.x - 2*pickOptions.selection_box_attrs.padding)  / ft.o.size.x
-		sy = (ry * 2 * handle.y - 2*pickOptions.selection_box_attrs.padding)/ ft.o.size.y
-				ft.attrs.scale = {
-			x: sx || ft.attrs.scale.x,
-			y: sy || ft.attrs.scale.y
-			};
-		ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;*/
-		// Maintain aspect ratio
-		ft.attrs.size.x = rx * 2 * handle.x;
-    	ft.attrs.size.y = ry * 2 * handle.y;
-		
-		obj.updateHandles();
-    	
-	    	
-	    	/******************************************/
-	    	
-	    /*	var ft = object.freeTransform;
-	    	var wrapWidth =	ft.o.wrapWidth;
-	    	console.log("** resizzing : ", wrapWidth, " ** dx : ",dx);
-	    */
-/*	    	ft.attrs.center.x = ft.o.attrs.center.x + dx/2;
-	    	ft.attrs.center.y = ft.o.attrs.center.y + dy/2;
-	    	//object.setProperties(0,{"wrap-width":wrapWidth+dx});
-	    	object.updateHandles();
-*/	    };
+			rx *= Math.abs(handle.x);
+			ry *= Math.abs(handle.y);
+	
+			// And finally rotate back to canvas alignment
+			rdx = rx *   cos + ry * sin;
+			rdy = rx * - sin + ry * cos;
+	
+			ft.attrs.center = {
+				x: ft.o.center.x + rdx / 2,
+				y: ft.o.center.y + rdy / 2
+				};
+	
+			// Mouse position, relative to element center after translation
+			mx = ft.o.handlePos.cx + dx - ft.attrs.center.x - ft.attrs.translate.x;
+			my = ft.o.handlePos.cy + dy - ft.attrs.center.y - ft.attrs.translate.y;
+	
+			// Position rotated to align with element
+			rx = mx * cos - my * sin;
+			ry = mx * sin + my * cos;
+	
+			
+			ft.attrs.size.x = (rx * 2 * handle.x-2*pickOptions.selection_box_attrs.padding)/ ft.attrs.scale.x;
+	    	ft.attrs.size.y = (ry * 2 * handle.y-2*pickOptions.selection_box_attrs.padding)/ ft.attrs.scale.y;
+			
+			obj.updateHandles();
+	    };
 	    
 	    TextConstr.prototype.resizeStart = function(obj){
 			
 			var ft = obj.freeTransform,pickOptions=obj.pickOptions;
-			if(!ft.o){
-				ft.o=cloneObj(ft);
-			}
 			rotate = ( ( 360 - ft.attrs.rotate ) % 360 ) / 180 * Math.PI,
 			handlePos = this.attr(['x', 'y']);
 
@@ -177,21 +154,12 @@ com.compro.ppt.Text = function(){
 				cos: Math.cos(rotate)
 			};
 			obj.event_resize_start();
-			
-/*			var size = {x : ft.attrs.size.x, y : ft.attrs.size.y};
-			var center = {x : ft.attrs.center.x, y : ft.attrs.center.y};
-			ft.o.attrs={
-					size : size,
-					center : center
-			}
-*/			ft.o.wrapWidth =  obj.getProperties(0)["wrap-width"]||ft.attrs.size.x;
 	    };
 	    
 	    TextConstr.prototype.resizeEnd = function(obj){
 	    	var ft = obj.freeTransform;
 	    	var wrapWidth =	Math.min(ft.attrs.size.x, obj.primeSvg.width - 100);
 	    	obj.setProperties(0,{"wrap-width":wrapWidth});
-			//applyOnThumb(obj);
 	    	obj.updateFTProps();
 			obj.event_resize_end();
 			Utils.fireEvent(obj,obj.events.STATE_CHANGED);

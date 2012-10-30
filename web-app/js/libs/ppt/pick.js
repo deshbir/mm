@@ -131,7 +131,7 @@ com.compro.ppt.Pick = function(){
 				rotate_handle_distance: 1.3,
 				rotate_handle_axes: ['x','y'],
 				handle_box_size: 5,
-				range: { rotate: [ -180, 180 ], scale: [ -99999, 99999 ] },
+				range: { rotate: [ -180, 180 ], scale: [ -99999, 99999, -99999, 99999 ] },
 				drag: true,
 				rotate: true,
 				scale: true,
@@ -587,7 +587,7 @@ com.compro.ppt.Pick = function(){
 					ft.attrs.scale.x = pickOptions.range.scale[0] / ft.attrs.size.x;
 				}
 
-				if ( ft.attrs.scale.y * ft.attrs.size.y < pickOptions.range.scale[0] ) {
+				if ( ft.attrs.scale.y * ft.attrs.size.y < pickOptions.range.scale[2] ) {
 					ft.attrs.scale.y = pickOptions.range.scale[0] / ft.attrs.size.y;
 				}
 
@@ -595,7 +595,7 @@ com.compro.ppt.Pick = function(){
 					ft.attrs.scale.x = pickOptions.range.scale[1] / ft.attrs.size.x;
 				}
 
-				if ( ft.attrs.scale.y * ft.attrs.size.y > pickOptions.range.scale[1] ) {
+				if ( ft.attrs.scale.y * ft.attrs.size.y > pickOptions.range.scale[3] ) {
 					ft.attrs.scale.y = pickOptions.range.scale[1] / ft.attrs.size.y;
 				}
 			}
@@ -974,6 +974,10 @@ com.compro.ppt.Pick = function(){
 			/* FREE-TRANSFORM END */
 			if(pickRatio){
 				if(pickRatio.x!=1||pickRatio.y!=1){
+					obj.pickOptions.range.scale[0] *= pickRatio.x;
+					obj.pickOptions.range.scale[1] *= pickRatio.x;
+					obj.pickOptions.range.scale[2] *= pickRatio.y;
+					obj.pickOptions.range.scale[3] *= pickRatio.y;
 					var attrs = obj.freeTransform.attrs;
 					var scale_x_compensation = (attrs.size.x/2)*(pickRatio.x-1);
 					var scale_y_compensation = (attrs.size.y/2)*(pickRatio.x-1);
