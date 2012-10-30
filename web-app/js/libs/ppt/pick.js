@@ -135,6 +135,8 @@ com.compro.ppt.Pick = function(){
 				drag: true,
 				rotate: true,
 				scale: true,
+				scale_boundry: true,
+				translate_boundry: true,
 				remove:true,
 				scale_keepRatio: true,
 				snap: { rotate: 0, scale:0 , drag: 0 },
@@ -462,19 +464,20 @@ com.compro.ppt.Pick = function(){
 			// Snap to grid
 			
 			var corners = getBBox(obj);
-			var min_x = Math.min(corners[0].x,(pickOptions.remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
-			var max_x = Math.max(corners[0].x,(pickOptions.remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
-			var min_y = Math.min(corners[0].y,(pickOptions.remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
-			var max_y = Math.max(corners[0].y,(pickOptions.remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
-			var current_width = (max_x - min_x)/Math.abs(ft.attrs.scale.x);
-			var current_height = (max_y - min_y)/Math.abs(ft.attrs.scale.y);
-			ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1)*Math.min((obj.primeSvg.width-2*pickOptions.handle_box_size-( pickOptions.pick_delete_image_attrs.x_distance + pickOptions.handle_box_size))/current_width,Math.abs(ft.attrs.scale.x));
-			ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)*Math.min((obj.primeSvg.height-2*pickOptions.handle_box_size-(pickOptions.pick_delete_image_attrs.y_distance + pickOptions.pick_delete_image_attrs.size))/current_height,Math.abs(ft.attrs.scale.y));
-			if(pickOptions.scale_keepRatio){
-				ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1) * Math.min(Math.abs(ft.attrs.scale.x),Math.abs(ft.attrs.scale.y));
-				ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)* Math.abs(ft.attrs.scale.x);
+			if (pickOptions.scale_boundry) {
+				var min_x = Math.min(corners[0].x,(pickOptions.remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
+				var max_x = Math.max(corners[0].x,(pickOptions.remove?corners[4].x:corners[1].x),corners[2].x,corners[3].x);
+				var min_y = Math.min(corners[0].y,(pickOptions.remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
+				var max_y = Math.max(corners[0].y,(pickOptions.remove?corners[4].y:corners[1].y),corners[2].y,corners[3].y);
+				var current_width = (max_x - min_x)/Math.abs(ft.attrs.scale.x);
+				var current_height = (max_y - min_y)/Math.abs(ft.attrs.scale.y);
+				ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1)*Math.min((obj.primeSvg.width-2*pickOptions.handle_box_size-( pickOptions.pick_delete_image_attrs.x_distance + pickOptions.handle_box_size))/current_width,Math.abs(ft.attrs.scale.x));
+				ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)*Math.min((obj.primeSvg.height-2*pickOptions.handle_box_size-(pickOptions.pick_delete_image_attrs.y_distance + pickOptions.pick_delete_image_attrs.size))/current_height,Math.abs(ft.attrs.scale.y));
+				if(pickOptions.scale_keepRatio){
+					ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1) * Math.min(Math.abs(ft.attrs.scale.x),Math.abs(ft.attrs.scale.y));
+					ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)* Math.abs(ft.attrs.scale.x);
+				}
 			}
-			
 			corners = getBBox(obj);
 			var paper = obj.primeSvg;
 			var objBoundary = {
@@ -527,19 +530,20 @@ com.compro.ppt.Pick = function(){
 				ft.attrs.translate.y -= snap.y;
 			}
 			// Keep center within boundaries
-			if(objBoundary.max.x>paper.width){
-				ft.attrs.translate.x -=(objBoundary.max.x-paper.width)
+			if (pickOptions.translate_boundry) {
+				if(objBoundary.max.x>paper.width){
+					ft.attrs.translate.x -=(objBoundary.max.x-paper.width)
+				}
+				if(objBoundary.max.y>paper.height){
+					ft.attrs.translate.y -=(objBoundary.max.y-paper.height)
+				}
+				if(objBoundary.min.y<0){
+					ft.attrs.translate.y +=(-objBoundary.min.y)
+				}
+				if(objBoundary.min.x<0){
+					ft.attrs.translate.x +=(-objBoundary.min.x)
+				}
 			}
-			if(objBoundary.max.y>paper.height){
-				ft.attrs.translate.y -=(objBoundary.max.y-paper.height)
-			}
-			if(objBoundary.min.y<0){
-				ft.attrs.translate.y +=(-objBoundary.min.y)
-			}
-			if(objBoundary.min.x<0){
-				ft.attrs.translate.x +=(-objBoundary.min.x)
-			}
-
 			// Snap to angle, rotate with increments
 			dist = Math.abs(ft.attrs.rotate % pickOptions.snap.rotate);
 			dist = Math.min(dist, pickOptions.snap.rotate - dist);
@@ -1209,6 +1213,7 @@ com.compro.ppt.Pick = function(){
 		
 		PickConstr.prototype.getProperties  = function(setIndex) {
 			return this.instance[setIndex].attr();
+
 		}
 		
 		PickConstr.prototype.externalObject = function(){
