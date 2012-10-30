@@ -139,9 +139,6 @@ com.compro.ppt.Text = function(){
 	    TextConstr.prototype.resizeStart = function(obj){
 			
 			var ft = obj.freeTransform,pickOptions=obj.pickOptions;
-			if(!ft.o){
-				ft.o=cloneObj(ft);
-			}
 			rotate = ( ( 360 - ft.attrs.rotate ) % 360 ) / 180 * Math.PI,
 			handlePos = this.attr(['x', 'y']);
 
@@ -163,7 +160,6 @@ com.compro.ppt.Text = function(){
 	    	var ft = obj.freeTransform;
 	    	var wrapWidth =	Math.min(ft.attrs.size.x, obj.primeSvg.width - 100);
 	    	obj.setProperties(0,{"wrap-width":wrapWidth});
-			//applyOnThumb(obj);
 	    	obj.updateFTProps();
 			obj.event_resize_end();
 			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
