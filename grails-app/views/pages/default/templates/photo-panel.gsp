@@ -1,1 +1,1 @@
-<r:img id="photo{{id}}" dir="{{dir}}" file="{{fullfilename}}" alt="{{copyright}}" class="library-thumbnails"/>
+<r:img id="photo{{id}}" dir="{{dir}}" file="{{thumbfilename}}" alt="{{copyright}}" class="library-thumbnails"/>
