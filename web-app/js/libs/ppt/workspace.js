@@ -1,7 +1,9 @@
-com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){		
+com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,selectedSlideNumber){		
 		/*
 		* Creating a singleton object(application has only single "workspace")
 		*/
+		var state = stateJson || localStorage.getItem("slideList");
+		var selectedSlideN0 = selectedSlideNumber||localStorage.getItem("ppt_selectedslide");
 		com.compro.ppt.workspace = (function(stateStr, storedSelectedSlide){
 			/********************************************************/
 			/*                   DEPENDENCIES                       */ 
@@ -234,7 +236,7 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 			/********************************************************/
 			/*                 One-time Execution Block             */ 
 			/********************************************************/			
-			if(stateStr!=null){
+			if(stateStr!=null && stateStr!=""){
 				var state = JSON.parse(stateStr);
 				for(var slideNum=0; slideNum<state.length; slideNum++){
 					var slideProp = {
@@ -260,5 +262,5 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid){
 
 			//return object
 			return workspaceObj;
-		}) (localStorage.getItem("slideList"),localStorage.getItem("ppt_selectedslide"));
+		}) (state,selectedSlideN0);
 }
