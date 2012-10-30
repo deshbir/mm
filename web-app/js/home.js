@@ -1,5 +1,9 @@
 $(document).ready(function() { 
-	
+	if(($(window).height()-$(".navbar").height()-20) > $(".container-div").height()) {
+		$(".spiral-div").height($(window).height()- $(".navbar").height()-10);
+    } else {
+    	$(".spiral-div").height($(".container-div").height());
+    }
 	if (loggedIn) {
 		getLoggedintemplate();
 	} else {
