@@ -1,23 +1,34 @@
+import grails.converters.JSON
 import groovy.json.JsonSlurper
-import org.codehaus.groovy.grails.commons.GrailsApplication
 
-//import org.grails.plugin.resource.ResourceTagLib
-
+import com.cengage.mm.Magazine
 import com.cengage.mm.Photo
-import com.cengage.mm.Tool
-import com.cengage.mm.Text
 import com.cengage.mm.Shape
+import com.cengage.mm.Text
+import com.cengage.mm.Tool
 
 class BootStrap {
 
     def init = { servletContext ->
 		
+		String jsonMagazineData = new File(servletContext.getRealPath("/json/magazine/magazines.json")).text
 		String jsonToolData = new File(servletContext.getRealPath("/json/magazine/tools.json")).text
 		String jsonShapesData = new File(servletContext.getRealPath("/json/magazine/shapes.json")).text
 		String jsonTextData = new File(servletContext.getRealPath("/json/magazine/texts.json")).text
 		String jsonPhotoData = new File(servletContext.getRealPath("/json/magazine/photo-media.json")).text
 		
 	
+		if (!Magazine.count()) {
+			def slurper = new JsonSlurper()
+			def allMagazines = slurper.parseText(jsonMagazineData)
+			
+			allMagazines.magazines.each
+			{
+				println (it.jsonString as JSON).toString()
+				new Magazine(name: it.name, jsonString: (it.jsonString as JSON).toString()).save(failOnError: true)
+			}
+		}
+		
 		// Check whether the test data already exists.
 		if (!Tool.count()) {
 			def slurper = new JsonSlurper()

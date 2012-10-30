@@ -46,6 +46,12 @@
 
 		<div class="right col accordion" id="toolbar">
         </div>
-       <!-- Right col ends -->	
+       <!-- Right col ends -->
+       
+       	<script language="javascript">
+       	com.compro.magazine = { 
+	       				customMagazine : '${jsonString}'
+	       			};
+		</script>	
 	</body>
 </html>

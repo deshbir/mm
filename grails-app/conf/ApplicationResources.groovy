@@ -1,7 +1,5 @@
 modules = {
 	mmLib1 {
-				//'cgrailsLibs' includes JQuery, Backbone, JSON2 & Underscore
-				dependsOn 'cgrailsLibs'
 				//Utils function for namespace
 				resource url:'js/libs/ppt/compro.js'
 			}

@@ -1,7 +1,6 @@
 package com.compro.cgrails
 
-import com.compro.cgrails.CgrailsConstants
-import com.compro.cgrails.CgrailsUtils
+import com.cengage.mm.Magazine
 
 class SinglepageController {
 	
@@ -10,7 +9,15 @@ class SinglepageController {
 	}
 
 	def home() {
-		render (view:"magazine_home",model:[:])
+		
+		def magazine
+		String jsonString = ""
+		if (params.id != null) {
+			magazine = Magazine.findAllByName(params.id)
+			jsonString = magazine.jsonString;
+			jsonString = jsonString.substring(1,jsonString.length()-1)
+		}
+		render (view:"magazine_home",model:[jsonString:jsonString])
 	}
 	
 	def logout() {

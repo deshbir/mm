@@ -336,7 +336,7 @@ com.compro.application.mm = (function() {
 					url:com.compro.cgrails.utils.resource("/images/deletered.png")
 				}
 		}
-		myPPTApp.initialize("collage-container","the-slide",pickConfig);
+		myPPTApp.initialize("collage-container","the-slide",pickConfig,com.compro.magazine.customMagazine);
 		
 		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
