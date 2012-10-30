@@ -130,8 +130,8 @@ com.compro.ppt.Text = function(){
 			ry = mx * sin + my * cos;
 	
 			
-			ft.attrs.size.x = rx * 2 * handle.x-2*pickOptions.selection_box_attrs.padding;
-	    	ft.attrs.size.y = ry * 2 * handle.y-2*pickOptions.selection_box_attrs.padding;
+			ft.attrs.size.x = (rx * 2 * handle.x-2*pickOptions.selection_box_attrs.padding)/ ft.attrs.scale.x;
+	    	ft.attrs.size.y = (ry * 2 * handle.y-2*pickOptions.selection_box_attrs.padding)/ ft.attrs.scale.y;
 			
 			obj.updateHandles();
 	    };
