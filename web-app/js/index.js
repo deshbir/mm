@@ -488,10 +488,8 @@ com.compro.application.mm = (function() {
 					event.preventDefault();
 					event.stopPropagation();
 					var title = $(this).attr('title');
-					$(this).popover(
-						'title',
-						title
-					).popover('show');
+					var content = $(this).attr('content');
+					$(this).popover('title',title).popover('content',content).popover('show');
 				});
 				backbone_init_routers();
 				backbone_start_navigation();

@@ -24,10 +24,8 @@ $(document).ready(function() {
 		event.preventDefault();
 		event.stopPropagation();
 		var title = $(this).attr('title');
-		$(this).popover(
-			'title',
-			title
-		).popover('show');
+		var content = $(this).attr('content');
+		$(this).popover('title',title).popover('content',content).popover('show');
 	});
 });
 

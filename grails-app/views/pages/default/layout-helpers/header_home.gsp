@@ -15,8 +15,8 @@
 		</a>
 		<div class="nav-collapse">
          <ul class="nav">
-			<li class="new-slide"><a href="#" rel="popover" title="<g:message code="homepanel.information"/>" class="btn"><span><g:message code="homepanel.information"/></span></a></li>
-			<li><a href="#" class="btn" rel="popover" title="<g:message code="homepanel.help"/>"><span><g:message code="homepanel.help"/></span></a></li>
+			<li class="new-slide"><a href="#" rel="popover" title="<g:message code="homepanel.information"/>" content="<g:message code="homepanel.information.content"/>" class="btn"><span><g:message code="homepanel.information"/></span></a></li>
+			<li><a href="#" class="btn" rel="popover" title="<g:message code="homepanel.help"/>" content="<g:message code="homepanel.content"/>"><span><g:message code="homepanel.help"/></span></a></li>
 			<li id="userInfo" class="dropdown" <g:if test="${userLoggedIn != 'true'}">style="display:none"</g:if>>
                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                  	<i class="icon-user"></i>
