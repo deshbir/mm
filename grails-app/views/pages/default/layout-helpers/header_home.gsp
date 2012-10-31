@@ -1,5 +1,7 @@
+<%@ page import="com.compro.cgrails.CgrailsUtils" %>
 <g:set var="contextPath" value="${request.contextPath}"/>
 <g:set var="userLoggedIn" value="${session.userLoggedIn}"/>
+<g:set var="workflow" value="${CgrailsUtils.getWorkflow()}"/>
 <div class="navbar header-border">
 	<div class="navbar-inner">
        	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -17,7 +19,7 @@
          <ul class="nav">
 			<li class="new-slide"><a href="#" rel="popover" title="<g:message code="homepanel.information"/>" content="<g:message code="homepanel.information.content"/>" class="btn"><span><g:message code="homepanel.information"/></span></a></li>
 			<li><a href="#" class="btn" rel="popover" title="<g:message code="homepanel.help"/>" content="<g:message code="homepanel.content"/>"><span><g:message code="homepanel.help"/></span></a></li>
-			<li id="userInfo" class="dropdown" <g:if test="${userLoggedIn != 'true'}">style="display:none"</g:if>>
+			<li id="userInfo" class="dropdown" <g:if test="${userLoggedIn != 'true' || workflow.equals('offline')}">style="display:none"</g:if>>
                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                  	<i class="icon-user"></i>
                  	<b class="caret"></b>

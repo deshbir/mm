@@ -14,7 +14,7 @@
         {
         	"type": "box",
         	"raphaelType":"rect",
-			"raphaelAttributes":"{\"x\":\"0\",\"y\":\"0\",\"width\": \"50\",\"height\": \"50\",\"stroke\":\"#FDE869\",\"stroke-width\":\"1\",\"fill\":\"#FDE869\",\"fill-opacity\":\"1.0\"}"
+			"raphaelAttributes":"{\"x\":\"0\",\"y\":\"0\",\"width\": \"50\",\"height\": \"50\",\"stroke\":\"#ffea73\",\"stroke-width\":\"1\",\"fill\":\"#ffea73\",\"fill-opacity\":\"1.0\"}"
         },
         {
         	"type": "circle",

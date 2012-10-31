@@ -735,24 +735,24 @@ com.compro.ppt.Pick = function(){
 		}; 
 
 		var defaultSelectPickHandler = function(){
-			if(this.isSelected == true){
+			if(this.properties.isSelected == true){
 				return;
 			}
-			this.isSelected = true;
+			this.properties.isSelected = true;
 			this.showHandles();
 			this.event_pick_selected();
 			Utils.fireEvent(this,this.events.PICK_SELECTED);
 		};
 
 		var defaultUnselectPickHandler = function(){
-			if(!this.isSelected){
+			if(!this.properties.isSelected){
 				return;
 			}
 			if(this.instance.boxSet!=null){
 				this.instance.boxSet.remove();
 			}	
 			this.hideHandles();
-			this.isSelected = false;
+			this.properties.isSelected = false;
 			this.event_pick_unselected();
 			Utils.fireEvent(this,this.events.PICK_UNSELECTED);
 		};
@@ -769,7 +769,7 @@ com.compro.ppt.Pick = function(){
 		var defaultMoveToFront = function(){
 			this.instance.toFront();
 			this.thumbInstance.toFront();
-			if(this.isSelected == true){
+			if(this.properties.isSelected == true){
 				this.showHandles();
 			}
 			//Touch events are removed once the pick is brought to front, reattaching them
@@ -1033,6 +1033,9 @@ com.compro.ppt.Pick = function(){
 					obj.instance.items[num].node.addEventListener('gestureend', Utils.proxy(obj.gestureEnd, obj));
 				}
 			}
+		  if(obj.properties.isSelected){
+			  obj.showHandles();
+           }
 		}
 
 
@@ -1104,9 +1107,6 @@ com.compro.ppt.Pick = function(){
 			this.reRenderThumb(thumbSvgObj);
 			this.properties.context.height = primeSvgObj.height;
             this.properties.context.width = primeSvgObj.width;
-            if(this.isSelected){
-            	this.showHandles();
-            }
 		}
 
 		PickConstr.prototype.rotate =function(degree){

@@ -17,6 +17,9 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 			var namespace = com.compro.ppt;
 			var Slide = namespace.Slide;
 			var collageScrollVisible = false;
+			var undoStack = new Array();
+			var redoStack = new Array();
+			var MAX_STACK_SIZE = 10;
 
 			/********************************************************/	
 			/*                 Private Members                     */ 
@@ -37,7 +40,16 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 			}
 			var slideList = [];
 			
-			var saveState = function(){
+			var saveState = function(notsaveinStack){
+				var state = JSON.stringify(slideList);
+				if(!notsaveinStack){
+					undoStack.push({state:state,selectedSlide:selectedSlide});
+					if(undoStack.length>MAX_STACK_SIZE+1){
+						undoStack.splice(0,1);
+					}
+					console.log(undoStack.length);
+					redoStack.length = 0;
+				}
 				localStorage.setItem("slideList",JSON.stringify(slideList));
 			}
 		
@@ -148,7 +160,56 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 				slideList.splice(destinationIndex,0,slide);
 				saveState();
 			}
-
+			
+			namespace.GLOBAL.undoAction = function(){
+				if(undoStack.length<=1){
+					return;
+				}
+				redoStack.push(undoStack.pop());
+				var stateJson = undoStack.pop();
+				undoStack.push(stateJson);
+				restoreState(stateJson);
+			}
+			
+			Utils.addControlZListener(namespace.GLOBAL.undoAction);
+			
+			namespace.GLOBAL.redoAction = function(){
+				if(redoStack.length<1){
+					return;
+				}
+				var stateJson = redoStack.pop();
+				undoStack.push(stateJson);
+				restoreState(stateJson);
+			}
+			
+			Utils.addControlYListener(namespace.GLOBAL.redoAction);
+			
+			var restoreState = function(stateJson){
+				slideList.map(function(slide){
+					slide.remove();
+				});
+				slideList.length = 0;
+				selectedSlide = -1;
+				var state = JSON.parse(stateJson.state);
+				for(var slideNum=0; slideNum<state.length; slideNum++){
+					var slideProp = {
+						oldH:state[slideNum].currentH,
+						oldW:state[slideNum].currentW
+					}
+					var slide = newSlide(slideProp);
+					for(var picNum=0;picNum<state[slideNum].pickList.length;picNum++){
+						var oldSlidePick = state[slideNum].pickList[picNum];
+						addPickFromStorage(oldSlidePick.properties.handler, oldSlidePick.properties.coordX, oldSlidePick.properties.coordY,oldSlidePick.properties,false);
+					}
+					slide.resetOLdValues();
+				}
+				checkAndReRenderThumbs();
+				if(stateJson.selectedSlide && stateJson.selectedSlide!=-1){
+					selectSlide(slideList[stateJson.selectedSlide]);
+				}
+				saveState(true);
+			}
+			
 			namespace.GLOBAL.addNewSlide = function(){
 				var slide = newSlide();
 				checkAndReRenderThumbs();
@@ -285,6 +346,7 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 			}
 			else{
 				newSlide();
+				saveState();
 			}
 
 			//return object
