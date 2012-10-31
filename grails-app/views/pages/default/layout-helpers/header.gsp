@@ -16,7 +16,7 @@
 			<div class="nav-collapse">
             <ul class="nav">
 				<li class="new-slide"><a href="#" class="btn"><span><g:message code="header.new.page"/></span></a></li>
-				<li><a href="<cgrails:switch_singlepage action="home"/>" class="btn"><span><g:message code="header.preview.magazine"/></span></a></li>
+				<li><a href="#" rel="popover" title="<g:message code="header.preview.magazine"/>" class="btn"><span><g:message code="header.preview.magazine"/></span></a></li>
 				<li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     	<i class="icon-user"></i>

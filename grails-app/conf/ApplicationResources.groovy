@@ -67,6 +67,9 @@ modules = {
 		//Main Application JavaScript - init and event binding
 		resource url:'js/index.js'
 		
+		//Jquery Popver js
+		resource url:'js/libs/jquery.popover.js'
+		
 		//Backbone tool View & Models & Collections
 		resource url:'js/bb/tool/toolmodel.js'
 		resource url:'js/bb/tool/toolcollection.js'
