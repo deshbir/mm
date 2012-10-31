@@ -43,7 +43,7 @@
 			
 						   		</div>
 					   	  </div>
-					   	   <div class="footer-info"><hr class="footer"></hr><p><g:message code="copyright.info"/></p></div>
+					   	   <div class="footer-info"><hr class="footer"></hr><p><g:message code="copyright.info"/> 2012 National Geographic Learning, Cengage Learning</p></div>
 					  </div>
 					  <div class="spiral-div">
 					  </div> 

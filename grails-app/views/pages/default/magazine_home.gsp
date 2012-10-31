@@ -41,7 +41,7 @@
 		  <div id="the-slide">
 
 	      </div>
-		  <p class="copyright-info"><g:message code="copyright.info"/></p>
+		  <p class="copyright-info"><g:message code="copyright.info"/> 2012 National Geographic Learning, Cengage Learning</p>
 		</div>
 
 		<div class="right col accordion" id="toolbar">
