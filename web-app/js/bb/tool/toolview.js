@@ -32,6 +32,7 @@ ToolView = new function() {
 							
 						});
 				});
+				$('#photo').collapse('show');
 			}
 		});
 		

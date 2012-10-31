@@ -15,10 +15,10 @@
 			</a>
 			<div class="nav-collapse">
             <ul class="nav">
-				<li class="new-slide"><a href="#" class="btn"><span><g:message code="header.new.page"/></span></a></li>
-				<li><a href="#" rel="popover" title="" class="btn"><span><g:message code="header.save.page"/></span></a></li>
-				<li><a href="#" rel="popover" title="<g:message code="header.preview.magazine"/>" class="btn"><span><g:message code="header.preview.magazine"/></span></a></li>
-				<li><a href="#" rel="popover" title="" class="btn"><span><g:message code="header.share.page"/></span></a></li>
+				<li class="new-slide"><a href="#" class="btn reduce-width"><span><g:message code="header.new.page"/></span></a></li>
+				<li><a href="#" title="" class="btn reduce-width"><span><g:message code="header.save.page"/></span></a></li>
+				<li><a href="#" title="<g:message code="header.preview.magazine"/>" class="btn reduce-width"><span><g:message code="header.preview.magazine"/></span></a></li>
+				<li><a href="#" title="" class="btn reduce-width"><span><g:message code="header.share.page"/></span></a></li>
 				<li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     	<i class="icon-user"></i>
