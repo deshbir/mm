@@ -704,7 +704,6 @@ com.compro.ppt.Pick = function(){
 		};
 
 		var defaultDragMoveHandler = function (obj,dx,dy) {
-			
 			/*   FREE-TRANSFORM START   */
 			var ft = obj.freeTransform;
 			ft.attrs.translate.x = ft.o.translate.x + dx;
@@ -805,6 +804,29 @@ com.compro.ppt.Pick = function(){
 			cos: Math.cos(rotate)
 			};
 			obj.event_resize_start();
+		}
+		
+		var defaultGestureStartHandler = function(obj, event) {
+			var ft = obj.freeTransform;
+			//console.log("ft.center x : " + (ft.attrs.center.x+ft.attrs.translate.x) + " : y " +(ft.attrs.center.x+ft.attrs.translate.y));
+			defaultResizeStartHandler(obj);
+			event.preventDefault();
+		}
+		
+		var defaultGestureChangeHandler = function(obj, event) {
+			var ft = obj.freeTransform;
+			ft.attrs.scale.x = (event.scale * ft.o.scale.x);
+			ft.attrs.scale.y = (event.scale * ft.o.scale.y);
+			apply(obj);
+			applyLimits(obj);
+			event.preventDefault();
+		}
+	
+		var defaultGestureEndHandler = function(obj, event) {
+			var ft = obj.freeTransform;
+			//console.log("ft.center x : " + (ft.attrs.center.x+ft.attrs.translate.x) + " : y " +(ft.attrs.center.x+ft.attrs.translate.y));
+			event.preventDefault();
+			// Some task can be performed here.
 		}
 			
 		function keepRatio(axis,ft) {
@@ -994,6 +1016,13 @@ com.compro.ppt.Pick = function(){
 			}
 			if(obj.pickOptions.drag==true)
 			obj.instance.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
+
+			var elementCount = obj.instance.items.length;
+			for(var num=0; num<elementCount; num++) {
+				obj.instance.items[num].node.addEventListener('gesturestart', Utils.proxy(obj.gestureStart, obj));
+				obj.instance.items[num].node.addEventListener('gesturechange', Utils.proxy(obj.gestureChange, obj));
+				obj.instance.items[num].node.addEventListener('gestureend', Utils.proxy(obj.gestureEnd, obj));
+			}			
 		}
 
 
@@ -1101,71 +1130,47 @@ com.compro.ppt.Pick = function(){
 			this.updateHandles();
 		}
 		
-		
 		PickConstr.prototype.dragStart = defaultDragStartHandler;
-
-		
-		
 		PickConstr.prototype.dragMove = defaultDragMoveHandler;
-		
-		
-
 		PickConstr.prototype.dragEnd = defaultDragEndHandler;
 
 		PickConstr.prototype.rotateStart = defaultRotateStartHandler;
-
 		PickConstr.prototype.rotating = defaultRotateHandler;
-
 		PickConstr.prototype.rotateEnd = defaultRotateEndHandler;
 
 		PickConstr.prototype.resizeStart = defaultResizeStartHandler;
-
 		PickConstr.prototype.resizing = defaultResizeHandler;
-
 		PickConstr.prototype.resizeEnd = defaultResizeEndHandler;
 					
-
-	
+		PickConstr.prototype.gestureStart = defaultGestureStartHandler;
+		PickConstr.prototype.gestureChange = defaultGestureChangeHandler;
+		PickConstr.prototype.gestureEnd = defaultGestureEndHandler;
 		
 		PickConstr.prototype.selectPick = defaultSelectPickHandler;
-		
-
 		PickConstr.prototype.unSelect = defaultUnselectPickHandler;
-
-		
-
 		PickConstr.prototype.deletePick = defaultDeletePickHandler;
 
-
-		
-
 		PickConstr.prototype.moveToFront = defaultMoveToFront;
-		
 		PickConstr.prototype.moveToBack = defaultMoveToBack;
-		
+
 		PickConstr.prototype.updateHandles = defaultUpdateHandles;
 		PickConstr.prototype.showHandles = defaultShowHandles;
 		PickConstr.prototype.hideHandles = defaultHideHandles;
 		
 		/**Default local event functions*/
 		PickConstr.prototype.event_pick_selected = function(){}
-		
 		PickConstr.prototype.event_pick_unselected = function(){}
-		
+
 		PickConstr.prototype.event_drag_start = function(){}
-		
 		PickConstr.prototype.event_drag_end = function(){}
 		
 		PickConstr.prototype.event_resize_start = function(){}
-		
 		PickConstr.prototype.event_resize_end = function(){}
 		
 		PickConstr.prototype.event_rotation_start = function(){}
-		
 		PickConstr.prototype.event_rotation_end = function(){}
 		
 		PickConstr.prototype.event_before_deletion = function(){}
-		
 		PickConstr.prototype.event_after_deletion = function(){}
 		
 		/**Default local event functions END*/
