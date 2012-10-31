@@ -151,7 +151,7 @@ com.compro.ppt.Slide = function() {
 		},this));
 
 		Utils.addCustomEventListener(pick,pick.events.DRAG_START,Utils.proxy(function(obj,event){
-			if(!event.target.isSelected)
+			if(!event.target.properties.isSelected)
 				obj.unSelectPick();
 		},this));
 		
