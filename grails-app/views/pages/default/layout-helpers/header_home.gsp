@@ -48,8 +48,8 @@
                      <li><a href="${contextPath}/gray/">Gray</a></li>
                      <li class="set-paddings">Mobile & Offline</li>
                      <hr/>
-                	 <li><a href="www.comprotechnologies.com/mm/offline/mm-win32-offline.zip">CD (offline, Win32)</a></li>
-                     <li><a href="www.comprotechnologies.com/mm/offline/mm-macosx-offline.zip">CD (offline, Mac OSX)</a></li>
+                	 <li><a href="www.comprotechnologies.com/mm/offline/mm-win32-offline.zip">CD (Win32)</a></li>
+                     <li><a href="www.comprotechnologies.com/mm/offline/mm-macosx-offline.zip">CD (Mac OSX)</a></li>
                      <li><a href="#">Mobile (iOS)</a></li>
                      <li><a href="#">Mobile (Android)</a></li> 
                 </ul>
