@@ -26,7 +26,6 @@
                     <li><a href="#">( <g:message code="header.dropdown.profile"/> )</a></li>
                     <li class="divider"></li>
                     <li><a href="#" data-original-title="Not active in demo" rel="tooltip"><g:message code="header.dropdown.change.password"/></a></li>
-                    <li><a href="#" data-original-title="Not active in demo" rel="tooltip"><g:message code="header.dropdown.preferences"/></a></li>
                     <li><a href="<cgrails:switch_singlepage action="logout"/>"><g:message code="header.dropdown.signout"/></a></li>
                  </ul>
              </li>
