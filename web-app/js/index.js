@@ -318,6 +318,18 @@ com.compro.application.mm = (function() {
 			selectedObject.setProperties(0,{'font-size':currentFontSize});
 		}
 	}
+
+	// Move to next slide
+	function moveNextSlide() {
+		var doMoreNextSlideExists = myPPTApp.nextSlide();
+		return doMoreNextSlideExists;
+	}
+	
+	// Move to previous slide
+	function movePrevSlide() {
+		var doMorePrevSlideExists = myPPTApp.previousSlide();
+		return doMorePrevSlideExists;
+	}
 	
 	function init_ppt_engine() {
 		var handler = function(){
@@ -598,7 +610,9 @@ com.compro.application.mm = (function() {
 		"updateScrollbar":updateScrollbar,
 		"syncText":syncText,
 		"textFontDecrease":textFontDecrease,
-		"textFontIncrease":textFontIncrease
+		"textFontIncrease":textFontIncrease,
+		"moveNextSlide":moveNextSlide,
+		"movePrevSlide":movePrevSlide
 	}
 
 })();

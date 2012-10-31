@@ -24,8 +24,7 @@ class BootStrap {
 			
 			allMagazines.magazines.each
 			{
-				println (it.jsonString as JSON).toString()
-				new Magazine(name: it.name, jsonString: (it.jsonString as JSON).toString()).save(failOnError: true)
+				new Magazine(name: it.name, jsonString: it.jsonString).save(failOnError: true)
 			}
 		}
 		

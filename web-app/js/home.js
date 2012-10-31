@@ -10,31 +10,6 @@ $(document).ready(function() {
 		getLogOuttemplate();
 	}
 	
-	// call when Login button is clicked
-	function getLoggedintemplate() {
-		TemplateManager.get('loged-panel', 
-				function(template){
-					$(".login-panel").html(template);
-			});
-			$("#userInfo").css("display", "block");		
-	}
-	
-	function getLogOuttemplate() {
-		TemplateManager.get('login-panel', 
-			function(template){
-				$(".login-panel").html(template);
-		});
-		$("#userInfo").css("display", "none");
-		$("#login_in").click(function(e) {
-			$('#login_spinner').css("visibility","visible");
-			setTimeout(
-				function(){
-					getLoggedintemplate();
-				}
-			, 600);
-		});
-	};
-	
 	$('a[rel*="popover"]').popover({
 	    trigger: 'click',
 	    title: "Title",
@@ -54,5 +29,31 @@ $(document).ready(function() {
 			title
 		).popover('show');
 	});
-
 });
+
+function login() {
+	$('#login_spinner').css("visibility","visible");
+	setTimeout(
+		function(){
+			getLoggedintemplate();
+		}
+	, 600);
+}
+
+
+// call when Login button is clicked
+function getLoggedintemplate() {
+	TemplateManager.get('loged-panel', 
+			function(template){
+				$(".login-panel").html(template);
+		});
+		$("#userInfo").css("display", "block");		
+}
+
+function getLogOuttemplate() {
+	TemplateManager.get('login-panel', 
+		function(template){
+			$(".login-panel").html(template);
+	});
+	$("#userInfo").css("display", "none");
+}

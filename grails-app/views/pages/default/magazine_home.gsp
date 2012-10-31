@@ -33,9 +33,9 @@
 
 			<!-- Preview icons panel for Mobile phone OR small devices -->
 			<div id="preview-buttons">
-			    <a class="btn" href="#"><i class="icon-backward"></i></a>
+			    <a class="btn" href="javascript:;" onClick="com.compro.application.mm.movePrevSlide();"><i class="icon-backward"></i></a>
 			    <a class="btn" href="#"><i class="icon-play"></i></a>
-			    <a class="btn" href="#"><i class="icon-forward"></i></a>
+			    <a class="btn" href="javascript:;" onClick="com.compro.application.mm.moveNextSlide();"><i class="icon-forward"></i></a>
 			</div>
 
 		  <div id="the-slide">
@@ -50,7 +50,7 @@
        
        	<script language="javascript">
        	com.compro.magazine = { 
-	       				customMagazine : '${jsonString}'
+	       				customMagazine : "${jsonString}".replace(/\'/g, '"')
 	       			};
 		</script>	
 	</body>
