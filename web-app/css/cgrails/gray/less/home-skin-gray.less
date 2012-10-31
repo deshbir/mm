@@ -8,6 +8,11 @@
 @heading-two-color:#555555;
 @info-panel-color:#333333;
 
+
+body {
+	background-color:@container-div-bg-color;
+}
+
 .header-border {
 	border-bottom: 2px solid @header-border-color;
 }
@@ -25,18 +30,14 @@
 			}
 		}
 		.login-panel {
-			a#login_in {
-			 	padding: 4px 3px;
-				color:@heading-color;
+			input[type="submit"]  {
 				background:none;
 				background-color:darken(@top-navbar-btn-color, 10%);
-			 	span {
-				 	background:none;
-				 	background-color:darken(@top-navbar-btn-color, 10%);
-					padding: 3px 9px;
-					text-shadow: none;
-					font-weight:bold;
-				}
+			    border: 0 none;
+			    color:@heading-color;
+			    text-shadow: none;
+			    font-weight: bold;
+			    height:33px;
 			}
 		}
 		#student-login {
