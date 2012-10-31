@@ -4,6 +4,12 @@ $(document).ready(function() {
     } else {
     	$(".spiral-div").height($(".container-div").height());
     }
+	
+	//In case of offline directly show logged-in template
+	if (com.compro.cgrails.WORKFLOW === "offline") { 
+		loggedIn = true; 
+	}
+	
 	if (loggedIn) {
 		getLoggedintemplate();
 	} else {

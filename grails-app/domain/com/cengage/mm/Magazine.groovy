@@ -21,11 +21,14 @@ class Magazine {
 	
 	def static String[] offlineCachedUrls() {
 		return  [
-					"/api/home/my_animals",
-					"/api/home/untitled_1",
-					"/api/home/untitled_2",
-					"/api/home/my_photos",
-					"/api/home/my_new_animals"
+					/*
+					"/api/home?id=resume",
+					"/api/home?id=my_animals",
+					"/api/home?id=untitled_1",
+					"/api/home?id=untitled_2",
+					"/api/home?id=my_photos",
+					"/api/home?id=my_new_animals"
+					*/
 				];
 	}
 		

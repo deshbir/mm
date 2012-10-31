@@ -18,7 +18,7 @@
         },        
         {
         	"type": "para",
-        	"raphaelAttributes":"{\"text\": \"Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet\",\"font-family\":\"Arial\",\"font-size\":\"12\",\"font-weight\":\"normal\"}"
+        	"raphaelAttributes":"{\"text\": \"Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet\",\"font-family\":\"Arial\",\"font-size\":\"12\",\"wrap-width\":110,\"font-weight\":\"normal\"}"
         }           
     ]    
 }
