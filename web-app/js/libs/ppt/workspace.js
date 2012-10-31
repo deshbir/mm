@@ -2,8 +2,12 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 		/*
 		* Creating a singleton object(application has only single "workspace")
 		*/
-		var state = stateJson || localStorage.getItem("slideList");
-		var selectedSlideN0 = selectedSlideNumber||localStorage.getItem("ppt_selectedslide");
+		var state = stateJson;
+		var selectedSlideN0 = selectedSlideNumber;
+		if(state==null || state=='resume'){
+			state = localStorage.getItem("slideList");
+			selectedSlideN0 = localStorage.getItem("ppt_selectedslide");
+		}		
 		com.compro.ppt.workspace = (function(stateStr, storedSelectedSlide){
 			/********************************************************/
 			/*                   DEPENDENCIES                       */ 

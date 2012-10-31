@@ -50,7 +50,7 @@
        
        	<script language="javascript">
        	com.compro.magazine = { 
-	       				customMagazine : '${jsonString}'
+	       				customMagazine : "${jsonString}".replace(/\'/g, '"')
 	       			};
 		</script>	
 	</body>
