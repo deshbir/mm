@@ -68,12 +68,6 @@
       this.$element[dimension](0)
       this.transition('addClass', $.Event('show'), 'shown')
       this.$element[dimension](this.$element[0][scroll])
-      //do only when event is fired from top navigation bar
-      if(this.$element.hasClass('nav-collapse')) {
-		 $(".header").css("height","488px");
-		 $(".col").css("top","496px");
-		 $('#slide-toggle').css("margin-top","29em");
-	  }
     }
 
   , hide: function () {
@@ -83,12 +77,6 @@
       this.reset(this.$element[dimension]())
       this.transition('removeClass', $.Event('hide'), 'hidden')
       this.$element[dimension](0)
-      //do only when event is fired from top navigation bar
-      if(this.$element.hasClass('nav-collapse')) {
-		  $(".header").css("height","45px");
-		  $(".col").css("top","50px");
-		  $('#slide-toggle').css("margin-top","3.5em");
-	  }
     }
 
   , reset: function (size) {

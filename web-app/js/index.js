@@ -473,6 +473,17 @@ com.compro.application.mm = (function() {
 						scrollInertia:0
 					});
 			    }
+				$(".navbar-inner>.nav-collapse").on("shown", function() {
+			    	 var setHeight = $(this).height()+ 43;
+					 $(".header").css("height",setHeight+"px");
+					 $(".col").css("top",(setHeight+8)+"px");
+					 $('#slide-toggle').css("margin-top","29em");
+				 });
+				 $(".navbar-inner>.nav-collapse").on("hide", function() {
+					 $(".header").css("height","43px");
+					 $(".col").css("top","50px");
+					 $('#slide-toggle').css("margin-top","3.5em");
+				 });
 				/*added jquery popover for preview button*/
 				$('a[rel*="popover"]').popover({
 				    trigger: 'click',
