@@ -1217,6 +1217,9 @@ com.compro.ppt.Pick = function(){
 			applyOnThumb(this);
 			this.updateHandles();
 			Utils.fireEvent(this,this.events.STATE_CHANGED);
+			if(attributes["wrap-width"]){
+				this.reRenderThumb(this.thumbSvg);
+			} 
 		}
 		
 		PickConstr.prototype.getProperties  = function(setIndex) {
