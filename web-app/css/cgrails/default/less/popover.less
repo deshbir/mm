@@ -5,7 +5,9 @@
  * 
  * License: public domain
  */
-
+@popover-title-bg-color:#D4DF9A;
+@popover-content-bg-color:#FFFFFF;
+@popover-wrap-border-color:@black;
 .popover {
 	position: absolute;
 	top: 0; left: 0;
@@ -23,16 +25,16 @@
 .popover .arrow, .popover .top-arrow {
 	position: absolute;
 	top: 0; left: 50%;
-	margin: -10px 0 0 -3px;
+	margin: -5px 0 0 -3px;
 	width: 0; height: 0;
 	border-top: 5px solid transparent;
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
-	border-bottom: 5px solid #121212;
+	border-bottom: 5px solid @black;
 }
 .popover .bottom-arrow {
 	top: 100%; left: 50%;
-	margin: 0 0 0 -3px;
+	margin: 0 0 0 0px;
 	border-top: 5px solid #121212;
 	border-bottom: 5px solid transparent;
 }
@@ -49,26 +51,35 @@
 	border-bottom: 5px solid transparent;
 }
 .popover .wrap {
-	background: white;
-	border: 3px solid #121212;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
+/*	background: white;*/
+	.border-radius(6px);
+	border:2px solid @popover-wrap-border-color;
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	/*-moz-border-radius: 4px;*/
+	/*-webkit-border-radius: 4px;*/
+	font-family:Verdana;
 }
 .popover .title {
-	background: #121212;
-	color: white;
+	/*background: #121212;*/
+	color: @black;
 	font-size: 1.3em;
 	text-align: center;
 	padding: 8px 0 0 0;
 	height: 27px;
+	.border-radius(6px 6px 0px 0px);
+	background-color: @popover-title-bg-color;
+    border-bottom: 2px solid #ACC23B;
+    font-size:17px;
 }
 .popover .content {
+	.border-radius(0px 0px 6px 6px);
 	padding: 15px;
 	max-height: 375px;
 	overflow: auto;
 	line-height: 1.3em;
 	font-size: 0.9em;
+	background-color: @popover-content-bg-color;
+	font-size:13px; 
 }
 .popover.large .content {
 	max-height: 285px;

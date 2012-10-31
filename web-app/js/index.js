@@ -461,6 +461,26 @@ com.compro.application.mm = (function() {
 						scrollInertia:0
 					});
 			    }
+				/*added jquery popover for preview button*/
+				$('a[rel*="popover"]').popover({
+				    trigger: 'click',
+				    title: "Title",
+				    verticalOffset: 1,
+				    position:'bottom',
+				    fadeOut:1000,
+				    content:'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+				});
+				
+				$('a[rel*="popover"]').click(function(event) {
+					$(this).popover('hideAll');
+					event.preventDefault();
+					event.stopPropagation();
+					var title = $(this).attr('title');
+					$(this).popover(
+						'title',
+						title
+					).popover('show');
+				});
 				backbone_init_routers();
 				backbone_start_navigation();
 				init_ppt_engine();
