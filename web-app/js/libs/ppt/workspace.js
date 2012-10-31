@@ -121,7 +121,7 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 				if(selectedSlide!=-1){
 						slideList[selectedSlide].hide();
 				}
-				var index = slideList.indexOf(slide)
+				var index = slideList.indexOf(slide);
 				slideList[index].show();
 				selectedSlide = index;
 				localStorage.setItem("ppt_selectedslide",selectedSlide);
@@ -152,6 +152,29 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 				return {
 					"thumbDiv":slide.collageDiv
 				}
+			}
+			namespace.GLOBAL.nextSlide = function(){
+				var totalSlides = slideList.length;
+				if (selectedSlide < totalSlides-1){
+					selectSlide(slideList[selectedSlide+1]);
+					//return true if the newly selected Slide is not the last slide
+					if(selectedSlide < totalSlides-1){
+						return true;
+					}
+				}
+				return false;
+				
+			}
+			
+			namespace.GLOBAL.previousSlide = function(){
+				if(selectedSlide>0){
+					selectSlide(slideList[selectedSlide-1]);
+					//return true if the newly selected slide is not the first slide
+					if(selectedSlide > 0){
+						return true;
+					}
+				}
+				return false;
 			}
 			
 			namespace.GLOBAL.moveObjectToFront = function(){
