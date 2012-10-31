@@ -14,23 +14,23 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>1.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title1"/></p>&nbsp;<p class="italic">(3 <g:message code="homepanel.slides"/> )</p></td>									
+					<td>1.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title1"/></p>&nbsp;<p class="italic">(2 <g:message code="homepanel.slides"/> )</p></td>									
 					<td><a href="<cgrails:switch_singlepage action="home"/>?id=my_animals" class="btn"><g:message code="homepanel.button.open"/></a></td>
 				</tr>
 				<tr>
-					<td>2.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title2"/></p>&nbsp;<p class="italic">(3 <g:message code="homepanel.slides"/> )</p></td>								
+					<td>2.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title2"/></p>&nbsp;<p class="italic">(2 <g:message code="homepanel.slides"/> )</p></td>								
 					<td> <a  href="<cgrails:switch_singlepage action="home"/>?id=untitled_1" class="btn"><g:message code="homepanel.button.open"/></a></td>
 				</tr>
 				<tr>
-					<td>3.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title3"/></p>&nbsp;<p class="italic">(3 <g:message code="homepanel.slides"/> )</p></td>								
+					<td>3.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title3"/></p>&nbsp;<p class="italic">(10 <g:message code="homepanel.slides"/> )</p></td>								
 					<td> <a  href="<cgrails:switch_singlepage action="home"/>?id=untitled_2" class="btn"><g:message code="homepanel.button.open"/></a></td>
 				</tr>
 				<tr>
-					<td>4.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title4"/></p>&nbsp;<p class="italic">(3  <g:message code="homepanel.slides"/> )</p></td>								
+					<td>4.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title4"/></p>&nbsp;<p class="italic">(3 <g:message code="homepanel.slides"/> )</p></td>								
 					<td> <a  href="<cgrails:switch_singlepage action="home"/>?id=my_photos" class="btn"><g:message code="homepanel.button.open"/></a></td>
 				</tr>
 				<tr>
-					<td>5.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title5"/></p>&nbsp;<p class="italic">(3 <g:message code="homepanel.slides"/> )</p></td>								
+					<td>5.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title5"/></p>&nbsp;<p class="italic">(1 <g:message code="homepanel.slides"/> )</p></td>								
 					<td> <a  href="<cgrails:switch_singlepage action="home"/>?id=my_new_animals" class="btn"><g:message code="homepanel.button.open"/></a></td>
 				</tr>
 			</tbody>
