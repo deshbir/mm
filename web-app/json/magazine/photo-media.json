@@ -2,7 +2,7 @@
     "photos": [
         {
         	"category": "african_wildlife",
-        	"dir": "images/magazine/photos/african_wildlife/",
+        	"dir": "images/magazine/photos/african_wildlife",
         	"fullfilename": "684574.jpg",
         	"thumbfilename": "684574_thumb.jpg",
         	"title": "....",
@@ -10,7 +10,7 @@
         },
         {
         	"category": "african_wildlife",            
-        	"dir": "images/magazine/photos/african_wildlife/",
+        	"dir": "images/magazine/photos/african_wildlife",
         	"fullfilename": "727553.jpg",
         	"thumbfilename": "727553_thumb.jpg",
         	"title": "....",
@@ -18,7 +18,7 @@
         },
         {
         	"category": "african_wildlife",            
-        	"dir": "images/magazine/photos/african_wildlife/",
+        	"dir": "images/magazine/photos/african_wildlife",
         	"fullfilename": "1197612.jpg",
         	"thumbfilename": "1197612_thumb.jpg",
         	"title": "....",
@@ -26,7 +26,7 @@
         },
         {
         	"category": "african_wildlife",            
-        	"dir": "images/magazine/photos/african_wildlife/",
+        	"dir": "images/magazine/photos/african_wildlife",
         	"fullfilename": "1197660.jpg",
         	"thumbfilename": "1197660_thumb.jpg",
         	"title": "....",
@@ -34,7 +34,7 @@
         },
         {
         	"category": "african_wildlife",            
-        	"dir": "images/magazine/photos/african_wildlife/",
+        	"dir": "images/magazine/photos/african_wildlife",
         	"fullfilename": "1197774.jpg",
         	"thumbfilename": "1197774_thumb.jpg",
         	"title": "....",
@@ -42,7 +42,7 @@
         },
         {
         	"category": "african_wildlife",            
-        	"dir": "images/magazine/photos/african_wildlife/",
+        	"dir": "images/magazine/photos/african_wildlife",
         	"fullfilename": "1197808.jpg",
         	"thumbfilename": "1197808_thumb.jpg",
         	"title": "....",
@@ -50,7 +50,7 @@
         },
 		{
         	"category": "african_wildlife",			
-        	"dir": "images/magazine/photos/african_wildlife/",
+        	"dir": "images/magazine/photos/african_wildlife",
         	"fullfilename": "1197838.jpg",
         	"thumbfilename": "1197838_thumb.jpg",
         	"title": "....",
@@ -58,7 +58,7 @@
         },
         {
         	"category": "ancient_structures",            
-        	"dir": "images/magazine/photos/ancient_structures/",
+        	"dir": "images/magazine/photos/ancient_structures",
         	"fullfilename": "92864.jpg",
         	"thumbfilename": "92864_thumb.jpg",
         	"title": "....",
@@ -66,7 +66,7 @@
         },
         {
         	"category": "ancient_structures",            
-        	"dir": "images/magazine/photos/ancient_structures/",
+        	"dir": "images/magazine/photos/ancient_structures",
         	"fullfilename": "110237.jpg",
         	"thumbfilename": "110237_thumb.jpg",
         	"title": "....",
@@ -74,7 +74,7 @@
         },
         {
         	"category": "ancient_structures",            
-        	"dir": "images/magazine/photos/ancient_structures/",
+        	"dir": "images/magazine/photos/ancient_structures",
         	"fullfilename": "114254.jpg",
         	"thumbfilename": "114254_thumb.jpg",
         	"title": "....",
@@ -82,7 +82,7 @@
         },
         {
         	"category": "ancient_structures",            
-        	"dir": "images/magazine/photos/ancient_structures/",
+        	"dir": "images/magazine/photos/ancient_structures",
         	"fullfilename": "131997.jpg",
         	"thumbfilename": "131997_thumb.jpg",
         	"title": "....",
@@ -90,7 +90,7 @@
         },
         {
         	"category": "ancient_structures",            
-        	"dir": "images/magazine/photos/ancient_structures/",
+        	"dir": "images/magazine/photos/ancient_structures",
         	"fullfilename": "280630.jpg",
         	"thumbfilename": "280630_thumb.jpg",
         	"title": "....",
@@ -98,7 +98,7 @@
         },
         {
         	"category": "ancient_structures",            
-        	"dir": "images/magazine/photos/ancient_structures/",
+        	"dir": "images/magazine/photos/ancient_structures",
         	"fullfilename": "468615.jpg",
         	"thumbfilename": "468615_thumb.jpg",
         	"title": "....",
@@ -106,7 +106,7 @@
         },
 		{   
 		    "category": "ancient_structures",
-        	"dir": "images/magazine/photos/ancient_structures/",
+        	"dir": "images/magazine/photos/ancient_structures",
         	"fullfilename": "517310.jpg",
         	"thumbfilename": "517310_thumb.jpg",
         	"title": "....",
@@ -114,7 +114,7 @@
         },            
 		{
         	"category": "ancient_structures",			
-        	"dir": "images/magazine/photos/ancient_structures/",
+        	"dir": "images/magazine/photos/ancient_structures",
         	"fullfilename": "523719.jpg",
         	"thumbfilename": "523719_thumb.jpg",
         	"title": "....",
@@ -122,11 +122,684 @@
         },  
 		{
         	"category": "ancient_structures",			
-        	"dir": "images/magazine/photos/ancient_structures/",
+        	"dir": "images/magazine/photos/ancient_structures",
         	"fullfilename": "952671.jpg",
         	"thumbfilename": "952671_thumb.jpg",
         	"title": "....",
         	"copyright": "Franc & Jean Shor/NGS"
-        }                          
+        },
+        {
+        	"category": "african_wildlife",			
+        	"dir": "images/magazine/photos/african_wildlife",
+        	"fullfilename": "684574.jpg",
+        	"thumbfilename": "684574_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },
+        {
+        	"category": "african_wildlife",			
+        	"dir": "images/magazine/photos/african_wildlife",
+        	"fullfilename": "727553.jpg",
+        	"thumbfilename": "727553_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },   
+        {
+        	"category": "african_wildlife",			
+        	"dir": "images/magazine/photos/african_wildlife",
+        	"fullfilename": "1197612.jpg",
+        	"thumbfilename": "1197612_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "african_wildlife",			
+        	"dir": "images/magazine/photos/african_wildlife",
+        	"fullfilename": "1197660.jpg",
+        	"thumbfilename": "1197660_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },
+        {
+        	"category": "african_wildlife",			
+        	"dir": "images/magazine/photos/african_wildlife/",
+        	"fullfilename": "1197774.jpg",
+        	"thumbfilename": "1197774_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "african_wildlife",			
+        	"dir": "images/magazine/photos/african_wildlife",
+        	"fullfilename": "1197808.jpg",
+        	"thumbfilename": "1197808_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },  
+        {
+        	"category": "african_wildlife",			
+        	"dir": "images/magazine/photos/african_wildlife",
+        	"fullfilename": "1197838.jpg",
+        	"thumbfilename": "1197838_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "birds",			
+        	"dir": "images/magazine/photos/birds",
+        	"fullfilename": "521561.jpg",
+        	"thumbfilename": "521561_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Tim Laman/NGS"
+        }, 
+        {
+        	"category": "birds",			
+        	"dir": "images/magazine/photos/birds",
+        	"fullfilename": "525039.jpg",
+        	"thumbfilename": "525039_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Frans Lanting/NGS"
+        }, 
+        {
+        	"category": "birds",			
+        	"dir": "images/magazine/photos/birds",
+        	"fullfilename": "684607.jpg",
+        	"thumbfilename": "684607_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "birds",			
+        	"dir": "images/magazine/photos/birds",
+        	"fullfilename": "1023369.jpg",
+        	"thumbfilename": "1023369_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Paul Zahl/NGS"
+        },   
+         {
+        	"category": "birds",			
+        	"dir": "images/magazine/photos/birds",
+        	"fullfilename": "1040132.jpg",
+        	"thumbfilename": "1040132_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Chris Johns/NGS"
+        },
+        {
+        	"category": "birds",			
+        	"dir": "images/magazine/photos/birds",
+        	"fullfilename": "1049051.jpg",
+        	"thumbfilename": "1049051_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },  
+        {
+        	"category": "birds",			
+        	"dir": "images/magazine/photos/birds",
+        	"fullfilename": "1049054.jpg",
+        	"thumbfilename": "1049054_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },   
+        {
+        	"category": "birds",			
+        	"dir": "images/magazine/photos/birds",
+        	"fullfilename": "1197817.jpg",
+        	"thumbfilename": "1197817_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "birds",			
+        	"dir": "images/magazine/photos/birds",
+        	"fullfilename": "1197833.jpg",
+        	"thumbfilename": "1197833_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },   
+        {
+        	"category": "butterflies",			
+        	"dir": "images/magazine/photos/butterflies",
+        	"fullfilename": "26968.jpg",
+        	"thumbfilename": "26968_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Bianca Lavies/NGS"
+        }, 
+        {
+        	"category": "butterflies",			
+        	"dir": "images/magazine/photos/butterflies",
+        	"fullfilename": "615166.jpg",
+        	"thumbfilename": "615166_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Paul Zahl/NGS"
+        }, 
+        {
+        	"category": "butterflies",			
+        	"dir": "images/magazine/photos/butterflies",
+        	"fullfilename": "615174.jpg",
+        	"thumbfilename": "615174_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Paul Zahl/NGS"
+        }, 
+        {
+        	"category": "butterflies",			
+        	"dir": "images/magazine/photos/butterflies",
+        	"fullfilename": "615172.jpg",
+        	"thumbfilename": "615172_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Paul Zahl/NGS"
+        },  
+        {
+        	"category": "butterflies",			
+        	"dir": "images/magazine/photos/butterflies",
+        	"fullfilename": "615173.jpg",
+        	"thumbfilename": "615173_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Paul Zahl/NGS"
+        }, 
+        {
+        	"category": "butterflies",			
+        	"dir": "images/magazine/photos/butterflies",
+        	"fullfilename": "615168.jpg",
+        	"thumbfilename": "615168_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Paul Zahl/NGS"
+        },  
+        {
+        	"category": "coral_reefs",			
+        	"dir": "images/magazine/photos/coral_reefs",
+        	"fullfilename": "20625.jpg",
+        	"thumbfilename": "20625_thumb.jpg",
+        	"title": "....",
+        	"copyright": "David Alan Harvey/NGS"
+        }, 
+        {
+        	"category": "coral_reefs",			
+        	"dir": "images/magazine/photos/coral_reefs",
+        	"fullfilename": "102169.jpg",
+        	"thumbfilename": "102169_thumb.jpg",
+        	"title": "....",
+        	"copyright": "David Doubilet/NGS"
+        }, 
+        {
+        	"category": "coral_reefs",			
+        	"dir": "images/magazine/photos/coral_reefs",
+        	"fullfilename": "513714.jpg",
+        	"thumbfilename": "513714_thumb.jpg",
+        	"title": "....",
+        	"copyright": "David Doubilet/NGS"
+        },   
+        {
+        	"category": "coral_reefs",			
+        	"dir": "images/magazine/photos/coral_reefs",
+        	"fullfilename": "513886.jpg",
+        	"thumbfilename": "513886_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Jodi Cobb/NGS"
+        }, 
+        {
+        	"category": "coral_reefs",			
+        	"dir": "images/magazine/photos/coral_reefs",
+        	"fullfilename": "516553.jpg",
+        	"thumbfilename": "516553_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Emory Kristof/NGS"
+        },  
+        {
+        	"category": "coral_reefs",			
+        	"dir": "images/magazine/photos/coral_reefs",
+        	"fullfilename": "1067922.jpg",
+        	"thumbfilename": "1067922_thumb.jpg",
+        	"title": "....",
+        	"copyright": "David Boyer/NGS"
+        }, 
+        {
+        	"category": "coral_reefs",			
+        	"dir": "images/magazine/photos/coral_reefs",
+        	"fullfilename": "1075807.jpg",
+        	"thumbfilename": "1075807_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Paul Zahl/NGS"
+        }, 
+        {
+        	"category": "culture",			
+        	"dir": "images/magazine/photos/culture",
+        	"fullfilename": "300702.jpg",
+        	"thumbfilename": "300702_thumb.jpg",
+        	"title": "....",
+        	"copyright": "George F. Mobley/NGS"
+        },   
+        {
+        	"category": "culture",			
+        	"dir": "images/magazine/photos/culture",
+        	"fullfilename": "376869.jpg",
+        	"thumbfilename": "376869_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Sidney Hastings/NGS"
+        },  
+        {
+        	"category": "culture",			
+        	"dir": "images/magazine/photos/culture",
+        	"fullfilename": "506764.jpg",
+        	"thumbfilename": "506764_thumb.jpg",
+        	"title": "....",
+        	"copyright": "William Albert Allard/NGS"
+        }, 
+        {
+        	"category": "culture",			
+        	"dir": "images/magazine/photos/culture",
+        	"fullfilename": "517073.jpg",
+        	"thumbfilename": "517073_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Maria Stenzel/NGS"
+        },
+        {
+        	"category": "culture",			
+        	"dir": "images/magazine/photos/culture",
+        	"fullfilename": "525252.jpg",
+        	"thumbfilename": "525252_thumb.jpg",
+        	"title": "....",
+        	"copyright": "George Steinmetz/NGS"
+        }, 
+        {
+        	"category": "culture",			
+        	"dir": "images/magazine/photos/culture",
+        	"fullfilename": "611790.jpg",
+        	"thumbfilename": "611790_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Luis Marden/NGS"
+        },  
+        {
+        	"category": "egypt",			
+        	"dir": "images/magazine/photos/egypt",
+        	"fullfilename": "92864.jpg",
+        	"thumbfilename": "92864_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Richard Nowitz/NGS"
+        },
+        {
+        	"category": "egypt",			
+        	"dir": "images/magazine/photos/egypt",
+        	"fullfilename": "199809.jpg",
+        	"thumbfilename": "199809_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Kenneth Garrett/NGS"
+        },  
+        {
+        	"category": "egypt",			
+        	"dir": "images/magazine/photos/egypt",
+        	"fullfilename": "277403.jpg",
+        	"thumbfilename": "277403_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Gordon Gahan/NGS"
+        },  
+        {
+        	"category": "egypt",			
+        	"dir": "images/magazine/photos/egypt",
+        	"fullfilename": "515648.jpg",
+        	"thumbfilename": "515648_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Kenneth Garrett/NGS"
+        },  
+        {
+        	"category": "egypt",			
+        	"dir": "images/magazine/photos/egypt",
+        	"fullfilename": "515618LR.jpg",
+        	"thumbfilename": "515618LR_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Kenneth Garrett/NGS"
+        },  
+        {
+        	"category": "egypt",			
+        	"dir": "images/magazine/photos/egypt",
+        	"fullfilename": "MM7268_12-3.jpg",
+        	"thumbfilename": "MM7268_12-3_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Damnfx/NGS"
+        }, 
+        {
+        	"category": "gorillas",		
+        	"dir": "images/magazine/photos/gorillas",
+        	"fullfilename": "534017.jpg",
+        	"thumbfilename": "534017_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },  
+        {
+        	"category": "gorillas",			
+        	"dir": "images/magazine/photos/gorillas",
+        	"fullfilename": "651797.jpg",
+        	"thumbfilename": "651797_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "gorillas",			
+        	"dir": "images/magazine/photos/gorillas",
+        	"fullfilename": "651836.jpg",
+        	"thumbfilename": "651836_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "gorillas",			
+        	"dir": "images/magazine/photos/gorillas",
+        	"fullfilename": "651837.jpg",
+        	"thumbfilename": "651837_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },  
+        {
+        	"category": "gorillas",			
+        	"dir": "images/magazine/photos/gorillas",
+        	"fullfilename": "652020.jpg",
+        	"thumbfilename": "652020_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "gorillas",			
+        	"dir": "images/magazine/photos/gorillas",
+        	"fullfilename": "672059.jpg",
+        	"thumbfilename": "672059_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "gorillas",			
+        	"dir": "images/magazine/photos/gorillas",
+        	"fullfilename": "986964.jpg",
+        	"thumbfilename": "986964_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "landscapes",			
+        	"dir": "images/magazine/photos/landscapes",
+        	"fullfilename": "458473.jpg",
+        	"thumbfilename": "458473_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Bruce Dale/NGS"
+        }, 
+        {
+        	"category": "landscapes",			
+        	"dir": "images/magazine/photos/landscapes",
+        	"fullfilename": "511334.jpg",
+        	"thumbfilename": "511334_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Stenzel/NGS"
+        }, 
+        {
+        	"category": "landscapes",			
+        	"dir": "images/magazine/photos/landscapes",
+        	"fullfilename": "513838.jpg",
+        	"thumbfilename": "513838_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Jodi Cobb/NGS"
+        },  
+        {
+        	"category": "landscapes",			
+        	"dir": "images/magazine/photos/landscapes",
+        	"fullfilename": "1055009.jpg",
+        	"thumbfilename": "1055009_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Frans Lanting/NGS"
+        },  
+        {
+        	"category": "landscapes",			
+        	"dir": "images/magazine/photos/landscapes/",
+        	"fullfilename": "1067686.jpg",
+        	"thumbfilename": "1067686_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Melville B. Grosvenor/NGS"
+        },  
+        {
+        	"category": "landscapes",			
+        	"dir": "images/magazine/photos/landscapes",
+        	"fullfilename": "1071562.jpg",
+        	"thumbfilename": "1071562_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Winfield Parks/NGS"
+        }, 
+        {
+        	"category": "landscapes",			
+        	"dir": "images/magazine/photos/landscapes",
+        	"fullfilename": "1111602.jpg",
+        	"thumbfilename": "1111602_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Walter Meayers Edwards/NGS"
+        }, 
+        {
+        	"category": "landscapes",			
+        	"dir": "images/magazine/photos/landscapes",
+        	"fullfilename": "1249752.jpg",
+        	"thumbfilename": "1249752_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Mark Thiessen/NGS"
+        }, 
+        {
+        	"category": "reptiles",			
+        	"dir": "images/magazine/photos/reptiles",
+        	"fullfilename": "623111.jpg",
+        	"thumbfilename": "623111_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Bates Littlehales/NGS"
+        },
+        {
+        	"category": "reptiles",			
+        	"dir": "images/magazine/photos/reptiles",
+        	"fullfilename": "684649.jpg",
+        	"thumbfilename": "684649_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "reptiles",			
+        	"dir": "images/magazine/photos/reptiles",
+        	"fullfilename": "755888.jpg",
+        	"thumbfilename": "755888_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "reptiles",			
+        	"dir": "images/magazine/photos/reptiles",
+        	"fullfilename": "961084.jpg",
+        	"thumbfilename": "961084_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Kenneth Garrett/NGS"
+        },  
+        {
+        	"category": "reptiles",			
+        	"dir": "images/magazine/photos/reptiles",
+        	"fullfilename": "1015374.jpg",
+        	"thumbfilename": "1015374_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael E. Long/NGS"
+        },
+        {
+        	"category": "reptiles",			
+        	"dir": "images/magazine/photos/reptiles",
+        	"fullfilename": "1052317.jpg",
+        	"thumbfilename": "1052317_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Albert Moldway/NGS"
+        }, 
+        {
+        	"category": "reptiles",			
+        	"dir": "images/magazine/photos/reptiles",
+        	"fullfilename": "1197646.jpg",
+        	"thumbfilename": "1197646_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },  
+        {
+        	"category": "reptiles",			
+        	"dir": "images/magazine/photos/reptiles",
+        	"fullfilename": "1197665.jpg",
+        	"thumbfilename": "1197665_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        }, 
+        {
+        	"category": "reptiles",			
+        	"dir": "images/magazine/photos/reptiles",
+        	"fullfilename": "1197732.jpg",
+        	"thumbfilename": "1197732_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Michael Nichols/NGS"
+        },
+        {
+        	"category": "plants",			
+        	"dir": "images/magazine/photos/plants",
+        	"fullfilename": "432598.jpg",
+        	"thumbfilename": "432598_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Robert Sisson/NGS"
+        },  
+        {
+        	"category": "plants",			
+        	"dir": "images/magazine/photos/plants",
+        	"fullfilename": "454915.jpg",
+        	"thumbfilename": "454915_thumb.jpg",
+        	"title": "....",
+        	"copyright": "James P. Blair/NGS"
+        },
+        {
+        	"category": "plants",			
+        	"dir": "images/magazine/photos/plants",
+        	"fullfilename": "458253.jpg",
+        	"thumbfilename": "458253_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Bruce Dale/NGS"
+        },  
+        {
+        	"category": "plants",			
+        	"dir": "images/magazine/photos/plants",
+        	"fullfilename": "706237.jpg",
+        	"thumbfilename": "706237_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Jonathan Blair/NGS"
+        },  
+        {
+        	"category": "plants",			
+        	"dir": "images/magazine/photos/plants",
+        	"fullfilename": "751582.jpg",
+        	"thumbfilename": "751582_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Jodi Cobb/NGS"
+        }, 
+        {
+        	"category": "plants",			
+        	"dir": "images/magazine/photos/plants",
+        	"fullfilename": "838171.jpg",
+        	"thumbfilename": "838171_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Robert Madden/NGS"
+        },  
+        {
+        	"category": "plants",			
+        	"dir": "images/magazine/photos/plants",
+        	"fullfilename": "1127328.jpg",
+        	"thumbfilename": "1127328_thumb.jpg",
+        	"title": "....",
+        	"copyright": "W. Robert Moore/NGS"
+        },
+        {
+        	"category": "plants",			
+        	"dir": "images/magazine/photos/plants",
+        	"fullfilename": "1191017.jpg",
+        	"thumbfilename": "1191017_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Mark Thiessen/NGS"
+        },   
+        {
+        	"category": "space",			
+        	"dir": "images/magazine/photos/space",
+        	"fullfilename": "275236.jpg",
+        	"thumbfilename": "275236_thumb.jpg",
+        	"title": "....",
+        	"copyright": "NASA/NGS"
+        },
+        {
+        	"category": "space",			
+        	"dir": "images/magazine/photos/space",
+        	"fullfilename": "357051.jpg",
+        	"thumbfilename": "357051_thumb.jpg",
+        	"title": "....",
+        	"copyright": "NASA/NGS"
+        },  
+        {
+        	"category": "space",			
+        	"dir": "images/magazine/photos/space",
+        	"fullfilename": "ISS008-E-8451.jpg",
+        	"thumbfilename": "ISS008-E-8451_thumb.jpg",
+        	"title": "....",
+        	"copyright": "NASA/NGS"
+        }, 
+        {
+        	"category": "space",			
+        	"dir": "images/magazine/photos/space",
+        	"fullfilename": "PIA02873.jpg",
+        	"thumbfilename": "PIA02873_thumb.jpg",
+        	"title": "....",
+        	"copyright": "NASA/NGS"
+        },  
+        {
+        	"category": "space",			
+        	"dir": "images/magazine/photos/space",
+        	"fullfilename": "saturn.jpg",
+        	"thumbfilename": "saturn_thumb.jpg",
+        	"title": "....",
+        	"copyright": "NASA/NGS"
+        }, 
+        {
+        	"category": "wonders",			
+        	"dir": "images/magazine/photos/wonders",
+        	"fullfilename": "30694.jpg",
+        	"thumbfilename": "30694_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Thomas J. Abercrombie/NGS"
+        },
+        {
+        	"category": "wonders",			
+        	"dir": "images/magazine/photos/wonders",
+        	"fullfilename": "163280.jpg",
+        	"thumbfilename": "163280_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Bates Littlehales/NGS"
+        },
+        {
+        	"category": "wonders",			
+        	"dir": "images/magazine/photos/wonders",
+        	"fullfilename": "280630.jpg",
+        	"thumbfilename": "280630_thumb.jpg",
+        	"title": "....",
+        	"copyright": "James L. Stanfield/NGS"
+        }, 
+        {
+        	"category": "wonders",			
+        	"dir": "images/magazine/photos/wonders",
+        	"fullfilename": "377742.jpg",
+        	"thumbfilename": "377742_thumb.jpg",
+        	"title": "....",
+        	"copyright": "James L. Stanfield/NGS"
+        }, 
+        {
+        	"category": "wonders",			
+        	"dir": "images/magazine/photos/wonders",
+        	"fullfilename": "508649.jpg",
+        	"thumbfilename": "508649_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Steve McCurry/NGS"
+        },
+        {
+        	"category": "wonders",			
+        	"dir": "images/magazine/photos/wonders",
+        	"fullfilename": "1162531.jpg",
+        	"thumbfilename": "1162531_thumb.jpg",
+        	"title": "....",
+        	"copyright": "Kenneth Geiger/NGS"
+        }   
+	                         
     ]    
 }
