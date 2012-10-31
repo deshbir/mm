@@ -31,7 +31,7 @@ class SimpleAuthFilters {
                         return true
                     }
                 }
-                response.setHeader('WWW-Authenticate', 'basic realm="myRealm"')
+                response.setHeader('WWW-Authenticate', 'basic realm="ngl-demos"')
                 response.sendError(response.SC_UNAUTHORIZED)
                 return false
             }
