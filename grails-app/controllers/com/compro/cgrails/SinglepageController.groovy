@@ -12,10 +12,14 @@ class SinglepageController {
 		
 		def magazine
 		String jsonString = ""
+				
 		if (params.id != null) {
-			magazine = Magazine.findAllByName(params.id)
-			jsonString = magazine.jsonString;
-			jsonString = jsonString.substring(1,jsonString.length()-1)
+			if (params.id.equalsIgnoreCase("resume")) {
+				jsonString = "resume";
+			} else  {
+				magazine = Magazine.findByName(params.id)
+				jsonString = magazine.jsonString;
+			}
 		}
 		render (view:"magazine_home",model:[jsonString:jsonString])
 	}
