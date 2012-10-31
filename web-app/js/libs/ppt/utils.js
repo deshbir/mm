@@ -122,6 +122,22 @@
 			},
 			getCssComputedProperty: function(el, prop){
 				return $(el).css(prop);
+			},
+			addControlZListener:function(func){
+				$(document).keypress(function(e){
+				    var checkWebkitandIE=(e.which==26 ? 1 : 0);
+				    var checkMoz=(e.which==122 && e.ctrlKey ? 1 : 0);
+
+				    if (checkWebkitandIE || checkMoz) func.apply();
+				});
+			},
+			addControlYListener:function(func){
+				$(document).keypress(function(e){
+				    var checkWebkitandIE=(e.which==25 ? 1 : 0);
+				    var checkMoz=(e.which==121 && e.ctrlKey ? 1 : 0);
+
+				    if (checkWebkitandIE || checkMoz) func();
+				});
 			}
 		};
 })();
