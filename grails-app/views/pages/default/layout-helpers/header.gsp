@@ -36,7 +36,7 @@
 	                   	<i class="icon-cog"></i>
 	                   	<b class="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" <g:if test="${workflow.equals('offline')}">style="display:none"</g:if>>
                     	 <li class="set-paddings">Language</li>
                     	 <hr/>
                     	 <li><a href="?lang=en">English</a></li>
@@ -51,7 +51,7 @@
 	                	 <li><a href="www.comprotechnologies.com/mm/offline/mm-win32-offline.zip">CD (Win32)</a></li>
 	                     <li><a href="www.comprotechnologies.com/mm/offline/mm-macosx-offline.zip">CD (Mac OSX)</a></li>
 	                     <li><a href="#">Mobile (iOS)</a></li>
-	                     <li><a href="#">Mobile (Android)</a></li>                         
+	                     <li><a href="www.comprotechnologies.com/mm/offline/mm-android-offline.apk">Mobile (An)</a></li>                         
                     </ul>
                </li>
             </ul>

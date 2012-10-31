@@ -27,7 +27,9 @@ class PhotoController {
 			}
 		}
 		else {
-			def allPhoto = Photo.list()
+			//assuming this category is defualt
+			String default_category = "african_wildlife"
+			def allPhoto = Photo.findAllByCategory(default_category)
 			render allPhoto as JSON
 		}
 	}

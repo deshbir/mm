@@ -183,79 +183,7 @@
         	"thumbfilename": "1197838_thumb.jpg",
         	"title": "....",
         	"copyright": "Michael Nichols/NGS"
-        }, 
-        {
-        	"category": "birds",			
-        	"dir": "images/magazine/photos/birds",
-        	"fullfilename": "521561.jpg",
-        	"thumbfilename": "521561_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Tim Laman/NGS"
-        }, 
-        {
-        	"category": "birds",			
-        	"dir": "images/magazine/photos/birds",
-        	"fullfilename": "525039.jpg",
-        	"thumbfilename": "525039_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Frans Lanting/NGS"
-        }, 
-        {
-        	"category": "birds",			
-        	"dir": "images/magazine/photos/birds",
-        	"fullfilename": "684607.jpg",
-        	"thumbfilename": "684607_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Michael Nichols/NGS"
-        }, 
-        {
-        	"category": "birds",			
-        	"dir": "images/magazine/photos/birds",
-        	"fullfilename": "1023369.jpg",
-        	"thumbfilename": "1023369_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Paul Zahl/NGS"
-        },   
-         {
-        	"category": "birds",			
-        	"dir": "images/magazine/photos/birds",
-        	"fullfilename": "1040132.jpg",
-        	"thumbfilename": "1040132_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Chris Johns/NGS"
-        },
-        {
-        	"category": "birds",			
-        	"dir": "images/magazine/photos/birds",
-        	"fullfilename": "1049051.jpg",
-        	"thumbfilename": "1049051_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Michael Nichols/NGS"
-        },  
-        {
-        	"category": "birds",			
-        	"dir": "images/magazine/photos/birds",
-        	"fullfilename": "1049054.jpg",
-        	"thumbfilename": "1049054_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Michael Nichols/NGS"
-        },   
-        {
-        	"category": "birds",			
-        	"dir": "images/magazine/photos/birds",
-        	"fullfilename": "1197817.jpg",
-        	"thumbfilename": "1197817_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Michael Nichols/NGS"
-        }, 
-        {
-        	"category": "birds",			
-        	"dir": "images/magazine/photos/birds",
-        	"fullfilename": "1197833.jpg",
-        	"thumbfilename": "1197833_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Michael Nichols/NGS"
-        },   
+        },    
         {
         	"category": "butterflies",			
         	"dir": "images/magazine/photos/butterflies",
@@ -359,54 +287,6 @@
         	"thumbfilename": "1075807_thumb.jpg",
         	"title": "....",
         	"copyright": "Paul Zahl/NGS"
-        }, 
-        {
-        	"category": "culture",			
-        	"dir": "images/magazine/photos/culture",
-        	"fullfilename": "300702.jpg",
-        	"thumbfilename": "300702_thumb.jpg",
-        	"title": "....",
-        	"copyright": "George F. Mobley/NGS"
-        },   
-        {
-        	"category": "culture",			
-        	"dir": "images/magazine/photos/culture",
-        	"fullfilename": "376869.jpg",
-        	"thumbfilename": "376869_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Sidney Hastings/NGS"
-        },  
-        {
-        	"category": "culture",			
-        	"dir": "images/magazine/photos/culture",
-        	"fullfilename": "506764.jpg",
-        	"thumbfilename": "506764_thumb.jpg",
-        	"title": "....",
-        	"copyright": "William Albert Allard/NGS"
-        }, 
-        {
-        	"category": "culture",			
-        	"dir": "images/magazine/photos/culture",
-        	"fullfilename": "517073.jpg",
-        	"thumbfilename": "517073_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Maria Stenzel/NGS"
-        },
-        {
-        	"category": "culture",			
-        	"dir": "images/magazine/photos/culture",
-        	"fullfilename": "525252.jpg",
-        	"thumbfilename": "525252_thumb.jpg",
-        	"title": "....",
-        	"copyright": "George Steinmetz/NGS"
-        }, 
-        {
-        	"category": "culture",			
-        	"dir": "images/magazine/photos/culture",
-        	"fullfilename": "611790.jpg",
-        	"thumbfilename": "611790_thumb.jpg",
-        	"title": "....",
-        	"copyright": "Luis Marden/NGS"
         },  
         {
         	"category": "egypt",			

@@ -15,7 +15,6 @@ ToolView = new function() {
 		if (router == null) {
 			router = new Router();
 		}
-		var defaultcategory = "african_wildlife";
 		
 		ToolCollection.get().fetch({
 			success: function(){
