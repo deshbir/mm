@@ -136,6 +136,7 @@ com.compro.ppt.Pick = function(){
 				rotate: true,
 				scale: true,
 				scale_boundry: false,
+				apply_gesture_events: true,
 				translate_boundry: false,
 				remove:true,
 				scale_keepRatio: true,
@@ -687,41 +688,45 @@ com.compro.ppt.Pick = function(){
 		/* FREE-TRANSFOREM END*/
 		
 		
-		
 		var defaultDragStartHandler = function (obj,x,y,event) {
+			var ft = obj.freeTransform;
+			if(!ft.o || !ft.o.isGesture) {
 				Utils.fireEvent(obj,obj.events.DRAG_START);
 				obj.showHandles();
 			
-			/*   FREE-TRANSFORM START   */
-				var ft = obj.freeTransform;
-				
+				/*   FREE-TRANSFORM START   */
+	
 				ft.o = cloneObj(ft.attrs);
 
 				ft.o.bbox = obj.instance.getBBox();
 				obj.event_drag_start();
 
-				/*   FREE-TRANSFORM END   */				
+				/*   FREE-TRANSFORM END   */
+			}
 		};
 
 		var defaultDragMoveHandler = function (obj,dx,dy) {
 			/*   FREE-TRANSFORM START   */
 			var ft = obj.freeTransform;
-			ft.attrs.translate.x = ft.o.translate.x + dx;
-			ft.attrs.translate.y = ft.o.translate.y + dy;
+			if(!ft.o.isGesture) {
 
-			var bbox = cloneObj(ft.o.bbox);
-
-			bbox.x += dx;
-			bbox.y += dy;
-
-			applyLimits(obj,bbox);
-
-			apply(obj);
-			obj.updateHandles();
-			/*   FREE-TRANSFORM END   */
+				ft.attrs.translate.x = ft.o.translate.x + dx;
+				ft.attrs.translate.y = ft.o.translate.y + dy;
+	
+				var bbox = cloneObj(ft.o.bbox);
+	
+				bbox.x += dx;
+				bbox.y += dy;
+	
+				applyLimits(obj,bbox);
+	
+				apply(obj);
+				obj.updateHandles();
+				/*   FREE-TRANSFORM END   */
+			}
 		};
 
-		var defaultDragEndHandler = function (obj) {		
+		var defaultDragEndHandler = function (obj) {
 			Utils.fireEvent(obj,obj.events.STATE_CHANGED);
 			applyOnThumb(obj);
 						
@@ -808,8 +813,9 @@ com.compro.ppt.Pick = function(){
 		
 		var defaultGestureStartHandler = function(obj, event) {
 			var ft = obj.freeTransform;
-			//console.log("ft.center x : " + (ft.attrs.center.x+ft.attrs.translate.x) + " : y " +(ft.attrs.center.x+ft.attrs.translate.y));
-			defaultResizeStartHandler(obj);
+			ft.o = cloneObj(ft.attrs);
+			ft.o.isGesture = true;
+			//defaultResizeStartHandler(obj);
 			event.preventDefault();
 		}
 		
@@ -817,14 +823,16 @@ com.compro.ppt.Pick = function(){
 			var ft = obj.freeTransform;
 			ft.attrs.scale.x = (event.scale * ft.o.scale.x);
 			ft.attrs.scale.y = (event.scale * ft.o.scale.y);
-			apply(obj);
+			
 			applyLimits(obj);
+			apply(obj);
+			obj.updateHandles();
 			event.preventDefault();
 		}
 	
 		var defaultGestureEndHandler = function(obj, event) {
 			var ft = obj.freeTransform;
-			//console.log("ft.center x : " + (ft.attrs.center.x+ft.attrs.translate.x) + " : y " +(ft.attrs.center.x+ft.attrs.translate.y));
+			ft.o.isGesture = false;
 			event.preventDefault();
 			// Some task can be performed here.
 		}
@@ -1016,13 +1024,15 @@ com.compro.ppt.Pick = function(){
 			}
 			if(obj.pickOptions.drag==true)
 			obj.instance.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
-
-			var elementCount = obj.instance.items.length;
-			for(var num=0; num<elementCount; num++) {
-				obj.instance.items[num].node.addEventListener('gesturestart', Utils.proxy(obj.gestureStart, obj));
-				obj.instance.items[num].node.addEventListener('gesturechange', Utils.proxy(obj.gestureChange, obj));
-				obj.instance.items[num].node.addEventListener('gestureend', Utils.proxy(obj.gestureEnd, obj));
-			}			
+			
+			if(obj.pickOptions.apply_gesture_events==true) {
+				var elementCount = obj.instance.items.length;
+				for(var num=0; num<elementCount; num++) {
+					obj.instance.items[num].node.addEventListener('gesturestart', Utils.proxy(obj.gestureStart, obj));
+					obj.instance.items[num].node.addEventListener('gesturechange', Utils.proxy(obj.gestureChange, obj));
+					obj.instance.items[num].node.addEventListener('gestureend', Utils.proxy(obj.gestureEnd, obj));
+				}
+			}
 		}
 
 

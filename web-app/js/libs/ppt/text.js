@@ -82,6 +82,7 @@ com.compro.ppt.Text = function(){
 			var pickConfig = {
 					scale:true,
 					rotate:true,
+					apply_gesture_events: false,
 					scale_boundry : false,
 					translate_boundry : false,
 					selection_box_attrs:{
