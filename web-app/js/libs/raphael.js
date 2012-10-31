@@ -349,7 +349,8 @@
             x: 0,
             y: 0,
 	    // Compro Update START  ## Text - Wrap##
-            "wrap-width" : ""
+            "wrap-width" : "",
+            "vector-effect":'non-scaling-stroke'
 	    // Compro Update END  ## Text - Wrap##
         },
         availableAnimAttrs = R._availableAnimAttrs = {

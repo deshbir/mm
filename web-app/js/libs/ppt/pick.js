@@ -932,8 +932,9 @@ com.compro.ppt.Pick = function(){
 				} 
 				element.attr({"stroke-width":element.attr("stroke-width")*obj.config.thumbRatio});
 				obj.thumbInstance.push(element);
-				element.node.style.vectorEffect = 'non-scaling-stroke';
-				element.node.style.strokeWidth = element.attr('stroke-width');
+				if(element.attr('vector-effect')=='non-scaling-stroke'){
+					element.node.style.strokeWidth = element.attr('stroke-width');
+				}
 			})
 			applyOnThumb(obj);
 		}
@@ -948,8 +949,9 @@ com.compro.ppt.Pick = function(){
 					element.attr(item.raphaelAttributes);
 				} 
 				obj.instance.push(element);
-				element.node.style.vectorEffect = 'non-scaling-stroke';
-				element.node.style.strokeWidth = element.attr('stroke-width');
+				if(element.attr('vector-effect')=='non-scaling-stroke'){
+					element.node.style.strokeWidth = element.attr('stroke-width');
+				}
 			})
 			/* FREE-TRANSFORM START */
 			var bbox  = obj.instance.getBBox(true);
@@ -1203,8 +1205,10 @@ com.compro.ppt.Pick = function(){
 				return;
 			this.instance[setIndex].attr(attributes);
 			if(attributes["stroke-width"]){
-				this.instance[setIndex].node.style.strokeWidth = attributes["stroke-width"];
-				this.thumbInstance[setIndex].node.style.strokeWidth = attributes["stroke-width"];
+				if(instance[setIndex].attr('vector-effect')=='non-scaling-stroke'){
+					this.instance[setIndex].node.style.strokeWidth = attributes["stroke-width"];
+					this.thumbInstance[setIndex].node.style.strokeWidth = attributes["stroke-width"]*this.config.thumbRatio;
+				}
 				attributes["stroke-width"] = attributes["stroke-width"]*this.config.thumbRatio;
 			}
 			this.thumbInstance[setIndex].attr(attributes);

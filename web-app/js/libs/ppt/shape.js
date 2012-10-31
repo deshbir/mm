@@ -20,8 +20,8 @@ com.compro.ppt.Shape = function(){
 					"stroke-width":'1',
 					"fill":"#fff",
 					"fill-opacity":'1.0',
-					 cursor:'move'
-					 
+					 cursor:'move',
+					 "vector-effect":'non-scaling-stroke'
 				}
 			}]
 		}
