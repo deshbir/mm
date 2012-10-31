@@ -160,7 +160,7 @@ body {
     p {
       margin-bottom:2em;
     }
-	input {
+	input[type="text"] ,input[type="email"],input[type="password"]{
 		height: 28px;
 		background-color: @loginpanel-input-bg-color;
 		border:solid 2px @loginpanel-input-border-color;
@@ -177,7 +177,7 @@ body {
 		margin-bottom:.7em;
 	}
 	input[type="checkbox"]  {
-		margin-top:-4px;
+		margin-top:2px;
 	}
 	input[type="submit"]  {
 		.vertical-gradient(darken(@top-navbar-btn-color,10%), @top-navbar-btn-color);
@@ -229,8 +229,8 @@ body {
 		margin-top:0px;
 	}
 	
-	a#create-magazine {
-	 	margin-top:2em;
+	a#create-magazine , a#resume-magazine{
+	 	margin-top:.7em;
 	 	padding:  9px 3px;
 		 color:@white;
 		 .border-radius(10px);
@@ -248,7 +248,7 @@ body {
 			text-align:left;
 		 }
      }
-     a:hover#create-magazine {
+     a:hover#create-magazine , a:hover#resume-magazine{
      	 .vertical-gradient(@top-navbar-btn-border-color, lighten(@top-navbar-btn-border-color,10%));
 		 .border-radius(10px);
 		  color:@white;
