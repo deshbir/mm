@@ -837,11 +837,11 @@ com.compro.ppt.Pick = function(){
 			// Some task can be performed here.
 		}
 			
-		function keepRatio(axis,ft) {
-			if ( axis === 'x' ) {
-				ft.attrs.scale.y = ft.attrs.scale.x / ft.attrs.ratio;
-			} else {
-				ft.attrs.scale.x = ft.attrs.scale.y * ft.attrs.ratio;
+		function keepRatio(obj) {
+			var ft = obj.freeTransform;
+			if(obj.pickOptions.scale_keepRatio){
+				ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1) * Math.min(Math.abs(ft.attrs.scale.x),Math.abs(ft.attrs.scale.y));
+				ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)* Math.abs(ft.attrs.scale.x);
 			}
 		}
 			
@@ -890,10 +890,15 @@ com.compro.ppt.Pick = function(){
 				x: sx || ft.attrs.scale.x,
 				y: sy || ft.attrs.scale.y
 				};
-			ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
+			
 			// Maintain aspect ratio
 			if (pickOptions.scale_keepRatio) {
-				keepRatio(handle.axis,ft);
+				keepRatio(obj);
+				if(sx!=ft.attrs.scale.x){
+					ft.attrs.translate.x += (rdx / 2)*((ft.attrs.scale.x/sx)-1);
+				} else if(sy!=ft.attrs.scale.y){
+					ft.attrs.translate.y += (rdy / 2)*((ft.attrs.scale.y/sy)-1);
+				}
 			}
 			
 			applyLimits(obj);
@@ -1252,7 +1257,8 @@ com.compro.ppt.Pick = function(){
 				handler:this.properties.handler,
 				moveToFront: function(){return self.moveToFront();},
 				moveToBack: function(){return self.moveToBack();},
-				getProperties:function(setIndex){return self.getProperties(setIndex);}
+				getProperties:function(setIndex){return self.getProperties(setIndex);},
+				translate: function(dx,dy){return self.translate(dx,dy);}
 			}
 		}
 		

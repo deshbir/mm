@@ -267,9 +267,12 @@ body {
     		font-style: italic;
     		font-size:11px;
     		i {
-	        	color:darken(@body-bckgrnd-color,10%);
+	        	color:darken(@body-bckgrnd-color,20%);
 			    font-size: 30px;
 			    padding: 5px;
+	        }
+	        .icon-remove {
+	        	font-size:25px;
 	        }
     	}
     	#deleteobject > span {
@@ -313,7 +316,6 @@ body {
 				    margin: 0;
 		    	}
 		    	i {
-	    			color:black;
 	    			font-size: 14px;
     				padding: 0;
 	    		}
@@ -345,8 +347,10 @@ body {
 	    	border-bottom:1px solid @divider-color;
 	    	span {
 				display: inline-block;
-    			margin-bottom: 1em;
-    			margin-left: 1em;
+    			margin: 0 0 1em 1em;
+    			font-style: italic;
+    			font-weight: bold;
+    			font-size:12px;
 			}
 			.border-line {
 				height: 80px;
@@ -359,15 +363,15 @@ body {
 					margin-left:2em;
 					width:8px;
 					height:75px;
-					border:solid 1px #B0B0B0;
-					background-color:#E9E9E9;
+					border:solid 1px #747474;
+					background-color:#BABABA;
 					#rectangle {
-						.vertical-gradient(@the-slide-border-color, lighten(@the-slide-border-color,10%));
-					    height: 10px;
-					    margin-left: -6px;
+						.vertical-gradient(darken(@body-bckgrnd-color,10%), lighten(@body-bckgrnd-color,10%));
+					    height: 8px;
+   						margin-left: -10px;
 					    margin-top: 30px;
 					    border:solid 1px darken(@the-slide-border-color,30%);
-					    width: 20px;
+					    width: 28px;
 					    display:block;
 					}
 				}
@@ -379,7 +383,7 @@ body {
 					margin-left:2em;
 				}
 				#circle {
-					background-color:#E9E9E9;
+					background-color:#BABABA;
 					height:65px;
 					width:65px;
 					.border-radius(40px);
@@ -394,7 +398,7 @@ body {
     				margin-top: -3.5em;
 				}
 				#green-circle {
-					background-color:@body-bckgrnd-color;
+					background-color:darken(@body-bckgrnd-color,20%);
 					height:13px;
 					width:13px;
 					.border-radius(10px);
@@ -405,7 +409,7 @@ body {
 					height:75px;
 					width:75px;
 					.border-radius(50px);
-					border: 1px solid #E9E9E9;
+					border: 1px solid #747474;
 					margin-left: 1em;
 				}
 				#circle-line {

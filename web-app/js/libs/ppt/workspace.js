@@ -51,6 +51,8 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 					redoStack.length = 0;
 				}
 				localStorage.setItem("slideList",JSON.stringify(slideList));
+				namespace.GLOBAL.triggerGlobalEvent("STATE_CHANGED",this,state);
+
 			}
 		
 			/*
