@@ -28,14 +28,20 @@
 		callHandlers(handlers,obj,[obj]);
 	}
 	
+	function onStateChanged(handlers,state){
+		callHandlers(handlers,this,[state]);
+	}
+	
 	var EVENT_ON_PICK_CLICK = "ON_PICK_CLICK";
 	var EVENT_ON_PICK_UNSELECT = "ON_PICK_UNSELECT";
 	var EVENT_AFTER_PPT_INIT = "AFTER_PPT_INIT";
+	var EVENT_STATE_CHANGED= "STATE_CHANGED";
 	
 	namespacefn.eventMap = {};
 	namespacefn.eventMap[EVENT_AFTER_PPT_INIT] = [afterPPTInit];
 	namespacefn.eventMap[EVENT_ON_PICK_CLICK] = [onPickClick];
 	namespacefn.eventMap[EVENT_ON_PICK_UNSELECT] = [onPickUnSelect];
+	namespacefn.eventMap[EVENT_STATE_CHANGED] = [onStateChanged];
 	
 	namespacefn.initialize = function(collageid,workspaceid,pickConfig, stateJson, selectedSlide){
 		$(document).ready(function(){
@@ -53,3 +59,4 @@
 	}
 	
 })();
+
