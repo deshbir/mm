@@ -84,7 +84,6 @@ com.compro.ppt.Shape = function(){
 	    	this.isFromStorage = params.isFromStorage;
 	    	this.coordX = params.coordX;
 	    	this.coordY = params.coordY;
-
 	    }
 
 	     ShapeConstr.prototype = Object.create(Pick.prototype, {
@@ -96,6 +95,23 @@ com.compro.ppt.Shape = function(){
 				var instance = this.instance;
 				var thumbInstance = this.thumbInstance;
 				var bBox = instance.getBBox(false);
+				// Increasing selection area by adding a rectangle around the Pick.
+				var increase_selection_area = this.pickOptions.increase_selection_area;
+				if(increase_selection_area) {
+					var increase_selection_area_rect = this.primeSvg.rect(bBox.x - increase_selection_area[3], bBox.y - increase_selection_area[0], bBox.width + increase_selection_area[1]+ increase_selection_area[3], bBox.height + increase_selection_area[0]+ increase_selection_area[2]);
+					instance.push(increase_selection_area_rect);
+					this.updateFTProps();
+					increase_selection_area_rect.attr({"stroke":"#EEE","fill": "#fff", "fill-opacity":0, "opacity":0});
+					instance.undrag();
+					instance.drag(Utils.proxy(this.dragMove,this), Utils.proxy(this.dragStart,this), Utils.proxy(this.dragEnd,this));
+					if(this.pickOptions.apply_gesture_events==true) {
+						var elementCount = instance.items.length;
+						this.instance.items[elementCount-1].node.addEventListener('gesturestart', Utils.proxy(this.gestureStart, this));
+						this.instance.items[elementCount-1].node.addEventListener('gesturechange', Utils.proxy(this.gestureChange, this));
+						this.instance.items[elementCount-1].node.addEventListener('gestureend', Utils.proxy(this.gestureEnd, this));
+					}
+				}
+				
 				var currentX = bBox.x;
 				var currentY = bBox.y;
 				//var scale = 100/bBox.width;
