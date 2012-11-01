@@ -50,12 +50,11 @@
        
        	<script language="javascript">
        	com.compro.magazine = { 
-	       				customMagazine : "${jsonString}".replace(/\'/g, '"')
+	       				customMagazineName : "${name}"
 	       			};
 		if (com.compro.cgrails.WORKFLOW === "offline") {
 			com.compro.magazine.customMagazine = ("[{'pickList':[{'properties':{'handler':'com.compro.ppt.Image','items':[{'raphaelType':'rect','raphaelAttributes':{'x':193,'y':38.5,'width':133,'height':93,'r':2,'fill':'#CBD63C','stroke':'#CBD63C'}},{'raphaelType':'image','raphaelAttributes':{'x':194,'y':39.5,'width':131,'height':91,'cursor':'move','src':'images/magazine/photos/african_wildlife/684574.jpg'}}],'source':'images/magazine/photos/african_wildlife/684574.jpg','thumbnail':'images/magazine/photos/african_wildlife/684574_thumb.jpg','raphaelAttributes':{'width':131,'height':91},'context':{'height':990,'width':762}}},{'properties':{'handler':'com.compro.ppt.Image','items':[{'raphaelType':'rect','raphaelAttributes':{'x':177,'y':167.5,'width':133,'height':93,'r':2,'fill':'#CBD63C','stroke':'#CBD63C'}},{'raphaelType':'image','raphaelAttributes':{'x':178,'y':168.5,'width':131,'height':91,'cursor':'move','src':'images/magazine/photos/african_wildlife/684574.jpg'}}],'source':'images/magazine/photos/african_wildlife/684574.jpg','thumbnail':'images/magazine/photos/african_wildlife/684574_thumb.jpg','raphaelAttributes':{'width':131,'height':91},'context':{'height':990,'width':762}}}],'currentH':990,'currentW':762}]").replace(/\'/g, '"')
 		}
-		
 		</script>	
 	</body>
 </html>

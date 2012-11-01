@@ -102,6 +102,10 @@ modules = {
 		resource url:'js/bb/video/videomodel.js'
 		resource url:'js/bb/video/videocollection.js'
 		resource url:'js/bb/video/videoview.js'
+		
+		//Backbone magazine Models & Collections
+		resource url:'js/bb/magazine/magazinemodel.js'
+		resource url:'js/bb/magazine/magazinecollection.js'
 	}
 	
 }

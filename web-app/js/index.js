@@ -247,6 +247,14 @@ com.compro.application.mm = (function() {
 		Backbone.history.navigate("#/tool", {trigger:true});
 	}
 	
+	/*Click event mapping when any component (image/text etc..) 
+	 * state is changed in mail container
+	 * 
+	 */ 
+	//myPPTApp.registerEvent("STATE_CHANGED", function(obj){
+		
+		//magazinemodel.save{jsonString:obj}
+	//}
 
 	/*Click event mapping when any component (image/text etc..) 
 	 * is clicked in mail container
@@ -331,6 +339,16 @@ com.compro.application.mm = (function() {
 		return doMorePrevSlideExists;
 	}
 	
+	function get_magazine_data(customMagazineName) {
+		var jsonString
+   		MagazineCollection.fetch({data: {name: customMagazineName}});	
+       	MagazineCollection.get().each(function(model){
+			var modelJ = model.toJSON();
+			jsonString = (modelJ.jsonString).replace(/\'/g, '"')
+       	});
+       	return jsonString;
+	}
+
 	function init_ppt_engine() {
 		var handler = function(){
 			//do something
@@ -348,7 +366,9 @@ com.compro.application.mm = (function() {
 					url:com.compro.cgrails.utils.resource("/images/deletered.png")
 				}
 		}
-		myPPTApp.initialize("collage-container","the-slide",pickConfig,com.compro.magazine.customMagazine);
+		
+		var jsonString = com.compro.magazine.customMagazineName.replace(/\'/g, '"'); //get_magazine_data(com.compro.magazine.customMagazineName);
+		myPPTApp.initialize("collage-container","the-slide",pickConfig,jsonString);
 		
 		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
@@ -505,7 +525,6 @@ com.compro.application.mm = (function() {
 				backbone_init_routers();
 				backbone_start_navigation();
 				init_ppt_engine();
-
 			});
 
 

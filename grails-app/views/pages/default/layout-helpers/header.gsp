@@ -53,7 +53,7 @@
 		                     <hr/>
 		                	 <li><a href="http://www.comprotechnologies.com/mm/offline/mm-win32-offline.zip">CD (Win32)</a></li>
 		                     <li><a href="http://www.comprotechnologies.com/mm/offline/mm-macosx-offline.zip">CD (Mac OSX)</a></li>
-		                     <li><a href="#">Mobile (iOS)</a></li>
+		                     <li><a href="javascript:;">Mobile (iOS)</a></li>
 		                     <li><a href="http://www.comprotechnologies.com/mm/offline/mm-android-offline.apk">Mobile (An)</a></li>                         
 	                    </ul>
 	               </li>

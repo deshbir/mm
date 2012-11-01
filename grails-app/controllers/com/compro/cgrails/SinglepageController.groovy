@@ -11,17 +11,18 @@ class SinglepageController {
 	def home() {
 		
 		def magazine
-		String jsonString = ""
+		String name = ""
 				
 		if (params.id != null) {
 			if (params.id.equalsIgnoreCase("resume")) {
-				jsonString = "resume";
+				name = "resume";
 			} else  {
 				magazine = Magazine.findByName(params.id)
-				jsonString = magazine.jsonString;
+				name = magazine.jsonString;
+				//name = params.id
 			}
 		}
-		render (view:"magazine_home",model:[jsonString:jsonString])
+		render (view:"magazine_home",model:[name:name])
 	}
 	
 	def logout() {

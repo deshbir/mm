@@ -22,12 +22,12 @@ class Magazine {
 	def static String[] offlineCachedUrls() {
 		return  [
 					/*
-					"/api/home?id=resume",
-					"/api/home?id=my_animals",
-					"/api/home?id=untitled_1",
-					"/api/home?id=untitled_2",
-					"/api/home?id=my_photos",
-					"/api/home?id=my_new_animals"
+					"/api/magazine?id=resume",
+					"/api/magazine?id=my_animals",
+					"/api/magazine?id=untitled_1",
+					"/api/magazine?id=untitled_2",
+					"/api/magazine?id=my_photos",
+					"/api/magazine?id=my_new_animals"
 					*/
 				];
 	}
