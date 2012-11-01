@@ -41,7 +41,7 @@
 	 		<g:message code="rightpanel.editortab.textinfo"/>
 	 	</p>
 	 	<div>
-	 		<textarea id="tinymce-editor" name="tinymce-editor" rows="5" cols="10" onKeyUp="com.compro.application.mm.syncText(this);"></textarea>
+	 		<textarea id="tinymce-editor" name="tinymce-editor" rows="3" onKeyUp="com.compro.application.mm.syncText(this);"></textarea>
 	 	</div>
 	 	<h5>
 	 		<a href="javascript:com.compro.application.mm.textFontIncrease();"  class="btn" title="Increase text size"><span class="font-span">A</span><i class=" icon-arrow-up"></i></a>
