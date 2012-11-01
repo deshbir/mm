@@ -1135,7 +1135,7 @@ com.compro.ppt.Pick = function(){
 			Utils.fireEvent(this,this.events.STATE_CHANGED);
 		}
 
-		PickConstr.prototype.translate = function(x,y){
+		PickConstr.prototype.translate = function(x,y, donotSaveState){
 			var ft = this.freeTransform;
 			ft.attrs.translate.x += x; 
 			ft.attrs.translate.y += y;
@@ -1143,6 +1143,9 @@ com.compro.ppt.Pick = function(){
 			apply(this);
 			applyOnThumb(this);
 			this.updateHandles();
+			if(!donotSaveState){
+				Utils.fireEvent(this,this.events.STATE_CHANGED);
+			}
 		}
 		
 		PickConstr.prototype.dragStart = defaultDragStartHandler;
@@ -1258,7 +1261,7 @@ com.compro.ppt.Pick = function(){
 				moveToFront: function(){return self.moveToFront();},
 				moveToBack: function(){return self.moveToBack();},
 				getProperties:function(setIndex){return self.getProperties(setIndex);},
-				translate: function(dx,dy){return self.translate(dx,dy);}
+				translate: function(dx,dy,flag){return self.translate(dx,dy,flag);}
 			}
 		}
 		

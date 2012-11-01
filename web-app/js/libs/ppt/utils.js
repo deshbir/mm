@@ -123,20 +123,33 @@
 			getCssComputedProperty: function(el, prop){
 				return $(el).css(prop);
 			},
-			addControlZListener:function(func){
-				$(document).keypress(function(e){
-				    var checkWebkitandIE=(e.which==26 ? 1 : 0);
-				    var checkMoz=(e.which==122 && e.ctrlKey ? 1 : 0);
-
-				    if (checkWebkitandIE || checkMoz) func.apply();
+			addUndoListener:function(func){
+				namespace.key('command+z, ctrl+z', function(event){ 
+					func(event);
 				});
 			},
-			addControlYListener:function(func){
-				$(document).keypress(function(e){
-				    var checkWebkitandIE=(e.which==25 ? 1 : 0);
-				    var checkMoz=(e.which==121 && e.ctrlKey ? 1 : 0);
-
-				    if (checkWebkitandIE || checkMoz) func();
+			addRedoListener:function(func){
+				namespace.key('command+y, ctrl+y', function(event){ 
+					func(event);
+				});
+			},
+			addDeleteKeyListener:function(func){
+				namespace.key('del', function(event){ 
+						func(event);
+				});
+			},
+			addArrowKeyListener:function(func){
+				namespace.key('up', function(event){ 
+					func(0,-1,event);
+				});
+				namespace.key('left', function(event){ 
+					func(-1,0,event);
+				});
+				namespace.key('right', function(event){ 
+					func(1,0,event);
+				});
+				namespace.key('down', function(event){ 
+					func(0,1,event);
 				});
 			}
 		};

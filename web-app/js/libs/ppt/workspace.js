@@ -47,12 +47,10 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 					if(undoStack.length>MAX_STACK_SIZE+1){
 						undoStack.splice(0,1);
 					}
-					console.log(undoStack.length);
 					redoStack.length = 0;
 				}
 				localStorage.setItem("slideList",JSON.stringify(slideList));
 				namespace.GLOBAL.triggerGlobalEvent("STATE_CHANGED",this,state);
-
 			}
 		
 			/*
@@ -163,8 +161,8 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 				saveState();
 			}
 			
-			namespace.GLOBAL.undoAction = function(){
-				if(undoStack.length<=1){
+			namespace.GLOBAL.undoAction = function(event){
+				if(undoStack.length<=1 || event.type=='keyup'){
 					return;
 				}
 				redoStack.push(undoStack.pop());
@@ -173,10 +171,10 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 				restoreState(stateJson);
 			}
 			
-			Utils.addControlZListener(namespace.GLOBAL.undoAction);
+			Utils.addUndoListener(namespace.GLOBAL.undoAction);
 			
-			namespace.GLOBAL.redoAction = function(){
-				if(redoStack.length<1){
+			namespace.GLOBAL.redoAction = function(event){
+				if(redoStack.length<1 || event.type=='keyup'){
 					return;
 				}
 				var stateJson = redoStack.pop();
@@ -184,7 +182,7 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 				restoreState(stateJson);
 			}
 			
-			Utils.addControlYListener(namespace.GLOBAL.redoAction);
+			Utils.addRedoListener(namespace.GLOBAL.redoAction);
 			
 			var restoreState = function(stateJson){
 				slideList.map(function(slide){
@@ -267,6 +265,19 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 					return -1;
 				}
 			}
+			
+			Utils.addDeleteKeyListener(namespace.GLOBAL.removeObject);
+			
+			var arrowKeyEventHandler = function(dx,dy,event){
+				var pick = namespace.GLOBAL.getSelectedObject();
+				if(pick){
+					if(event.type=='keyup')
+						pick.translate(0,0,false);
+					else
+						pick.translate(dx,dy,true);
+				}
+			}
+			Utils.addArrowKeyListener(arrowKeyEventHandler);
 			
 			namespace.GLOBAL.getSelectedObject = function(){
 				if(selectedSlide!=-1){

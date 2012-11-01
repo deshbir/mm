@@ -35,7 +35,7 @@ modules = {
 		
 		//raphael
 		resource url:'js/libs/raphael.js'
-				
+		
 		//jQuery imagesLoaded plugin v2.1.0
 		resource url:'js/libs/jquery.imagesloaded.js'
     }
@@ -45,6 +45,9 @@ modules = {
 		
 		//Core PPT Engine
 		resource url:'js/libs/ppt/init.js'
+		//keyMaster
+		resource url:'js/libs/keymaster.js'
+		
 		resource url:'js/libs/ppt/events.js'
 		resource url:'js/libs/ppt/utils.js'
 		resource url:'js/libs/ppt/pick.js'

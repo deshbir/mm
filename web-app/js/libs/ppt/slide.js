@@ -38,7 +38,8 @@ com.compro.ppt.Slide = function() {
 		this.backRect = this.primeSvg.rect(0,0,this.svgWidth,this.svgHeight).attr({
 				'stroke-width': 0,
 				'fill': '#fff',
-				'fill-opacity': 0.0
+				'fill-opacity': 0.0,
+				'opacity':0.0
 		});
 
 
@@ -136,6 +137,9 @@ com.compro.ppt.Slide = function() {
 		pick.paint(pickRatio);
 		
 		this.pickList.push(pick);
+		if(storageProps && storageProps.isSelected){
+			this.selectPick(pick);
+		}
 		Utils.addCustomEventListener(pick,pick.events.STATE_CHANGED,Utils.proxy(function(obj,event){
 			obj.saveState();
 		},this));
@@ -299,7 +303,8 @@ com.compro.ppt.Slide = function() {
 		this.backRect = this.primeSvg.rect(0,0,this.svgWidth,this.svgHeight).attr({
 			'stroke-width': 0,
 			'fill': '#fff',
-			'fill-opacity': 0.0
+			'fill-opacity': 0.0,
+			'opacity':0.0
 		});
 		this.createThumb();
 		var computedWidthCollage = parseFloat(Utils.getCssComputedProperty(this.collageDiv, 'width'));
