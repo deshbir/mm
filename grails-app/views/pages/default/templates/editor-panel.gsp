@@ -44,7 +44,7 @@
 	 		<textarea id="tinymce-editor" name="tinymce-editor" rows="5" cols="10" onKeyUp="com.compro.application.mm.syncText(this);"></textarea>
 	 	</div>
 	 	<h5>
-	 		<a href="javascript:com.compro.application.mm.textFontIncrease();"  class="btn" title="Increase text size"><span class="font-span">A</span><i class="icon-sort-up"></i></a>
-	 		<a href="javascript:com.compro.application.mm.textFontDecrease();" class="btn" title="Decrease text size"><span class="font-span">A</span><i class="icon-sort-down remove-padding"></i></a>
+	 		<a href="javascript:com.compro.application.mm.textFontIncrease();"  class="btn" title="Increase text size"><span class="font-span">A</span><i class=" icon-arrow-up"></i></a>
+	 		<a href="javascript:com.compro.application.mm.textFontDecrease();" class="btn" title="Decrease text size"><span class="font-span-small">A</span><i class=" icon-arrow-down remove-padding"></i></a>
 	 	</h5>
 </div>

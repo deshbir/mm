@@ -5,7 +5,7 @@
 	<span class="divider-vertical"></span> 
 	<a id="sendback" title="Send Back" href="#" class="btn"><span class="float-left"><g:message code="rightpanel.editortab.send"/><br/><g:message code="rightpanel.editortab.back"/></span><i class="icon-copy"></i></a>
 	<span class="divider-vertical"></span> 
-	<a id="deleteobject" title="Delete" href="#" class="btn"><span class="float-left"><g:message code="rightpanel.editortab.delete"/></span><i class="icon-trash"></i></a>
+	<a id="deleteobject" title="Delete" href="#" class="btn"><span class="float-left"><g:message code="rightpanel.editortab.delete"/></span><i class="icon-remove"></i></a>
 </div>
 <div class="border-line-hor"></div> 
 <div id="library-editor">

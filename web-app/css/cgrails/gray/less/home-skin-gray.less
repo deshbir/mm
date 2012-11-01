@@ -18,6 +18,17 @@ body {
 	border-bottom: 2px solid @header-border-color;
 }
 
+input:focus:required:invalid,
+textarea:focus:required:invalid,
+select:focus:required:invalid {
+  color: lighten(@black,5%);
+  border-color: @black;
+  &:focus {
+    border-color: @black;
+    .box-shadow(0 0 6px lighten(@black, 20%));
+  }
+}
+
 .spiral-div {
 	background-image:url('../../../../images/home/background-img-gray.png');
 	background-color: @spriral-bg-color;

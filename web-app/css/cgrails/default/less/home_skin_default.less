@@ -25,6 +25,17 @@ body {
 	padding-right:0;
 }
 
+input:focus:required:invalid,
+textarea:focus:required:invalid,
+select:focus:required:invalid {
+  color: lighten(@header-bckgrnd-color,5%);
+  border-color: @header-bckgrnd-color;
+  &:focus {
+    border-color: @header-bckgrnd-color;
+    .box-shadow(0 0 6px lighten(@header-bckgrnd-color, 20%));
+  }
+}
+
 .spiral-div {
 	background-image:url('../../../../images/home/background-img.jpg');
 	background-color: @main-container-color;
