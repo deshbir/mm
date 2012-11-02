@@ -51,10 +51,10 @@
 	                         <li><a href="${contextPath}/gray/singlepage/home">Gray</a></li>
 		                     <li class="set-paddings">Mobile & Offline</li>
 		                     <hr/>
-		                	 <li><a href="http://www.comprotechnologies.com/mm/offline/mm-win32-offline.zip">CD (Win32)</a></li>
-		                     <li><a href="http://www.comprotechnologies.com/mm/offline/mm-macosx-offline.zip">CD (Mac OSX)</a></li>
-		                     <li><a href="javascript:;">Mobile (iOS)</a></li>
-		                     <li><a href="http://www.comprotechnologies.com/mm/offline/mm-android-offline.apk">Mobile (An)</a></li>                         
+		                	 <li><a href="#download-win-modal" data-toggle="modal">CD (Win32)</a></li>
+		                     <li><a href="#download-mac-modal" data-toggle="modal">CD (Mac OSX)</a></li>
+		                     <li><a href="#download-ios-modal" data-toggle="modal">Mobile (iOS)</a></li>
+		                     <li><a href="#download-andro-modal" data-toggle="modal">Mobile (An)</a></li>                         
 	                    </ul>
 	               </li>
 	        	</g:if>
@@ -62,4 +62,5 @@
           </div>
       </div>
     </div>
-</div>			
+</div>	
+<g:include view="layout-helpers/modals.gsp"/>		
