@@ -43,6 +43,9 @@ modules = {
 	mmPPT {
 		dependsOn 'mmLib, mmLib1'
 		
+		//Hammer
+		resource url:'js/libs/hammer.js'
+		
 		//Core PPT Engine
 		resource url:'js/libs/ppt/init.js'
 		//keyMaster

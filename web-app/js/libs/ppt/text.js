@@ -82,7 +82,7 @@ com.compro.ppt.Text = function(){
 			var pickConfig = {
 					scale:true,
 					rotate:true,
-					apply_gesture_events: false,
+					apply_gesture_events: true,
 					scale_boundry : false,
 					translate_boundry : false,
 					selection_box_attrs:{
@@ -137,29 +137,11 @@ com.compro.ppt.Text = function(){
 			obj.updateHandles();
 	    };
 	    
-	    TextConstr.prototype.resizeStart = function(obj){
-			
-			var ft = obj.freeTransform,pickOptions=obj.pickOptions;
-			rotate = ( ( 360 - ft.attrs.rotate ) % 360 ) / 180 * Math.PI,
-			handlePos = this.attr(['x', 'y']);
-
-			ft.o = cloneObj(ft.attrs);
-	
-			ft.o.handlePos = {
-				cx: handlePos.x + pickOptions.handle_box_size,
-				cy: handlePos.y + pickOptions.handle_box_size
-				};
-	
-			ft.o.rotate = {
-				sin: Math.sin(rotate),
-				cos: Math.cos(rotate)
-			};
-			obj.event_resize_start();
-	    };
-	    
 	    TextConstr.prototype.resizeEnd = function(obj){
 	    	var ft = obj.freeTransform;
-	    	var wrapWidth =	Math.min(ft.attrs.size.x, obj.primeSvg.width - 100);
+	    	// To restrict the width of the text box not to exceed the width of the svg
+	    	//var wrapWidth =	Math.min(ft.attrs.size.x, obj.primeSvg.width - 100);
+	    	var wrapWidth =	ft.attrs.size.x;
 	    	obj.setProperties(0,{"wrap-width":wrapWidth});
 	    	obj.updateFTProps();
 			obj.event_resize_end();
@@ -167,16 +149,21 @@ com.compro.ppt.Text = function(){
 			obj.updateHandles();
 		}
 	    
-	    
-/*	    TextConstr.prototype.setProperties =  function(setIndex, attributes) {
-	    	var ft = this.freeTransform;
-	    	var size = {x : ft.attrs.size.x, y : ft.attrs.size.y};
-	    	Pick.prototype.setProperties.apply(this,[setIndex, attributes]);
-	    	ft.attrs.size.x = size.x;
-	    	ft.attrs.size.y = size.y;
-	    	this.updateHandles();
+	    TextConstr.prototype.gestureChange = function(obj, event) {
+			var scaleFactor = Math.max(.05,event.scale); 
+			var ft = obj.freeTransform;
+			ft.attrs.size.x = scaleFactor * ft.o.scale.x * ft.o.size.x;
+			ft.attrs.size.y = scaleFactor * ft.o.scale.y * ft.o.size.y;
+			obj.updateHandles();
 	    };
-*/
+	    
+	    TextConstr.prototype.gestureEnd =  function(obj, event) {
+	    	obj.resizeEnd(obj);
+	    	var ft = obj.freeTransform;
+			ft.o.isGesture = false;
+	    };
+
+	    
 		/********************************************************/	
 		/*                 Private Members                     */ 
 		/********************************************************/
