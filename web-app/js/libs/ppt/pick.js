@@ -709,10 +709,8 @@ com.compro.ppt.Pick = function(){
 			/*   FREE-TRANSFORM START   */
 			var ft = obj.freeTransform;
 			if(!ft.o.isGesture) {
-
 				ft.attrs.translate.x = ft.o.translate.x + dx;
 				ft.attrs.translate.y = ft.o.translate.y + dy;
-	
 				var bbox = cloneObj(ft.o.bbox);
 	
 				bbox.x += dx;
@@ -809,34 +807,29 @@ com.compro.ppt.Pick = function(){
 			cos: Math.cos(rotate)
 			};
 			obj.event_resize_start();
-		}
+		};
 		
 		var defaultGestureStartHandler = function(obj, event) {
 			var ft = obj.freeTransform;
 			ft.o = cloneObj(ft.attrs);
 			ft.o.isGesture = true;
-			//defaultResizeStartHandler(obj);
-			event.preventDefault();
-		}
+		};
 		
 		var defaultGestureChangeHandler = function(obj, event) {
+			var scaleFactor = Math.max(.05,event.scale); 
 			var ft = obj.freeTransform;
-			ft.attrs.scale.x = (event.scale * ft.o.scale.x);
-			ft.attrs.scale.y = (event.scale * ft.o.scale.y);
-			
+			ft.attrs.scale.x = scaleFactor * ft.o.scale.x;
+			ft.attrs.scale.y = scaleFactor * ft.o.scale.y;
 			applyLimits(obj);
 			apply(obj);
 			obj.updateHandles();
-			event.preventDefault();
-		}
+		};
 	
 		var defaultGestureEndHandler = function(obj, event) {
 			var ft = obj.freeTransform;
 			ft.o.isGesture = false;
-			event.preventDefault();
-			// Some task can be performed here.
-		}
-			
+		};
+		
 		function keepRatio(axis,ft) {
 			if ( axis === 'x' ) {
 				ft.attrs.scale.y = ft.attrs.scale.x / ft.attrs.ratio;
@@ -859,7 +852,7 @@ com.compro.ppt.Pick = function(){
 				dx = (handle.axis === 'x' ? -dy : dy)*(((cos+sin)<0||(cos-sin)<0)?-1:1);
 			}
 
-			
+
 			// First rotate dx, dy to element alignment
 			rx = dx * cos - dy * sin;
 			ry = dx * sin + dy * cos;
@@ -867,13 +860,11 @@ com.compro.ppt.Pick = function(){
 
 			rx *= Math.abs(handle.x);
 			ry *= Math.abs(handle.y);
-			
-			
-			
 
 			// And finally rotate back to canvas alignment
 			rdx = rx *   cos + ry * sin;
 			rdy = rx * - sin + ry * cos;
+
 			ft.attrs.translate = {
 				x: ft.o.translate.x + rdx / 2,
 				y: ft.o.translate.y + rdy / 2
@@ -908,7 +899,6 @@ com.compro.ppt.Pick = function(){
 				ft.attrs.translate.y = ft.o.translate.y + ry/2;
 			}
 			ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
-			
 			
 			applyLimits(obj);
 			apply(obj);
@@ -1036,16 +1026,19 @@ com.compro.ppt.Pick = function(){
 					
 				}
 			}
-			if(obj.pickOptions.drag==true)
-			obj.instance.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
 			
+			// Adding drag events
+			if(obj.pickOptions.drag==true){
+				obj.instance.drag(Utils.proxy(obj.dragMove,obj), Utils.proxy(obj.dragStart,obj), Utils.proxy(obj.dragEnd,obj));
+			}
 			if(obj.pickOptions.apply_gesture_events==true) {
 				var elementCount = obj.instance.items.length;
 				for(var num=0; num<elementCount; num++) {
-					obj.instance.items[num].node.addEventListener('gesturestart', Utils.proxy(obj.gestureStart, obj));
-					obj.instance.items[num].node.addEventListener('gesturechange', Utils.proxy(obj.gestureChange, obj));
-					obj.instance.items[num].node.addEventListener('gestureend', Utils.proxy(obj.gestureEnd, obj));
-				}
+					var hammer = new com.compro.Utils.hammer(obj.instance.items[num].node);
+					hammer.ontransformstart = Utils.proxy(obj.gestureStart, obj); 
+					hammer.ontransform = Utils.proxy(obj.gestureChange, obj)
+					hammer.ontransformend = Utils.proxy(obj.gestureEnd, obj)
+					}
 			}
 		  if(obj.properties.isSelected){
 			  obj.showHandles();
@@ -1172,7 +1165,7 @@ com.compro.ppt.Pick = function(){
 		PickConstr.prototype.gestureStart = defaultGestureStartHandler;
 		PickConstr.prototype.gestureChange = defaultGestureChangeHandler;
 		PickConstr.prototype.gestureEnd = defaultGestureEndHandler;
-		
+
 		PickConstr.prototype.selectPick = defaultSelectPickHandler;
 		PickConstr.prototype.unSelect = defaultUnselectPickHandler;
 		PickConstr.prototype.deletePick = defaultDeletePickHandler;
