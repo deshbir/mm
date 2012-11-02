@@ -4,8 +4,20 @@
   	<div id="student-login" class="well">
   		<h3><g:message code="homepanel.welcome"/>&nbsp;<span><g:message code="homepanel.student"/></span></h3>
   		<p><g:message code="homepanel.department"/></p>
-  		<a id="create-magazine" href="<cgrails:switch_singlepage action="home/resume"/>" onclick="javascript:clearStorage();" class="btn"><span>&nbsp;&nbsp;<g:message code="homepanel.createmagazine"/>&nbsp;&nbsp;</span></a>
-  		<a id="resume-magazine" href="<cgrails:switch_singlepage action="home/resume"/>" class="btn"><span>&nbsp;&nbsp;<g:message code="homepanel.resume.magazine"/>&nbsp;&nbsp;</span></a>  		
+		<g:if test="${workflow.equals('offline')}">
+			<a id="create-magazine" href="<cgrails:switch_singlepage action="home"/>" onclick="javascript:clearStorage();" class="btn">
+		</g:if>
+		<g:else>
+			<a id="create-magazine" href="<cgrails:switch_singlepage action="home/resume"/>" onclick="javascript:clearStorage();" class="btn">
+		</g:else>
+  		<span>&nbsp;&nbsp;<g:message code="homepanel.createmagazine"/>&nbsp;&nbsp;</span></a>
+		<g:if test="${workflow.equals('offline')}">
+			<a id="resume-magazine" href="<cgrails:switch_singlepage action="home"/>" class="btn">
+		</g:if>
+		<g:else>
+			<a id="resume-magazine" href="<cgrails:switch_singlepage action="home/resume"/>" class="btn">
+		</g:else>  		
+  		<span>&nbsp;&nbsp;<g:message code="homepanel.resume.magazine"/>&nbsp;&nbsp;</span></a>  		
   	</div>
   	<div id="magazine-details-container" class="well scroll-pane">
    		<table class="table" id="magazine-details">
