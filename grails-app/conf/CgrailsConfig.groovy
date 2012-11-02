@@ -1,4 +1,3 @@
-
 cgrails {
 	skinning {
 		baseskin = "default"

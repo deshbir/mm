@@ -1,12 +1,21 @@
-//Magazine Backbone Model(linked to collection)
-MagazineModel = new function() {        
-	var Model = Backbone.Model.extend({
-			defaults: {
-				name : "Magazines"
-			}
-		   });
+//Magazine Backbone Model
+MagazineModel = new function() {
 
-  	this.get = function(){  // Each backbone model needs to define "get()" function
-		return Model;
-	};
+	var modelObj = null;
+	
+	var Model = Backbone.Model.extend({
+					defaults: {
+						name : "Magazines"
+					},
+					urlRoot: com.compro.cgrails.REQUEST_CONTEXT + "/api/magazine/"	
+				});
+	
+	this.get = function(){
+		if (modelObj == null) {
+			modelObj = new Model();
+		}
+		return modelObj;
+    };
+	
+	
 };

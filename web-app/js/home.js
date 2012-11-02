@@ -53,7 +53,6 @@ function login() {
 	, 600);
 }
 
-
 // call when Login button is clicked
 function getLoggedintemplate() {
 	TemplateManager.get('loged-panel', 
@@ -69,4 +68,9 @@ function getLogOuttemplate() {
 			$(".login-panel").html(template);
 	});
 	$("#userInfo").css("display", "none");
+}
+
+function clearStorage() {
+	localStorage.removeItem('slideList');
+	localStorage.removeItem('ppt_selectedslide');
 }

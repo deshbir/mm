@@ -20,18 +20,16 @@ ToolView = new function() {
 			success: function(){
 				TemplateManager.get('right-panel', 
 					function(template){
+						var compiledTemplate = Mustache.render(template, ToolCollection.get().toJSON());
+						$("#toolbar").append(compiledTemplate);
 						ToolCollection.get().each(function(model){
-							var compiledTemplate = Mustache.render(template, model.toJSON());
-							$("#toolbar").append(compiledTemplate);
 							//Adding show event with accordion tabs
-				     	    
-							$('#' + model.toJSON().toolid).on('show', function () {
-				     	    	Backbone.history.navigate("#/"+ model.toJSON().toolid, {trigger:true});
-				    		});
-							
+				     	    var func = model.toJSON().viewName + "View.initialize()";
+				     	    eval(func);
 						});
 				});
-				$('#photo').collapse('show');
+				$('#photo').addClass('in');
+				
 			}
 		});
 		

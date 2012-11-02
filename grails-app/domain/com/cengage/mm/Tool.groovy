@@ -6,6 +6,7 @@ import groovy.json.JsonSlurper
 class Tool {
 	
 	String toolid
+	String viewName
 	String name
 	
     static constraints = {

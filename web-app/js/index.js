@@ -244,17 +244,17 @@ com.compro.application.mm = (function() {
 	
 	function backbone_start_navigation()	{
 		Backbone.history.start();
-		Backbone.history.navigate("#/tool", {trigger:true});
+		Backbone.history.navigate("#/tool", {trigger:true,replace:true});
 	}
 	
 	/*Click event mapping when any component (image/text etc..) 
 	 * state is changed in mail container
 	 * 
 	 */ 
-	//myPPTApp.registerEvent("STATE_CHANGED", function(obj){
-		
-		//magazinemodel.save{jsonString:obj}
-	//}
+	myPPTApp.registerEvent("STATE_CHANGED", function(obj){
+		//MagazineModel.get().set("jsonString", obj);
+		//MagazineModel.get().save();
+	});
 
 	/*Click event mapping when any component (image/text etc..) 
 	 * is clicked in mail container
@@ -264,25 +264,17 @@ com.compro.application.mm = (function() {
 		
 		var handler = obj.handler;
 		if (!($('.accordion-group > #editor').hasClass("in"))) {
-			$(EditorView).bind('painted.onPickClick', function () {
-				editorDisplayController();
-				$(EditorView).off('painted.onPickClick');			
-			});			
 			$('.accordion-heading > a[href="#editor"]').click();
-		} else {
-			editorDisplayController();
 		}
-		
-		function editorDisplayController() {
-			if (handler == "com.compro.ppt.Image") {
-				$('#image-editor').css('display','block');
-				$('#text-editor').css('display','none');
-			}
-			if (handler == "com.compro.ppt.Text") {
-				$('#image-editor').css('display','none');
-				$('#text-editor').css('display','block');
-				$('#tinymce-editor').val(obj.getProperties(0).text);
-			}
+	
+		if (handler == "com.compro.ppt.Image") {
+			$('#image-editor').css('display','block');
+			$('#text-editor').css('display','none');
+		}
+		if (handler == "com.compro.ppt.Text") {
+			$('#image-editor').css('display','none');
+			$('#text-editor').css('display','block');
+			$('#tinymce-editor').val(obj.getProperties(0).text);
 		}
 		
 	});
@@ -340,12 +332,9 @@ com.compro.application.mm = (function() {
 	}
 	
 	function get_magazine_data(customMagazineName) {
-		var jsonString
-   		MagazineCollection.fetch({data: {name: customMagazineName}});	
-       	MagazineCollection.get().each(function(model){
-			var modelJ = model.toJSON();
-			jsonString = (modelJ.jsonString).replace(/\'/g, '"')
-       	});
+		MagazineModel.get().set(customMagazineName);       
+		var modelJ = MagazineModel.get().toJSON();
+		var jsonString = (modelJ.jsonString).replace(/\'/g, '"');       		
        	return jsonString;
 	}
 
@@ -367,7 +356,13 @@ com.compro.application.mm = (function() {
 				}
 		}
 		
-		var jsonString = com.compro.magazine.customMagazineName.replace(/\'/g, '"'); //get_magazine_data(com.compro.magazine.customMagazineName);
+		//var jsonString = com.compro.magazine.customMagazineName.replace(/\'/g, '"');
+		var jsonString = "";
+		if (com.compro.magazine.customMagazineName != "" && com.compro.magazine.customMagazineName != "resume" )
+			jsonString = get_magazine_data(com.compro.magazine.customMagazineName);
+		else
+			jsonString = com.compro.magazine.customMagazineName;
+		
 		myPPTApp.initialize("collage-container","the-slide",pickConfig,jsonString);
 		
 		//Bindings for Slide Add / Clear / Delete functions
