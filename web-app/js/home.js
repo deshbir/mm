@@ -1,9 +1,5 @@
 $(document).ready(function() { 
-	if(($(window).height()-$(".navbar").height()-20) > $(".container-div").height()) {
-		$(".spiral-div").height($(window).height()- $(".navbar").height()-10);
-    } else {
-    	$(".spiral-div").height($(".container-div").height());
-    }
+	resizePage();
 	
 	//In case of offline directly show logged-in template
 	if (com.compro.cgrails.WORKFLOW === "offline") { 
@@ -33,7 +29,20 @@ $(document).ready(function() {
 		var content = $(this).attr('content');
 		$(this).popover('title',title).popover('content',content).popover('show');
 	});
+	
 });
+
+$(window).resize(function() {
+	resizePage();
+});
+
+function resizePage() {
+	if(($(window).height()-$(".navbar").height()-20) > $(".container-div").height()) {
+		$(".spiral-div").height($(window).height()- $(".navbar").height()-10);
+    } else {
+    	$(".spiral-div").height($(".container-div").height());
+    }
+}
 
 function login() {
 	$('#login_spinner').css("visibility","visible");
