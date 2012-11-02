@@ -17,10 +17,10 @@
 			</a>
 			<div class="nav-collapse">
             <ul class="nav">
-				<li class="new-slide"><a href="#" class="btn reduce-width"><span><g:message code="header.new.page"/></span></a></li>
-				<li><a href="#" rel="popover" title="<g:message code="header.save.page"/>" content="<g:message code="default.feature.not.availble.text"/>" class="btn reduce-width"><span><g:message code="header.save.page"/></span></a></li>
-				<li><a href="#" rel="popover" title="<g:message code="header.preview.magazine"/>" content="<g:message code="default.feature.not.availble.text"/>" class="btn reduce-width"><span><g:message code="header.preview.magazine"/></span></a></li>
-				<li><a href="#" rel="popover" title="<g:message code="header.share.page"/>" content="<g:message code="default.feature.not.availble.text"/>" class="btn reduce-width"><span><g:message code="header.share.page"/></span></a></li>
+				<li class="new-slide"><a href="#" class="btn"><span><g:message code="header.new.page"/></span></a></li>
+				<li><a href="#" rel="popover" title="<g:message code="header.save.page"/>" content="<g:message code="default.feature.not.availble.text"/>" class="btn"><span><g:message code="header.save.page"/></span></a></li>
+				<li><a href="#" rel="popover" title="<g:message code="header.preview.magazine"/>" content="<g:message code="default.feature.not.availble.text"/>" class="btn"><span><g:message code="header.preview.magazine"/></span></a></li>
+				<li><a href="#" rel="popover" title="<g:message code="header.share.page"/>" content="<g:message code="default.feature.not.availble.text"/>" class="btn"><span><g:message code="header.share.page"/></span></a></li>
 				<g:if test="${!workflow.equals('offline')}">
 					<li class="dropdown">
 	                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">

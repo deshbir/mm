@@ -5,6 +5,8 @@
 	<input type="password" name="password" placeholder="<g:message code="homepanel.password"/>" required>
 	<label class="checkbox">
 	<input type="checkbox" name="remember"><g:message code="homepanel.remember"/></label>
-	<input type="submit" id="login_in_submit" class="btn" value="&nbsp;&nbsp;&nbsp;&nbsp;<g:message code="homepanel.login"/>&nbsp;&nbsp;&nbsp;">
-	<span id="login_spinner" style="visibility:hidden"><r:img dir="images/home" file="spinner.gif" style="margin-top: 10px;margin-left: 10px;"/></span>
+	<div id="log-in-div">
+		<input type="submit" id="login_in_submit" class="btn" value="&nbsp;&nbsp;&nbsp;&nbsp;<g:message code="homepanel.login"/>&nbsp;&nbsp;&nbsp;">
+		<span id="login_spinner"><r:img dir="images/home" file="spinner.gif"/></span>
+	</div>
 </form>

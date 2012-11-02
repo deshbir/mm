@@ -497,7 +497,7 @@ com.compro.application.mm = (function() {
 			    	 var setHeight = $(this).height()+ 43;
 					 $(".header").css("height",setHeight+"px");
 					 $(".col").css("top",(setHeight+8)+"px");
-					 $('#slide-toggle').css("margin-top","29em");
+					 $('#slide-toggle').css("margin-top",(setHeight+8+16) + "px");
 				 });
 				 $(".navbar-inner>.nav-collapse").on("hide", function() {
 					 $(".header").css("height","43px");
