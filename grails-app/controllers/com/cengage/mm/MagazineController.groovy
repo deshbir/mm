@@ -1,7 +1,8 @@
 package com.cengage.mm
 
 import grails.converters.JSON
-import net.sf.json.groovy.JsonSlurper
+
+import org.hibernate.HibernateException
 
 class MagazineController {
 
@@ -11,24 +12,26 @@ class MagazineController {
 	POST	save
 	DELETE	delete
 	*/
-	
-	def show = {
 		
-		if(params.name) {
-			
-			def magazine = Magazine.findByName(params.name)
-			
+	def update = {
+		
+	
+		if(params.id) {
+			def magazine = Magazine.get(params.id)
 			if(magazine) {
-				render magazine as JSON
+				magazine.properties = params['magazine']
+				try {
+					magazine.save()
+					render magazine as JSON
+					return
+				} catch(HibernateException e){
+					render magazine.errors
+					return
+				}
 			} else {
-				// What is Backbone standard for this?
-			    def notFound = new Text(type: 'NA', text: 'NA', fontfamily: 'arial' , fontsize: '10' , fontcolor: 'red', fontweight: 'normal', fontstyle: 'normal')
-				render notFound as JSON
+				render "Magazine not found."
+				return
 			}
-		}
-		else {
-			def allMagazine = Magazine.list()
-			render allMagazine as JSON
 		}
 	}
 }

@@ -33,7 +33,7 @@ TextView = new function() {
 					//var props = {raphaelAttributes:{text: modelJ.text, "font-family": modelJ.fontfamily, "font-size": modelJ.fontsize, "font-weight": modelJ.fontweight, stroke: modelJ.fontcolor}}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Text", props);
 				});
-				Backbone.history.navigate("#/shape", {trigger:true});
+				ShapeView.initialize();
 				//com.compro.application.mm.resetScrollbars();
 			}
 		});

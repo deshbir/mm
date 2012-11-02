@@ -21,7 +21,7 @@ class Magazine {
 	
 	def static String[] offlineCachedUrls() {
 		return  [
-					/*
+				/*
 					"/api/magazine?id=resume",
 					"/api/magazine?id=my_animals",
 					"/api/magazine?id=untitled_1",

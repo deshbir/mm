@@ -35,7 +35,7 @@ class BootStrap {
 			
 			allTools.tools.each
 			{
-				new Tool(toolid: it.toolid, name: it.name).save(failOnError: true)
+				new Tool(toolid: it.toolid, viewName: it.viewName, name: it.name).save(failOnError: true)
 			}
 			/*
 			new Tool(toolid: "photo", name: "Photos").save(failOnError: true)

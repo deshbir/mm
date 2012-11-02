@@ -1,5 +1,7 @@
 package com.compro.cgrails
 
+import grails.converters.JSON
+
 import com.cengage.mm.Magazine
 
 class SinglepageController {
@@ -10,18 +12,17 @@ class SinglepageController {
 
 	def home() {
 		
-		def magazine
-		String name = ""
-				
-		if (params.id != null) {
-			if (params.id.equalsIgnoreCase("resume")) {
+		String name = "";
+					
+		if (params.magazineName != null) {
+			if (params.magazineName.equalsIgnoreCase("resume")) {
 				name = "resume";
 			} else  {
-				magazine = Magazine.findByName(params.id)
-				name = magazine.jsonString;
-				//name = params.id
+				def magazine = Magazine.findByName(params.magazineName)
+				name = magazine as JSON;
 			}
 		}
+		
 		render (view:"magazine_home",model:[name:name])
 	}
 	

@@ -2,18 +2,22 @@
     "tools": [
         {
         	"toolid": "photo",
+        	"viewName": "Photo",
         	"name": "Photos"
         },
         {
         	"toolid": "text",
+        	"viewName": "Text",        	
         	"name": "Text and Shapes"
         },
         {
         	"toolid": "video",
+        	"viewName": "Video",        	
         	"name": "Video & Audios"
         }, 
 		{
         	"toolid": "editor",
+        	"viewName": "Editor",        	
         	"name": "Editor"
         }                          
     ]    
