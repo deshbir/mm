@@ -837,11 +837,11 @@ com.compro.ppt.Pick = function(){
 			// Some task can be performed here.
 		}
 			
-		function keepRatio(obj) {
-			var ft = obj.freeTransform;
-			if(obj.pickOptions.scale_keepRatio){
-				ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1) * Math.min(Math.abs(ft.attrs.scale.x),Math.abs(ft.attrs.scale.y));
-				ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)* Math.abs(ft.attrs.scale.x);
+		function keepRatio(axis,ft) {
+			if ( axis === 'x' ) {
+				ft.attrs.scale.y = ft.attrs.scale.x / ft.attrs.ratio;
+			} else {
+				ft.attrs.scale.x = ft.attrs.scale.y * ft.attrs.ratio;
 			}
 		}
 			
@@ -851,25 +851,29 @@ com.compro.ppt.Pick = function(){
 			
 			var ft = obj.freeTransform,pickOptions=obj.pickOptions,
 				handle = this.handleParent;
-			if (pickOptions.scale_keepRatio) {
-				dx = handle.axis === 'x' ? -dy : dy;
-			}
-
 			var sin, cos, rx, ry, rdx, rdy, mx, my, sx, sy;
 			
 			sin = ft.o.rotate.sin;
 			cos = ft.o.rotate.cos;
+			if (pickOptions.scale_keepRatio) {
+				dx = (handle.axis === 'x' ? -dy : dy)*(((cos+sin)<0||(cos-sin)<0)?-1:1);
+			}
+
+			
 			// First rotate dx, dy to element alignment
 			rx = dx * cos - dy * sin;
 			ry = dx * sin + dy * cos;
+			console.log("rx",handle.x,handle.y);
 
 			rx *= Math.abs(handle.x);
 			ry *= Math.abs(handle.y);
+			
+			
+			
 
 			// And finally rotate back to canvas alignment
 			rdx = rx *   cos + ry * sin;
 			rdy = rx * - sin + ry * cos;
-
 			ft.attrs.translate = {
 				x: ft.o.translate.x + rdx / 2,
 				y: ft.o.translate.y + rdy / 2
@@ -893,13 +897,18 @@ com.compro.ppt.Pick = function(){
 			
 			// Maintain aspect ratio
 			if (pickOptions.scale_keepRatio) {
-				keepRatio(obj);
-				if(sx!=ft.attrs.scale.x){
-					ft.attrs.translate.x += (rdx / 2)*((ft.attrs.scale.x/sx)-1);
-				} else if(sy!=ft.attrs.scale.y){
-					ft.attrs.translate.y += (rdy / 2)*((ft.attrs.scale.y/sy)-1);
-				}
+				keepRatio(handle.axis,ft);
+				var x_trans = (ft.attrs.scale.x-ft.o.scale.x)*ft.o.size.x;
+				var y_trans = (ft.attrs.scale.y-ft.o.scale.y)*ft.o.size.y;
+				x_trans = x_trans*handle.x;
+				y_trans = y_trans*handle.y;
+				rx = (x_trans*cos + y_trans*sin);
+				ry = (-x_trans*sin + y_trans*cos);
+				ft.attrs.translate.x = ft.o.translate.x + rx/2;
+				ft.attrs.translate.y = ft.o.translate.y + ry/2;
 			}
+			ft.attrs.ratio = ft.attrs.scale.x / ft.attrs.scale.y;
+			
 			
 			applyLimits(obj);
 			apply(obj);
