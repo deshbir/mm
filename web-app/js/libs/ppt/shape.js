@@ -65,10 +65,8 @@ com.compro.ppt.Shape = function(){
 		var ShapeConstr = function(params) {
 			
 			var props;
-			var pickConfig = {scale_keepRatio:false,
-								range:{
-									scale:[75,1000, 75, 1000]
-								}
+			var pickConfig = {
+								scale_keepRatio:false
 							};
 			if(params.isFromStorage) {
 				props = params.storageProps;

@@ -276,6 +276,10 @@ com.compro.application.mm = (function() {
 			$('#text-editor').css('display','block');
 			$('#tinymce-editor').val(obj.getProperties(0).text);
 		}
+		if (handler == "com.compro.ppt.Shape") {
+			$('#image-editor').css('display','none');
+			$('#text-editor').css('display','none');
+		}		
 		
 	});
 	

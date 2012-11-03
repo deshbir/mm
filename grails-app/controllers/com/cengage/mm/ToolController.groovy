@@ -1,7 +1,6 @@
 package com.cengage.mm
 
 import grails.converters.JSON
-import com.cengage.mm.Tool
 
 class ToolController {
 	
@@ -11,6 +10,7 @@ class ToolController {
 	POST	save
 	DELETE	delete
 	*/
+	PropertyLocalizerService propertyLocalizerService
 	
 	def show = {
 			
@@ -29,7 +29,8 @@ class ToolController {
 		}
 		else {
 			def allTool = Tool.list()
-			render allTool as JSON
+			def returnList = propertyLocalizerService.parseCollection(allTool,['name'],",") 
+			render returnList as JSON
 			//def o = JSON.parse ("[{'id':'tab1', 'name':'Photos' },{'id':'tab2','name':'Videos'},{'id':'tab3','name':'Audios'}]")
 			//render o as JSON
 			

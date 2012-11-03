@@ -3,22 +3,22 @@
         {
         	"toolid": "photo",
         	"viewName": "Photo",
-        	"name": "Photos"
+        	"name": "rightpanel.photostab.photo"
         },
         {
         	"toolid": "text",
         	"viewName": "Text",        	
-        	"name": "Text and Shapes"
+        	"name": "rightpanel.texttab.text, rightpanel.shapetab.text"
         },
         {
         	"toolid": "video",
         	"viewName": "Video",        	
-        	"name": "Video & Audios"
+        	"name": "rightpanel.videotab.video.text, rightpanel.videotab.audio.text"
         }, 
 		{
         	"toolid": "editor",
         	"viewName": "Editor",        	
-        	"name": "Editor"
+        	"name": "rightpanel.editortab.editor"
         }                          
     ]    
 }

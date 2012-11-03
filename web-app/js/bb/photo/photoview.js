@@ -4,11 +4,10 @@ PhotoView = new function() {
 	
 	var Router = Backbone.Router.extend({
 		routes: {
-	      'photo/:category':'photo',
-	      'photo':'photo'
+	      'photo/:category':'photo'
 	    },	    
 	    photo : function(category) {
-	    	PhotoView.initialize(category)
+	    	PhotoView.categoryInitialize(category)
 	    }
 	});
 	
@@ -21,7 +20,10 @@ PhotoView = new function() {
 			function(template){
 				$("#photo > .accordion-inner ").html(template);
 		});
+		PhotoView.categoryInitialize(category);
 		
+	};
+	this.categoryInitialize = function(category){
 		PhotoCollection.get(category).fetch({
 			success: function(){
 				TemplateManager.get('photo-panel', 
@@ -45,7 +47,7 @@ PhotoView = new function() {
 					com.compro.application.mm.resetScrollbars();
 				});
 			}
-		});
+		});   
 	};
 	this.routerInitialize = function(){
 		router = new Router();   
