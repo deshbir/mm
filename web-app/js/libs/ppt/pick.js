@@ -131,7 +131,7 @@ com.compro.ppt.Pick = function(){
 				rotate_handle_distance: 1.3,
 				rotate_handle_axes: ['x','y'],
 				handle_box_size: 5,
-				range: { rotate: [ -180, 180 ], scale: [ -99999, 99999, -99999, 99999 ] },
+				range: { rotate: [ -180, 180 ], scale: [ 75, 99999, 75, 99999 ] },
 				drag: true,
 				rotate: true,
 				scale: true,
@@ -599,6 +599,12 @@ com.compro.ppt.Pick = function(){
 				if ( ft.attrs.scale.y * ft.attrs.size.y > pickOptions.range.scale[3] ) {
 					ft.attrs.scale.y = pickOptions.range.scale[1] / ft.attrs.size.y;
 				}
+				// Fixing aspect ratio
+				if(pickOptions.scale_keepRatio){
+					ft.attrs.scale.x = (ft.attrs.scale.x<0?-1:1) * Math.min(Math.abs(ft.attrs.scale.x),Math.abs(ft.attrs.scale.y));
+					ft.attrs.scale.y = (ft.attrs.scale.y<0?-1:1)* Math.abs(ft.attrs.scale.x);
+				}
+
 			}
 		}
 
@@ -830,6 +836,7 @@ com.compro.ppt.Pick = function(){
 			ft.o.isGesture = false;
 		};
 		
+				
 		function keepRatio(axis,ft) {
 			if ( axis === 'x' ) {
 				ft.attrs.scale.y = ft.attrs.scale.x / ft.attrs.ratio;
@@ -1034,11 +1041,15 @@ com.compro.ppt.Pick = function(){
 			if(obj.pickOptions.apply_gesture_events==true) {
 				var elementCount = obj.instance.items.length;
 				for(var num=0; num<elementCount; num++) {
-					var hammer = new com.compro.Utils.hammer(obj.instance.items[num].node);
+/*					var hammer = new com.compro.Utils.hammer(obj.instance.items[num].node);
 					hammer.ontransformstart = Utils.proxy(obj.gestureStart, obj); 
 					hammer.ontransform = Utils.proxy(obj.gestureChange, obj)
 					hammer.ontransformend = Utils.proxy(obj.gestureEnd, obj)
-					}
+*/
+					obj.instance.items[num].node.addEventListener('gesturestart', Utils.proxy(obj.gestureStart, obj));
+					obj.instance.items[num].node.addEventListener('gesturechange', Utils.proxy(obj.gestureChange, obj));
+					obj.instance.items[num].node.addEventListener('gestureend', Utils.proxy(obj.gestureEnd, obj));
+				}
 			}
 		  if(obj.properties.isSelected){
 			  obj.showHandles();
