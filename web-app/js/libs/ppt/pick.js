@@ -863,7 +863,6 @@ com.compro.ppt.Pick = function(){
 			// First rotate dx, dy to element alignment
 			rx = dx * cos - dy * sin;
 			ry = dx * sin + dy * cos;
-			console.log("rx",handle.x,handle.y);
 
 			rx *= Math.abs(handle.x);
 			ry *= Math.abs(handle.y);
