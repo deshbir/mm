@@ -28,6 +28,7 @@ class PropertyLocalizerService {
 				returnArray[prop] = val
 			}
 		}
+		returnArray["id"] = model.id
 		return returnArray
 	
 	}
@@ -52,6 +53,7 @@ class PropertyLocalizerService {
 				returnArray[prop] = val
 			}
 		}
+		returnArray["id"] = model.id
 		return returnArray
 	}
 }
