@@ -20,9 +20,10 @@ ToolView = new function() {
 			success: function(){
 				TemplateManager.get('right-panel', 
 					function(template){
-						var modelJ = ToolCollection.get().toJSON();
-						var compiledTemplate = Mustache.render(template, modelJ);
-						$("#toolbar").append(compiledTemplate);
+						ToolCollection.get().each(function(model){
+							var compiledTemplate = Mustache.render(template, model.toJSON());
+							$("#toolbar").append(compiledTemplate);
+						});
 						ToolCollection.get().each(function(model){
 							//Adding show event with accordion tabs
 				     	    var func = model.toJSON().viewName + "View.initialize()";

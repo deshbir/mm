@@ -39,7 +39,8 @@ ShapeView = new function() {
 								}; 
 					var handle = new com.cengage.mm.tools.ToolElementDragHandler(textEl[0], "com.compro.ppt.Shape", props);
 				});
-				com.compro.application.mm.resetScrollbars();
+				//Reset scrollbars on the main windows
+				setTimeout('com.compro.application.mm.resetScrollbars();', 60);				
 			}
 		});
 	};

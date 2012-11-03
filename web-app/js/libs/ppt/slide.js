@@ -18,7 +18,6 @@ com.compro.ppt.Slide = function() {
 			Utils.appendChild(Utils.getById(workspaceid),this.workspace);
 			this.workspace.style.height="100%";
 
-
 			this.collageDiv = Utils.createElement("div");
 			Utils.addClass(this.collageDiv,"collage-element");
 			Utils.addClass(this.collageDiv,"middle");
@@ -45,11 +44,16 @@ com.compro.ppt.Slide = function() {
 
 		//creating collage-thumbnail for the slide
 		var that = this;
-		Utils.attachEvent(this.collageDiv,"click",function(){
-			Utils.fireEvent(that,"slideSelected");
-		});
 
-		
+		if(("ontouchstart" in window)) {
+			Utils.attachEvent(this.collageDiv,"touchstart",function(){
+				Utils.fireEvent(that,"slideSelected");
+			});
+		} else {
+			Utils.attachEvent(this.collageDiv,"click",function(){
+				Utils.fireEvent(that,"slideSelected");
+			});
+		}
 		
 		this.selectedPick = -1;
 		this.pickList = [];

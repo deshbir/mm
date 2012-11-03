@@ -22,7 +22,16 @@ class Photo {
 		return  [
 					"/api/photo/", 
 					"/api/photo/african_wildlife", 
-					"/api/photo/ancient_structures"
+					"/api/photo/ancient_structures",
+					"/api/photo/coral_reefs",
+					"/api/photo/egypt",
+					"/api/photo/gorillas",
+					"/api/photo/landscapes",
+					"/api/photo/reptiles",
+					"/api/photo/plants",
+					"/api/photo/space",
+					"/api/photo/wonders",
+					"/api/photo/butterflies"
 				];
 	}
 		
