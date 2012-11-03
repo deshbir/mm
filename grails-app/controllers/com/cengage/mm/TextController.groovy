@@ -40,6 +40,7 @@ class TextController {
 						returnArray[prop] = val
 					}
 				}
+				returnArray["id"] = text.id
 				returnList.add(returnArray)
 			}
 			render returnList as JSON

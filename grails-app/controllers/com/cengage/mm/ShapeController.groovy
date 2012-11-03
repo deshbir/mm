@@ -40,6 +40,7 @@ class ShapeController {
 						returnArray[prop] = val
 					}
 				}
+				returnArray["id"] = shape.id
 				returnList.add(returnArray)
 			}
 			render returnList as JSON
