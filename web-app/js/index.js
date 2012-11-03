@@ -353,7 +353,8 @@ com.compro.application.mm = (function() {
 				snap: { rotate: 15},
 				pick_delete_image_attrs:{
 					url:com.compro.cgrails.utils.resource("/images/deletered.png")
-				}
+				},
+				range:{scale: [ minWidth, 99999, minWidth, 99999 ]}
 		}
 		
 		//var jsonString = com.compro.magazine.customMagazineName.replace(/\'/g, '"');
