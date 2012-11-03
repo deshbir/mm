@@ -17,7 +17,7 @@
 			</a>
 			<div class="nav-collapse">
             <ul class="nav">
-				<li class="new-slide"><a href="#" class="btn"><span><g:message code="header.new.page"/></span></a></li>
+				<li class="new-magazine"><a href="<cgrails:switch_singlepage action="home/resume"/>" class="btn"><span><g:message code="header.new.page"/></span></a></li>
 				<li><a href="#" rel="popover" title="<g:message code="header.save.page"/>" content="<g:message code="default.feature.not.availble.text"/>" class="btn"><span><g:message code="header.save.page"/></span></a></li>
 				<li><a href="#" rel="popover" title="<g:message code="header.preview.magazine"/>" content="<g:message code="default.feature.not.availble.text"/>" class="btn"><span><g:message code="header.preview.magazine"/></span></a></li>
 				<li><a href="#" rel="popover" title="<g:message code="header.share.page"/>" content="<g:message code="default.feature.not.availble.text"/>" class="btn"><span><g:message code="header.share.page"/></span></a></li>

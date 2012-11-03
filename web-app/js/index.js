@@ -372,23 +372,12 @@ com.compro.application.mm = (function() {
 		$(".new-slide").click(function (event) {
 			addNewSlide();
 		});
+		$(".new-magazine").click(function (event) {
+			clearState();
+		});
 		$("#delete-slide-confirm").click(function (event) {
 			deleteSlide();
 		});
-				
-		//Binding touch event for Touch devices Starts. 
-		$("#delete-slide-confirm").bind("touchstart", function (event) {
-	        var e = event.originalEvent;
-	        deleteSlide();
-	    });
-		$(".new-slide").bind("touchstart", function (event) {
-	        var e = event.originalEvent;
-	        addNewSlide();
-	    });
-		$("#state-clear").bind("touchstart", function (event) {
-	        var e = event.originalEvent;
-	        myPPTApp.clearState();
-	    });
 		//Binding touch event for Touch devices Closed. 
 	}	
 	
@@ -409,6 +398,10 @@ com.compro.application.mm = (function() {
 			$("#collage-scroll").mCustomScrollbar("update");
 		}
 		com.cengage.mm.drag.DragHandler.applyDragonElement(newSlide);
+    }
+	
+	function clearState(){
+		myPPTApp.clearState();
     }
 	
 	/**
