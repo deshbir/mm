@@ -99,7 +99,6 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 			var clearState = namespace.GLOBAL.clearState =  function(){
 				localStorage.removeItem('slideList');
 				localStorage.removeItem('ppt_selectedslide');
-				document.location.reload(true);
 			}
 
 
