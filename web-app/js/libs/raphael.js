@@ -4403,7 +4403,11 @@ window.Raphael.svg && function (R) {
 					tspan.firstChild.data = "";
 					for(var num=0; num<words.length; num++) {
 						var len = tspan.firstChild.data.length;
-						tspan.firstChild.data += " " + words[num];
+						//tspan.firstChild.data += " " + words[num];
+						if(num!=0){
+							tspan.firstChild.data += " ";
+						}
+						tspan.firstChild.data +=words[num];
 	                    if (tspan.getComputedTextLength() > wrapWidth)
 	                    {
 	                        tspan.firstChild.data = tspan.firstChild.data.slice(0, len);    // Remove added word
