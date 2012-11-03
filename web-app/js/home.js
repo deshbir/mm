@@ -59,7 +59,9 @@ function getLoggedintemplate() {
 			function(template){
 				$(".login-panel").html(template);
 		});
-		$("#userInfo").css("display", "block");		
+	if (com.compro.cgrails.WORKFLOW != "offline") {
+		$("#userInfo").css("display", "block");
+	}
 }
 
 function getLogOuttemplate() {

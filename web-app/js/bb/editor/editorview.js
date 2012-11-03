@@ -27,8 +27,6 @@ EditorView = new function() {
 					$("#library-editor").html(template);
 					$(EditorView).triggerHandler("painted");
 				});
-				//Reset scrollbars on the main windows
-				setTimeout('com.compro.application.mm.resetScrollbars();', 60);
 
 				var myPPTApp = com.compro.ppt.GLOBAL;			
 				$("#deleteobject").click(function (event) {

@@ -10,7 +10,7 @@
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn-large" data-dismiss="modal" aria-hidden="true"><g:message code="modal.download.close"/></button>
-	    <button onclick="window.location='http://www.comprotechnologies.com/mm/offline/mm-win32-offline.zip'"class="btn-large" data-dismiss="modal" aria-hidden="true" id="download-confirm"><g:message code="modal.download.confirm"/></button>
+	    <button onclick="window.location='http://www.comprotechnologies.com/mm/offline/mm-win32-offline.exe'"class="btn-large" data-dismiss="modal" aria-hidden="true" id="download-confirm"><g:message code="modal.download.confirm"/></button>
 	  </div>
 	</div>
 	<div id="download-mac-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
