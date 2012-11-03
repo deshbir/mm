@@ -349,11 +349,13 @@ com.compro.application.mm = (function() {
 		};
 		myPPTApp.registerEvent("AFTER_PPT_INIT", handler);
 		//Main PPT Engine (Generic) Initialization
+		var minWidth = ("ontouchstart" in window) ? 75: 25;
 		var pickConfig = {
 				snap: { rotate: 15},
 				pick_delete_image_attrs:{
 					url:com.compro.cgrails.utils.resource("/images/deletered.png")
-				}
+				},
+				range:{scale: [ minWidth, 99999, minWidth, 99999 ]}
 		}
 		
 		//var jsonString = com.compro.magazine.customMagazineName.replace(/\'/g, '"');
@@ -372,8 +374,9 @@ com.compro.application.mm = (function() {
 		$(".new-slide").click(function (event) {
 			addNewSlide();
 		});
-		$(".new-magazine").click(function (event) {
+		$("#new-magazine-confirm").click(function (event) {
 			clearState();
+			window.location.href =$(this).attr("data-href");
 		});
 		$("#delete-slide-confirm").click(function (event) {
 			deleteSlide();

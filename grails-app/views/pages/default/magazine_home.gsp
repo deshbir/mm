@@ -29,6 +29,19 @@
 				<button class="btn-large" data-dismiss="modal" aria-hidden="true"><g:message code="leftpanel.delete.no"/></button>
 			</div>
 		</div>
+		<div class="modal hide fade" id="confirm-new-magazine-modal" tabindex="-1" role="dialog" aria-labelledby="confirm-modal-label" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="confirm-new-magazine-label"><i class="icon-check-empty"></i> <span><g:message code="toppanel.new_magazine.heading"/></span> </h3>
+			</div>
+			<div class="modal-body">
+				<p><g:message code="toppanel.new_magazine.info"/></p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn-large" data-href="<cgrails:switch_singlepage action="home/resume"/>" id="new-magazine-confirm"><g:message code="toppanel.new_magazine.yes"/></button>
+				<button class="btn-large" data-dismiss="modal" aria-hidden="true"><g:message code="toppanel.new_magazine.no"/></button>
+			</div>
+		</div>
         <!-- Main Pane where content is painted -->
         <a class="btn" href="#" id="slide-toggle"><i class="icon-caret-left"></i></a>
         <div class="med col scroll-pane" id="main-container">

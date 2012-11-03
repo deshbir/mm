@@ -106,9 +106,11 @@ com.compro.ppt.Shape = function(){
 					instance.drag(Utils.proxy(this.dragMove,this), Utils.proxy(this.dragStart,this), Utils.proxy(this.dragEnd,this));
 					if(this.pickOptions.apply_gesture_events==true) {
 						var elementCount = instance.items.length;
-						this.instance.items[elementCount-1].node.addEventListener('gesturestart', Utils.proxy(this.gestureStart, this));
+/*						this.instance.items[elementCount-1].node.addEventListener('gesturestart', Utils.proxy(this.gestureStart, this));
 						this.instance.items[elementCount-1].node.addEventListener('gesturechange', Utils.proxy(this.gestureChange, this));
 						this.instance.items[elementCount-1].node.addEventListener('gestureend', Utils.proxy(this.gestureEnd, this));
+*/	
+						this.applyGestureEvents(this.instance.items[elementCount-1].node);	
 					}
 				}
 				

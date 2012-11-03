@@ -43,7 +43,6 @@ select:focus:required:invalid {
 	background-position: top center;
 	opacity:0.3;
 	float:left;
-	min-height:25em;
 	width:15%;
 }
 
@@ -165,9 +164,11 @@ select:focus:required:invalid {
 		background-color:@loginpanel-well-bg-color;
 		#log-in-div {
 			margin-top:2em;
-			span img {
+			span  {
 				visibility:hidden;
-				margin-left:10px;
+				img {
+					margin-left:10px;
+				}
 			}
 		}
 	}

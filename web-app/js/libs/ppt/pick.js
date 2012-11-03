@@ -131,7 +131,7 @@ com.compro.ppt.Pick = function(){
 				rotate_handle_distance: 1.3,
 				rotate_handle_axes: ['x','y'],
 				handle_box_size: 5,
-				range: { rotate: [ -180, 180 ], scale: [ 75, 99999, 75, 99999 ] },
+				range: { rotate: [ -180, 180 ], scale: [ -99999, 99999, -99999, 99999 ] },
 				drag: true,
 				rotate: true,
 				scale: true,
@@ -1041,14 +1041,7 @@ com.compro.ppt.Pick = function(){
 			if(obj.pickOptions.apply_gesture_events==true) {
 				var elementCount = obj.instance.items.length;
 				for(var num=0; num<elementCount; num++) {
-/*					var hammer = new com.compro.Utils.hammer(obj.instance.items[num].node);
-					hammer.ontransformstart = Utils.proxy(obj.gestureStart, obj); 
-					hammer.ontransform = Utils.proxy(obj.gestureChange, obj)
-					hammer.ontransformend = Utils.proxy(obj.gestureEnd, obj)
-*/
-					obj.instance.items[num].node.addEventListener('gesturestart', Utils.proxy(obj.gestureStart, obj));
-					obj.instance.items[num].node.addEventListener('gesturechange', Utils.proxy(obj.gestureChange, obj));
-					obj.instance.items[num].node.addEventListener('gestureend', Utils.proxy(obj.gestureEnd, obj));
+					obj.applyGestureEvents(obj.instance.items[num].node);
 				}
 			}
 		  if(obj.properties.isSelected){
@@ -1278,6 +1271,20 @@ com.compro.ppt.Pick = function(){
 			}
 		}
 		
+		PickConstr.prototype.applyGestureEvents = function(obj){
+			// Use native gesture events if supported.
+			if("ongesturestart" in window) {
+				obj.addEventListener('gesturestart', Utils.proxy(this.gestureStart, this));
+				obj.addEventListener('gesturechange', Utils.proxy(this.gestureChange, this));
+				obj.addEventListener('gestureend', Utils.proxy(this.gestureEnd, this));
+			} else {
+			// Use hammer.js if native gesture events are not supported.
+				var hammer = new com.compro.Utils.hammer(obj);
+				hammer.ontransformstart = Utils.proxy(this.gestureStart, this); 
+				hammer.ontransform = Utils.proxy(this.gestureChange, this)
+				hammer.ontransformend = Utils.proxy(this.gestureEnd, this)			
+			}
+		}
 		
 		// return the constructor
 		return PickConstr;
