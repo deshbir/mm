@@ -369,7 +369,7 @@ com.compro.application.mm = (function() {
 		else
 			jsonString = com.compro.magazine.customMagazineName;
 		
-		myPPTApp.initialize("collage-container","the-slide",pickConfig,jsonString);
+		myPPTApp.initialize("collage-container","the-slide",pickConfig,jsonString,0);
 		
 		//Bindings for Slide Add / Clear / Delete functions
 		$("#state-clear").click(function(){
