@@ -351,7 +351,7 @@ com.compro.ppt.GLOBAL.initWorkspace = function(collageid,workspaceid,stateJson,s
 					slide.resetOLdValues();
 				}
 				checkAndReRenderThumbs();
-				if(storedSelectedSlide && storedSelectedSlide!=-1){
+				if(storedSelectedSlide != null && storedSelectedSlide!=-1){
 					selectSlide(slideList[storedSelectedSlide]);
 				}
 				saveState();
