@@ -47,8 +47,8 @@
 	                         <li><a href="?lang=ja">Japanese</a></li>
 	                         <li class="set-paddings">Skin</li>
 	                         <hr/>
-	                    	 <li><a href="${contextPath}/default/singlepage/home">Default</a></li>
-	                         <li><a href="${contextPath}/gray/singlepage/home">Gray</a></li>
+	                    	 <li><a href="${contextPath}/default/singlepage/home/resume">Default</a></li>
+	                         <li><a href="${contextPath}/gray/singlepage/home/resume">Gray</a></li>
 		                     <li class="set-paddings">Mobile & Offline</li>
 		                     <hr/>
 		                	 <li><a href="#download-win-modal" data-toggle="modal">CD (Win32)</a></li>
