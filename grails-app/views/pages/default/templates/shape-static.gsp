@@ -5,7 +5,7 @@
 	<p>
 		<g:message code="rightpanel.shapetab.info" />
 	</p>
-	<div class="left-col">
+	<div class="left-col" style="direction:ltr">
 	       <div id="line">
 				<svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink"  width="100px" height="10px">
 				    <path x="5" y="10" d="M 0 5 L 100 5" style="stroke-width:4;stroke:rgba(150, 155, 127, 1.0);"/>
@@ -26,7 +26,7 @@
 			</div>
 	</div>
 	<div class="border-line"></div>
-	<div class="right-col">
+	<div class="right-col" style="direction:ltr">
 	    <div id="frame">
 				<svg xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink"  width="75" height="63">
 					<rect x="5" y="10" width="60" height="50" style="stroke:rgba(150, 155, 127, 1.0);fill:#fff;stroke-width:4;"></rect>
