@@ -50,4 +50,17 @@
 	    <button class="btn-large" data-dismiss="modal" aria-hidden="true"><g:message code="modal.download.close"/></button>
 	  </div>
 	</div>
+	<div id="unsupported-browser-version-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-header">
+	    <h3 id="download-modal-label"><g:message code="modal.unsupported.browserversion.header"/></h3>
+	  </div>
+	  <div class="modal-body">
+	   <g:message code="modal.unsupported.browserversion.body"/>
+	  </div>
+	  <div class="modal-footer">
+	  	 <label class="checkbox float-left">
+	   	 <input type="checkbox" id="proceed-checkbox"><g:message code="modal.unsupported.browserversion.ignoreinfo"/></label>
+	     <button class="btn-large" id="proceed-button"><g:message code="modal.unsupported.browserversion.proceed"/></button>
+	  </div>
+	</div>
 </g:if>
