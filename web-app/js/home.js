@@ -1,6 +1,8 @@
 $(document).ready(function() { 
 	resizePage();
-	detectBrowserVersion();
+	if(!isBrowserVersionSupported()) {
+		$('#unsupported-browser-version-modal').modal();
+	};
 	//In case of offline directly show logged-in template
 	if (com.compro.cgrails.WORKFLOW === "offline") { 
 		loggedIn = true; 
@@ -30,7 +32,21 @@ $(document).ready(function() {
 		$(this).popover('title',title).popover('content',content).popover('show');
 	});
 	
+	$("#proceed-button").click(function(event) {
+		if(checkProceedCheckBox()) {
+			$('#unsupported-browser-version-modal').modal('hide');
+		} 
+	});
+	
 });
+
+function checkProceedCheckBox() {
+	if($('#proceed-checkbox').is(':checked')) {
+		return true;
+	} else {
+		false;
+	}
+}
 
 $(window).resize(function() {
 	resizePage();
@@ -77,7 +93,14 @@ function clearStorage() {
 	localStorage.removeItem('ppt_selectedslide');
 }
 
-function detectBrowserVersion(){
+function isBrowserVersionSupported() {
+	var browserName = "";
+	var supportedBrowsers = {
+		    "IE": "9",
+		    "Safari": "5.1",
+		    "Firefox": "15",
+		    "Chrome": "10",
+		};
 	var userAgent = navigator.userAgent.toLowerCase();
 	$.browser.chrome = /chrome/.test(navigator.userAgent.toLowerCase());
 	var version = 0;
@@ -87,6 +110,7 @@ function detectBrowserVersion(){
 		userAgent = $.browser.version;
 		userAgent = userAgent.substring(0,userAgent.indexOf('.'));
 		version = userAgent;
+		browserName = "IE";
 	}
 
 	// Is this a version of Chrome?
@@ -96,13 +120,15 @@ function detectBrowserVersion(){
 		version = userAgent;
 		// If it is chrome then jQuery thinks it's safari so we have to tell it it isn't
 		$.browser.safari = false;
+		browserName = "Chrome";
 	}
 
 	// Is this a version of Safari?
 	if($.browser.safari){
-		userAgent = userAgent.substring(userAgent.indexOf('safari/') +7);
-		userAgent = userAgent.substring(0,userAgent.indexOf('.'));
+		userAgent = userAgent.substring(userAgent.indexOf('version/') +8);
+		userAgent = userAgent.substring(0,userAgent.indexOf(' '));
 		version = userAgent;
+		browserName = "Safari";
 	}
 
 	// Is this a version of Mozilla?
@@ -112,6 +138,7 @@ function detectBrowserVersion(){
 			userAgent = userAgent.substring(userAgent.indexOf('firefox/') +8);
 			userAgent = userAgent.substring(0,userAgent.indexOf('.'));
 			version = userAgent;
+			browserName = "Firefox";
 		}
 		// If not then it must be another Mozilla
 		else{
@@ -123,7 +150,10 @@ function detectBrowserVersion(){
 		userAgent = userAgent.substring(userAgent.indexOf('version/') +8);
 		userAgent = userAgent.substring(0,userAgent.indexOf('.'));
 		version = userAgent;
+		browserName = "Opera";
+	}
+	if(parseFloat(version) >= parseFloat(supportedBrowsers[browserName])) {
+		return true;
 	}
 	
-	//alert(version);
 }
