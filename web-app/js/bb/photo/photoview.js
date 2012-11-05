@@ -44,7 +44,11 @@ PhotoView = new function() {
 				
 				//Reset scrollbars on the tool windows - Once the all images are loaded
 				$('#library-photo').imagesLoaded(function() {
-					com.compro.application.mm.resetScrollbars();
+					if(category) {
+						com.compro.application.mm.updateScrollbar();
+					} else {
+						com.compro.application.mm.resetScrollbars();
+					}
 				});
 			}
 		});   
