@@ -1,6 +1,6 @@
 $(document).ready(function() { 
 	resizePage();
-	
+	detectBrowserVersion();
 	//In case of offline directly show logged-in template
 	if (com.compro.cgrails.WORKFLOW === "offline") { 
 		loggedIn = true; 
@@ -75,4 +75,55 @@ function getLogOuttemplate() {
 function clearStorage() {
 	localStorage.removeItem('slideList');
 	localStorage.removeItem('ppt_selectedslide');
+}
+
+function detectBrowserVersion(){
+	var userAgent = navigator.userAgent.toLowerCase();
+	$.browser.chrome = /chrome/.test(navigator.userAgent.toLowerCase());
+	var version = 0;
+
+	// Is this a version of IE?
+	if($.browser.msie){
+		userAgent = $.browser.version;
+		userAgent = userAgent.substring(0,userAgent.indexOf('.'));
+		version = userAgent;
+	}
+
+	// Is this a version of Chrome?
+	if($.browser.chrome){
+		userAgent = userAgent.substring(userAgent.indexOf('chrome/') +7);
+		userAgent = userAgent.substring(0,userAgent.indexOf('.'));
+		version = userAgent;
+		// If it is chrome then jQuery thinks it's safari so we have to tell it it isn't
+		$.browser.safari = false;
+	}
+
+	// Is this a version of Safari?
+	if($.browser.safari){
+		userAgent = userAgent.substring(userAgent.indexOf('safari/') +7);
+		userAgent = userAgent.substring(0,userAgent.indexOf('.'));
+		version = userAgent;
+	}
+
+	// Is this a version of Mozilla?
+	if($.browser.mozilla){
+		//Is it Firefox?
+		if(navigator.userAgent.toLowerCase().indexOf('firefox') != -1){
+			userAgent = userAgent.substring(userAgent.indexOf('firefox/') +8);
+			userAgent = userAgent.substring(0,userAgent.indexOf('.'));
+			version = userAgent;
+		}
+		// If not then it must be another Mozilla
+		else{
+		}
+	}
+
+	// Is this a version of Opera?
+	if($.browser.opera){
+		userAgent = userAgent.substring(userAgent.indexOf('version/') +8);
+		userAgent = userAgent.substring(0,userAgent.indexOf('.'));
+		version = userAgent;
+	}
+	
+	//alert(version);
 }
