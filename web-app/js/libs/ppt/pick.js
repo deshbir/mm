@@ -785,7 +785,9 @@ com.compro.ppt.Pick = function(){
 		var defaultMoveToBack = function(){
 			for(var i=this.instance.items.length-1;i>=0;i--){
 				this.instance[i].toBack();
-				this.thumbInstance[i].toBack();
+				if(this.thumbInstance[i]){
+					this.thumbInstance[i].toBack();
+				}
 			}
 			//Touch events are removed once the pick is brought to front, reattaching them
 			this.instance.undrag();
@@ -995,6 +997,7 @@ com.compro.ppt.Pick = function(){
 			})
 			/* FREE-TRANSFORM START */
 			var bbox  = obj.instance.getBBox(true);
+			// Increasing selection area by adding a rectangle around the Pick.
 			obj.freeTransform = {
 					// Keep track of transformations
 					attrs: {
@@ -1009,9 +1012,17 @@ com.compro.ppt.Pick = function(){
 					},
 					handles: { center: null, x: null, y: null },
 			}
-			
+			var increase_selection_area = obj.pickOptions.increase_selection_area;
 			
 			getTransformation(obj);
+			if(increase_selection_area) {
+				var increase_selection_area_rect = obj.primeSvg.rect(bbox.x - increase_selection_area[3], bbox.y - increase_selection_area[0], bbox.width + increase_selection_area[1]+ increase_selection_area[3], bbox.height + increase_selection_area[0]+ increase_selection_area[2]);
+				increase_selection_area_rect.attr({"stroke":"#EEE","fill": "#fff", "fill-opacity":0, "opacity":0,"cursor":"move"});
+				obj.instance.push(increase_selection_area_rect);
+				obj.updateFTProps();
+				apply(obj);
+				
+			}
 			
 			/* FREE-TRANSFORM END */
 			if(pickRatio){
