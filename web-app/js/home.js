@@ -1,10 +1,12 @@
 $(document).ready(function() { 
 	resizePage();
-	if(!isBrowserVersionSupported()) {
-		$('#unsupported-browser-version-modal').modal({
-				backdrop:false
-		});
-	};
+	if (com.compro.cgrails.WORKFLOW != "offline") {
+		if(!isBrowserVersionSupported()) {
+			$('#unsupported-browser-version-modal').modal({
+					backdrop:false
+			});
+		};
+	}
 	//In case of offline directly show logged-in template
 	if (com.compro.cgrails.WORKFLOW === "offline") { 
 		loggedIn = true; 

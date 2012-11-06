@@ -23,7 +23,7 @@
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn-large" data-dismiss="modal" aria-hidden="true"><g:message code="modal.download.close"/></button>
-	    <button onclick="window.location='http://www.comprotechnologies.com/mm/offline/mm-macosx-offline.zip'"class="btn-large" data-dismiss="modal" aria-hidden="true" id="download-confirm"><g:message code="modal.download.confirm"/></button>
+	    <button onclick="window.location='http://www.comprotechnologies.com/mm/offline/mm-offline-macosx.dmg'"class="btn-large" data-dismiss="modal" aria-hidden="true" id="download-confirm"><g:message code="modal.download.confirm"/></button>
 	  </div>
 	</div>
 	<div id="download-ios-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
