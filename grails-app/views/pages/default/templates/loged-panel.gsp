@@ -32,7 +32,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>1.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title1"/></p>&nbsp;<p class="italic">(2 <g:message code="homepanel.slides"/> )</p></td>									
+					<td>1.&nbsp;<p class="bold"><g:message code="homepanel.magazine.title1"/></p>&nbsp;<p class="italic">(5 <g:message code="homepanel.slides"/> )</p></td>									
 					<td>
 					<g:if test="${workflow.equals('offline')}">
 						<a href="<cgrails:switch_singlepage action="home"/>" class="btn">
