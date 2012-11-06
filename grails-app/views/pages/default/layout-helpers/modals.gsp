@@ -58,9 +58,7 @@
 	   <g:message code="modal.unsupported.browserversion.body"/>
 	  </div>
 	  <div class="modal-footer">
-	  	 <label class="checkbox float-left">
-	   	 <input type="checkbox" id="proceed-checkbox"><g:message code="modal.unsupported.browserversion.ignoreinfo"/></label>
-	     <button class="btn-large" id="proceed-button"><g:message code="modal.unsupported.browserversion.proceed"/></button>
+	     <button class="btn-large" id="proceed-button" data-dismiss="modal" aria-hidden="true"><g:message code="modal.unsupported.browserversion.proceed"/></button>
 	  </div>
 	</div>
 </g:if>

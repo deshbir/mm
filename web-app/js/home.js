@@ -1,7 +1,9 @@
 $(document).ready(function() { 
 	resizePage();
 	if(!isBrowserVersionSupported()) {
-		$('#unsupported-browser-version-modal').modal();
+		$('#unsupported-browser-version-modal').modal({
+				backdrop:false
+		});
 	};
 	//In case of offline directly show logged-in template
 	if (com.compro.cgrails.WORKFLOW === "offline") { 
@@ -32,21 +34,7 @@ $(document).ready(function() {
 		$(this).popover('title',title).popover('content',content).popover('show');
 	});
 	
-	$("#proceed-button").click(function(event) {
-		if(checkProceedCheckBox()) {
-			$('#unsupported-browser-version-modal').modal('hide');
-		} 
-	});
-	
 });
-
-function checkProceedCheckBox() {
-	if($('#proceed-checkbox').is(':checked')) {
-		return true;
-	} else {
-		false;
-	}
-}
 
 $(window).resize(function() {
 	resizePage();
